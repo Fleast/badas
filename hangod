@@ -1,0 +1,38 @@
+if _G.EmotesGUIRunning then
+    getgenv().Notify({
+        Title = 'GOD MODE BY HANN.SIEXTHER',
+        Content = '@muhmdilhan_',
+        Duration = 5
+    })
+    return
+end
+_G.EmotesGUIRunning = true
+
+loadstring(game:HttpGet("https://raw.githubusercontent.com/7yd7/Menu-7yd7/refs/heads/Script/GUIS/Off-site/Notify.lua"))()
+
+getgenv().Notify({
+    Title = 'SIEXTHER X GOD MODE',
+    Content = '🔥 ACTIVATED 🔥',
+    Duration = 10
+})
+
+local plr = game.Players.LocalPlayer
+local char = plr.Character or plr.CharacterAdded:Wait()
+local hum = char:WaitForChild("Humanoid")
+
+plr.CharacterAdded:Connect(function(c)
+    char = c
+    hum = char:WaitForChild("Humanoid")
+end)
+
+game:GetService("RunService").Heartbeat:Connect(function()
+    if hum and hum.Health > 0 then
+        hum.Health = hum.MaxHealth
+        hum:SetStateEnabled(Enum.HumanoidStateType.Dead, false)
+
+        hum.HealthDisplayType = Enum.HumanoidHealthDisplayType.AlwaysOn
+        hum.NameDisplayDistance = 0
+        hum.DisplayDistanceType = Enum.HumanoidDisplayDistanceType.None
+    end
+end)
+
