@@ -1,4 +1,4 @@
--- Instances: 147 | Scripts: 0 | Modules: 1
+-- Instances: 147 | Scripts: 0 | Modules: 
 local DRR = {};
 
 -- DrRay
