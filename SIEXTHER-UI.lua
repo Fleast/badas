@@ -1045,6 +1045,8 @@ DRR["7c"]["TextSize"] = 14;
 DRR["7c"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
 DRR["7c"]["Size"] = UDim2.new(0.9656160473823547, 0, 0.26184046268463135, 0);
 DRR["7c"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+DRR["7c"]["Text"] = [[— ʜᴀɴɴ.ꜱɪᴇxᴛʜᴇʀ —]];
+DRR["7c"]["Name"] = [[Description]];
 DRR["7c"]["BackgroundTransparency"] = 1;
 DRR["7c"]["Position"] = UDim2.new(0.011461318470537663, 0, 0.5852904319763184, 0);
 
@@ -1147,6 +1149,8 @@ DRR["88"]["TextSize"] = 14;
 DRR["88"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
 DRR["88"]["Size"] = UDim2.new(0.9656160473823547, 0, 0.26184046268463135, 0);
 DRR["88"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+DRR["88"]["Text"] = [[— ʜᴀɴɴ.ꜱɪᴇxᴛʜᴇʀ —]];
+DRR["88"]["Name"] = [[Description]];
 DRR["88"]["BackgroundTransparency"] = 1;
 DRR["88"]["Position"] = UDim2.new(0.011461318470537663, 0, 0.5852904319763184, 0);
 
@@ -1244,6 +1248,8 @@ DRR["92"]["TextSize"] = 14;
 DRR["92"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
 DRR["92"]["Size"] = UDim2.new(0.9656160473823547, 0, 0.26184046268463135, 0);
 DRR["92"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+DRR["92"]["Text"] = [[— ʜᴀɴɴ.ꜱɪᴇxᴛʜᴇʀ —]];
+DRR["92"]["Name"] = [[Description]];
 DRR["92"]["BackgroundTransparency"] = 1;
 DRR["92"]["Position"] = UDim2.new(0.011461318470537663, 0, 0.5852904319763184, 0);
 
