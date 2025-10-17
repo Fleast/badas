@@ -1,15 +1,6 @@
 -- Instances: 147 | Scripts: 0 | Modules: 1
 local DRR = {};
 
---[[
-Theme Colors:
-- Primary Dark Green: Color3.fromRGB(40, 56, 51)
-- Secondary Dark Green: Color3.fromRGB(45, 66, 60)
-- Accent Green: Color3.fromRGB(0, 185, 120)
-- Gradient Start: Color3.fromRGB(50, 75, 68)
-- Gradient End: Color3.fromRGB(70, 105, 95)
-]]
-
 -- DrRay
 DRR["1"] = Instance.new("ScreenGui", game:GetService("CoreGui"));
 DRR["1"]["IgnoreGuiInset"] = true;
@@ -20,8 +11,7 @@ DRR["1"]["ZIndexBehavior"] = Enum.ZIndexBehavior.Sibling;
 -- DrRay.TopBar
 DRR["2"] = Instance.new("Frame", DRR["1"]);
 DRR["2"]["BorderSizePixel"] = 0;
-DRR["2"]["BackgroundColor3"] = Color3.fromRGB(40, 56, 51); -- Changed
-DRR["2"]["BackgroundTransparency"] = 0.15; -- Added
+DRR["2"]["BackgroundColor3"] = Color3.fromRGB(42, 42, 58);
 DRR["2"]["LayoutOrder"] = 2;
 DRR["2"]["Size"] = UDim2.new(0.5404488444328308, 0, 0.1739015281200409, 0);
 DRR["2"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
@@ -38,7 +28,7 @@ DRR["4"]["Active"] = true;
 DRR["4"]["ScrollingDirection"] = Enum.ScrollingDirection.Y;
 DRR["4"]["BorderSizePixel"] = 0;
 DRR["4"]["CanvasSize"] = UDim2.new(0.10000000149011612, 0, 0, 0);
-DRR["4"]["BackgroundColor3"] = Color3.fromRGB(45, 66, 60); -- Changed
+DRR["4"]["BackgroundColor3"] = Color3.fromRGB(26, 26, 36);
 DRR["4"]["AutomaticCanvasSize"] = Enum.AutomaticSize.X;
 DRR["4"]["BackgroundTransparency"] = 1;
 DRR["4"]["Size"] = UDim2.new(0.915977954864502, 0, 0.5196850299835205, 0);
@@ -84,12 +74,12 @@ DRR["8"]["Position"] = UDim2.new(0.5, 0, 0.5, 0);
 -- DrRay.TopBar.UIGradient
 DRR["9"] = Instance.new("UIGradient", DRR["2"]);
 DRR["9"]["Rotation"] = 90;
-DRR["9"]["Color"] = ColorSequence.new{ColorSequenceKeypoint.new(0.000, Color3.fromRGB(70, 90, 85)),ColorSequenceKeypoint.new(1.000, Color3.fromRGB(40, 56, 51))}; -- Changed
+DRR["9"]["Color"] = ColorSequence.new{ColorSequenceKeypoint.new(0.000, Color3.fromRGB(139, 139, 139)),ColorSequenceKeypoint.new(1.000, Color3.fromRGB(255, 255, 255))};
 
 -- DrRay.TopBar.TopBar
 DRR["a"] = Instance.new("Frame", DRR["2"]);
 DRR["a"]["BorderSizePixel"] = 0;
-DRR["a"]["BackgroundColor3"] = Color3.fromRGB(40, 56, 51); -- Changed
+DRR["a"]["BackgroundColor3"] = Color3.fromRGB(42, 42, 58);
 DRR["a"]["LayoutOrder"] = 2;
 DRR["a"]["Size"] = UDim2.new(0.9983566999435425, 0, 0.05511785298585892, 0);
 DRR["a"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
@@ -99,7 +89,7 @@ DRR["a"]["Name"] = [[TopBar]];
 -- DrRay.TopBar.TopBar.UIGradient
 DRR["b"] = Instance.new("UIGradient", DRR["a"]);
 DRR["b"]["Rotation"] = -90;
-DRR["b"]["Color"] = ColorSequence.new{ColorSequenceKeypoint.new(0.000, Color3.fromRGB(70, 90, 85)),ColorSequenceKeypoint.new(1.000, Color3.fromRGB(40, 56, 51))}; -- Changed
+DRR["b"]["Color"] = ColorSequence.new{ColorSequenceKeypoint.new(0.000, Color3.fromRGB(139, 139, 139)),ColorSequenceKeypoint.new(1.000, Color3.fromRGB(255, 255, 255))};
 
 -- DrRay.TopBar.ProfileMenu
 DRR["c"] = Instance.new("Frame", DRR["2"]);
@@ -114,7 +104,7 @@ DRR["c"]["Name"] = [[ProfileMenu]];
 DRR["d"] = Instance.new("ImageButton", DRR["c"]);
 DRR["d"]["BorderSizePixel"] = 0;
 DRR["d"]["AutoButtonColor"] = false;
-DRR["d"]["BackgroundColor3"] = Color3.fromRGB(45, 66, 60); -- Changed
+DRR["d"]["BackgroundColor3"] = Color3.fromRGB(42, 42, 58);
 DRR["d"]["Size"] = UDim2.new(0.23481373488903046, 0, 0.682426393032074, 0);
 DRR["d"]["Name"] = [[PlayerProfile]];
 DRR["d"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
@@ -127,12 +117,12 @@ DRR["e"]["CornerRadius"] = UDim.new(0.30000001192092896, 0);
 -- DrRay.TopBar.ProfileMenu.PlayerProfile.UIGradient
 DRR["f"] = Instance.new("UIGradient", DRR["d"]);
 DRR["f"]["Rotation"] = 90;
-DRR["f"]["Color"] = ColorSequence.new{ColorSequenceKeypoint.new(0.000, Color3.fromRGB(50, 75, 68)),ColorSequenceKeypoint.new(1.000, Color3.fromRGB(70, 105, 95))}; -- Changed
+DRR["f"]["Color"] = ColorSequence.new{ColorSequenceKeypoint.new(0.000, Color3.fromRGB(154, 154, 154)),ColorSequenceKeypoint.new(1.000, Color3.fromRGB(231, 231, 231))};
 
 -- DrRay.TopBar.ProfileMenu.PlayerProfile.ImageLabel
 DRR["10"] = Instance.new("ImageLabel", DRR["d"]);
 DRR["10"]["BorderSizePixel"] = 0;
-DRR["10"]["BackgroundColor3"] = Color3.fromRGB(45, 66, 60); -- Changed
+DRR["10"]["BackgroundColor3"] = Color3.fromRGB(42, 42, 58);
 DRR["10"]["Size"] = UDim2.new(0.16644950211048126, 0, 0.8032786846160889, 0);
 DRR["10"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
 DRR["10"]["Position"] = UDim2.new(0.03799999877810478, 0, 0.1420000046491623, 0);
@@ -148,7 +138,7 @@ DRR["12"]["CornerRadius"] = UDim.new(100, 0);
 -- DrRay.TopBar.ProfileMenu.PlayerProfile.ImageLabel.UIGradient
 DRR["13"] = Instance.new("UIGradient", DRR["10"]);
 DRR["13"]["Rotation"] = 90;
-DRR["13"]["Color"] = ColorSequence.new{ColorSequenceKeypoint.new(0.000, Color3.fromRGB(70, 105, 95)),ColorSequenceKeypoint.new(1.000, Color3.fromRGB(200, 200, 200))}; -- Changed
+DRR["13"]["Color"] = ColorSequence.new{ColorSequenceKeypoint.new(0.000, Color3.fromRGB(213, 213, 213)),ColorSequenceKeypoint.new(1.000, Color3.fromRGB(255, 255, 255))};
 
 -- DrRay.TopBar.ProfileMenu.PlayerProfile.TextLabel
 DRR["14"] = Instance.new("TextLabel", DRR["d"]);
@@ -182,7 +172,7 @@ DRR["16"]["PaddingLeft"] = UDim.new(0.014000000432133675, 0);
 DRR["17"] = Instance.new("ImageButton", DRR["c"]);
 DRR["17"]["BorderSizePixel"] = 0;
 DRR["17"]["AutoButtonColor"] = false;
-DRR["17"]["BackgroundColor3"] = Color3.fromRGB(45, 66, 60); -- Changed
+DRR["17"]["BackgroundColor3"] = Color3.fromRGB(42, 42, 58);
 DRR["17"]["Size"] = UDim2.new(0.10328257083892822, 0, 0.682426393032074, 0);
 DRR["17"]["Name"] = [[Clock]];
 DRR["17"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
@@ -195,7 +185,7 @@ DRR["18"]["CornerRadius"] = UDim.new(0.30000001192092896, 0);
 -- DrRay.TopBar.ProfileMenu.Clock.UIGradient
 DRR["19"] = Instance.new("UIGradient", DRR["17"]);
 DRR["19"]["Rotation"] = 90;
-DRR["19"]["Color"] = ColorSequence.new{ColorSequenceKeypoint.new(0.000, Color3.fromRGB(50, 75, 68)),ColorSequenceKeypoint.new(1.000, Color3.fromRGB(70, 105, 95))}; -- Changed
+DRR["19"]["Color"] = ColorSequence.new{ColorSequenceKeypoint.new(0.000, Color3.fromRGB(154, 154, 154)),ColorSequenceKeypoint.new(1.000, Color3.fromRGB(231, 231, 231))};
 
 -- DrRay.TopBar.ProfileMenu.Clock.TextLabel
 DRR["1a"] = Instance.new("TextLabel", DRR["17"]);
@@ -217,7 +207,7 @@ DRR["1a"]["Position"] = UDim2.new(0.21512815356254578, 0, 0.27320244908332825, 0
 DRR["1b"] = Instance.new("ImageButton", DRR["c"]);
 DRR["1b"]["BorderSizePixel"] = 0;
 DRR["1b"]["AutoButtonColor"] = false;
-DRR["1b"]["BackgroundColor3"] = Color3.fromRGB(45, 66, 60); -- Changed
+DRR["1b"]["BackgroundColor3"] = Color3.fromRGB(42, 42, 58);
 DRR["1b"]["Size"] = UDim2.new(0.23481373488903046, 0, 0.682426393032074, 0);
 DRR["1b"]["Name"] = [[Title]];
 DRR["1b"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
@@ -230,7 +220,7 @@ DRR["1c"]["CornerRadius"] = UDim.new(0.30000001192092896, 0);
 -- DrRay.TopBar.ProfileMenu.Title.UIGradient
 DRR["1d"] = Instance.new("UIGradient", DRR["1b"]);
 DRR["1d"]["Rotation"] = 90;
-DRR["1d"]["Color"] = ColorSequence.new{ColorSequenceKeypoint.new(0.000, Color3.fromRGB(50, 75, 68)),ColorSequenceKeypoint.new(1.000, Color3.fromRGB(70, 105, 95))}; -- Changed
+DRR["1d"]["Color"] = ColorSequence.new{ColorSequenceKeypoint.new(0.000, Color3.fromRGB(154, 154, 154)),ColorSequenceKeypoint.new(1.000, Color3.fromRGB(231, 231, 231))};
 
 -- DrRay.TopBar.ProfileMenu.Title.TextLabel
 DRR["1e"] = Instance.new("TextLabel", DRR["1b"]);
@@ -253,7 +243,7 @@ DRR["1f"] = Instance.new("TextButton", DRR["2"]);
 DRR["1f"]["Active"] = false;
 DRR["1f"]["BorderSizePixel"] = 0;
 DRR["1f"]["AutoButtonColor"] = false;
-DRR["1f"]["BackgroundColor3"] = Color3.fromRGB(45, 66, 60); -- Changed
+DRR["1f"]["BackgroundColor3"] = Color3.fromRGB(42, 42, 58);
 DRR["1f"]["Selectable"] = false;
 DRR["1f"]["Size"] = UDim2.new(0.08402203768491745, 0, 0.4803149402141571, 0);
 DRR["1f"]["Name"] = [[TopBarClose]];
@@ -268,12 +258,12 @@ DRR["20"]["CornerRadius"] = UDim.new(0.20000000298023224, 0);
 -- DrRay.TopBar.TopBarClose.UIGradient
 DRR["21"] = Instance.new("UIGradient", DRR["1f"]);
 DRR["21"]["Rotation"] = 90;
-DRR["21"]["Color"] = ColorSequence.new{ColorSequenceKeypoint.new(0.000, Color3.fromRGB(50, 75, 68)),ColorSequenceKeypoint.new(1.000, Color3.fromRGB(70, 105, 95))}; -- Changed
+DRR["21"]["Color"] = ColorSequence.new{ColorSequenceKeypoint.new(0.000, Color3.fromRGB(117, 117, 117)),ColorSequenceKeypoint.new(1.000, Color3.fromRGB(218, 218, 218))};
 
 -- DrRay.TopBar.TopBarClose.idk
 DRR["22"] = Instance.new("Frame", DRR["1f"]);
 DRR["22"]["BorderSizePixel"] = 0;
-DRR["22"]["BackgroundColor3"] = Color3.fromRGB(45, 66, 60); -- Changed
+DRR["22"]["BackgroundColor3"] = Color3.fromRGB(42, 42, 58);
 DRR["22"]["Size"] = UDim2.new(0.2622910141944885, 0, 1, 0);
 DRR["22"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
 DRR["22"]["Position"] = UDim2.new(0.000002001152552111307, 0, 0, 0);
@@ -282,10 +272,11 @@ DRR["22"]["Name"] = [[idk]];
 -- DrRay.TopBar.TopBarClose.idk.UIGradient
 DRR["23"] = Instance.new("UIGradient", DRR["22"]);
 DRR["23"]["Rotation"] = 90;
-DRR["23"]["Color"] = ColorSequence.new{ColorSequenceKeypoint.new(0.000, Color3.fromRGB(50, 75, 68)),ColorSequenceKeypoint.new(1.000, Color3.fromRGB(70, 105, 95))}; -- Changed
+DRR["23"]["Color"] = ColorSequence.new{ColorSequenceKeypoint.new(0.000, Color3.fromRGB(117, 117, 117)),ColorSequenceKeypoint.new(1.000, Color3.fromRGB(218, 218, 218))};
 
 -- DrRay.TopBar.TopBarClose.UIAspectRatioConstraint
 DRR["24"] = Instance.new("UIAspectRatioConstraint", DRR["1f"]);
+
 
 -- DrRay.TopBar.TopBarClose.ImageLabel
 DRR["25"] = Instance.new("ImageLabel", DRR["1f"]);
@@ -309,8 +300,7 @@ DRR["27"]["AspectRatio"] = 5.724700927734375;
 -- DrRay.MainBar
 DRR["28"] = Instance.new("Frame", DRR["1"]);
 DRR["28"]["BorderSizePixel"] = 0;
-DRR["28"]["BackgroundColor3"] = Color3.fromRGB(40, 56, 51); -- Changed
-DRR["28"]["BackgroundTransparency"] = 0.15; -- Added
+DRR["28"]["BackgroundColor3"] = Color3.fromRGB(42, 42, 58);
 DRR["28"]["Size"] = UDim2.new(0.5404488444328308, 0, 0.5745577812194824, 0);
 DRR["28"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
 DRR["28"]["Position"] = UDim2.new(0.23000000417232513, 0, -0.6119999885559082, 0);
@@ -323,7 +313,7 @@ DRR["29"]["CornerRadius"] = UDim.new(0.029999999329447746, 0);
 -- DrRay.MainBar.UIGradient
 DRR["2a"] = Instance.new("UIGradient", DRR["28"]);
 DRR["2a"]["Rotation"] = 90;
-DRR["2a"]["Color"] = ColorSequence.new{ColorSequenceKeypoint.new(0.000, Color3.fromRGB(50, 75, 68)),ColorSequenceKeypoint.new(0.5, Color3.fromRGB(70, 105, 95)),ColorSequenceKeypoint.new(1.000, Color3.fromRGB(90, 135, 122))}; -- Changed
+DRR["2a"]["Color"] = ColorSequence.new{ColorSequenceKeypoint.new(0.000, Color3.fromRGB(90, 90, 90)),ColorSequenceKeypoint.new(0.231, Color3.fromRGB(154, 154, 154)),ColorSequenceKeypoint.new(1.000, Color3.fromRGB(255, 255, 255))};
 
 -- DrRay.MainBar.UIAspectRatioConstraint
 DRR["2b"] = Instance.new("UIAspectRatioConstraint", DRR["28"]);
@@ -367,17 +357,18 @@ DRR["2e"]["Position"] = UDim2.new(0.3991934061050415, 0, 0.33447495102882385, 0)
 -- DrRay.MainBar.Logo.UIGradient
 DRR["2f"] = Instance.new("UIGradient", DRR["2e"]);
 DRR["2f"]["Rotation"] = 90;
-DRR["2f"]["Color"] = ColorSequence.new{ColorSequenceKeypoint.new(0.000, Color3.fromRGB(255, 255, 255)),ColorSequenceKeypoint.new(1.000, Color3.fromRGB(0, 185, 120))}; -- Changed
+DRR["2f"]["Color"] = ColorSequence.new{ColorSequenceKeypoint.new(0.000, Color3.fromRGB(255, 255, 255)),ColorSequenceKeypoint.new(1.000, Color3.fromRGB(5, 6, 23))};
 
 -- DrRay.Folder
 DRR["30"] = Instance.new("Folder", DRR["1"]);
+
 
 -- DrRay.Folder.TabReserved
 DRR["31"] = Instance.new("ScrollingFrame", DRR["30"]);
 DRR["31"]["Active"] = true;
 DRR["31"]["BorderSizePixel"] = 0;
 DRR["31"]["CanvasSize"] = UDim2.new(0, 0, 0, 0);
-DRR["31"]["BackgroundColor3"] = Color3.fromRGB(45, 66, 60); -- Changed
+DRR["31"]["BackgroundColor3"] = Color3.fromRGB(26, 26, 36);
 DRR["31"]["VerticalScrollBarPosition"] = Enum.VerticalScrollBarPosition.Left;
 DRR["31"]["AutomaticCanvasSize"] = Enum.AutomaticSize.Y;
 DRR["31"]["BackgroundTransparency"] = 1;
@@ -399,7 +390,7 @@ DRR["32"]["SortOrder"] = Enum.SortOrder.LayoutOrder;
 DRR["33"] = Instance.new("ImageButton", DRR["30"]);
 DRR["33"]["BorderSizePixel"] = 0;
 DRR["33"]["AutoButtonColor"] = false;
-DRR["33"]["BackgroundColor3"] = Color3.fromRGB(45, 66, 60); -- Changed
+DRR["33"]["BackgroundColor3"] = Color3.fromRGB(42, 42, 58);
 DRR["33"]["Size"] = UDim2.new(0.19896680116653442, 0, 0.6315789818763733, 0);
 DRR["33"]["Name"] = [[TabButtonReserved]];
 DRR["33"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
@@ -447,7 +438,7 @@ DRR["37"]["SortOrder"] = Enum.SortOrder.LayoutOrder;
 -- DrRay.Folder.TabButtonReserved.UIGradient
 DRR["38"] = Instance.new("UIGradient", DRR["33"]);
 DRR["38"]["Rotation"] = 90;
-DRR["38"]["Color"] = ColorSequence.new{ColorSequenceKeypoint.new(0.000, Color3.fromRGB(50, 75, 68)),ColorSequenceKeypoint.new(1.000, Color3.fromRGB(70, 105, 95))}; -- Changed
+DRR["38"]["Color"] = ColorSequence.new{ColorSequenceKeypoint.new(0.000, Color3.fromRGB(154, 154, 154)),ColorSequenceKeypoint.new(1.000, Color3.fromRGB(231, 231, 231))};
 
 -- DrRay.Folder.TabButtonReserved.ImageLabel
 DRR["39"] = Instance.new("ImageLabel", DRR["33"]);
@@ -475,8 +466,8 @@ DRR["3c"]["PaddingLeft"] = UDim.new(0.10999999940395355, 0);
 -- DrRay.Folder.Dropdown
 DRR["3d"] = Instance.new("Frame", DRR["30"]);
 DRR["3d"]["BorderSizePixel"] = 0;
-DRR["3d"]["BackgroundColor3"] = Color3.fromRGB(40, 56, 51); -- Changed
-DRR["3d"]["BackgroundTransparency"] = 0.2; -- Changed
+DRR["3d"]["BackgroundColor3"] = Color3.fromRGB(40, 45, 62);
+DRR["3d"]["BackgroundTransparency"] = 0.4000000059604645;
 DRR["3d"]["Size"] = UDim2.new(0.9614325165748596, 0, 0.2624756097793579, 0);
 DRR["3d"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
 DRR["3d"]["Position"] = UDim2.new(0.019283747300505638, 0, 0.12373435497283936, 0);
@@ -491,7 +482,7 @@ DRR["3e"]["CornerRadius"] = UDim.new(0.03999999910593033, 0);
 -- DrRay.Folder.Dropdown.UIGradient
 DRR["3f"] = Instance.new("UIGradient", DRR["3d"]);
 DRR["3f"]["Rotation"] = 90;
-DRR["3f"]["Color"] = ColorSequence.new{ColorSequenceKeypoint.new(0.000, Color3.fromRGB(50, 75, 68)),ColorSequenceKeypoint.new(1.000, Color3.fromRGB(70, 105, 95))}; -- Changed
+DRR["3f"]["Color"] = ColorSequence.new{ColorSequenceKeypoint.new(0.000, Color3.fromRGB(89, 89, 89)),ColorSequenceKeypoint.new(1.000, Color3.fromRGB(139, 139, 139))};
 
 -- DrRay.Folder.Dropdown.Title
 DRR["40"] = Instance.new("TextLabel", DRR["3d"]);
@@ -530,7 +521,7 @@ DRR["41"]["Position"] = UDim2.new(0.011461317539215088, 0, 0.7547013759613037, 0
 -- DrRay.Folder.Dropdown.DropdownBar
 DRR["42"] = Instance.new("Frame", DRR["3d"]);
 DRR["42"]["BorderSizePixel"] = 0;
-DRR["42"]["BackgroundColor3"] = Color3.fromRGB(45, 66, 60); -- Changed
+DRR["42"]["BackgroundColor3"] = Color3.fromRGB(40, 45, 62);
 DRR["42"]["LayoutOrder"] = 10;
 DRR["42"]["Size"] = UDim2.new(0.9684813618659973, 0, 0.29096919298171997, 0);
 DRR["42"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
@@ -544,11 +535,11 @@ DRR["43"]["CornerRadius"] = UDim.new(0.20000000298023224, 0);
 -- DrRay.Folder.Dropdown.DropdownBar.UIGradient
 DRR["44"] = Instance.new("UIGradient", DRR["42"]);
 DRR["44"]["Rotation"] = 90;
-DRR["44"]["Color"] = ColorSequence.new{ColorSequenceKeypoint.new(0.000, Color3.fromRGB(50, 75, 68)),ColorSequenceKeypoint.new(1.000, Color3.fromRGB(70, 105, 95))}; -- Changed
+DRR["44"]["Color"] = ColorSequence.new{ColorSequenceKeypoint.new(0.000, Color3.fromRGB(117, 117, 117)),ColorSequenceKeypoint.new(1.000, Color3.fromRGB(255, 255, 255))};
 
 -- DrRay.Folder.Dropdown.DropdownBar.UIStroke
 DRR["45"] = Instance.new("UIStroke", DRR["42"]);
-DRR["45"]["Color"] = Color3.fromRGB(40, 56, 51); -- Changed
+DRR["45"]["Color"] = Color3.fromRGB(40, 45, 62);
 
 -- DrRay.Folder.Dropdown.DropdownBar.Icon
 DRR["46"] = Instance.new("ImageLabel", DRR["42"]);
@@ -564,6 +555,7 @@ DRR["46"]["Position"] = UDim2.new(0.9589999914169312, 0, 0.21899999678134918, 0)
 
 -- DrRay.Folder.Dropdown.DropdownBar.Icon.UIAspectRatioConstraint
 DRR["47"] = Instance.new("UIAspectRatioConstraint", DRR["46"]);
+
 
 -- DrRay.Folder.Dropdown.DropdownBar.Open
 DRR["48"] = Instance.new("TextLabel", DRR["42"]);
@@ -597,7 +589,7 @@ DRR["49"]["BackgroundTransparency"] = 1;
 -- DrRay.Folder.Dropdown.Box
 DRR["4a"] = Instance.new("Frame", DRR["3d"]);
 DRR["4a"]["BorderSizePixel"] = 0;
-DRR["4a"]["BackgroundColor3"] = Color3.fromRGB(45, 66, 60); -- Changed
+DRR["4a"]["BackgroundColor3"] = Color3.fromRGB(40, 45, 62);
 DRR["4a"]["LayoutOrder"] = 10;
 DRR["4a"]["Size"] = UDim2.new(0.9700000286102295, 0, 0, 0);
 DRR["4a"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
@@ -608,11 +600,11 @@ DRR["4a"]["Name"] = [[Box]];
 -- DrRay.Folder.Dropdown.Box.UIGradient
 DRR["4b"] = Instance.new("UIGradient", DRR["4a"]);
 DRR["4b"]["Rotation"] = 90;
-DRR["4b"]["Color"] = ColorSequence.new{ColorSequenceKeypoint.new(0.000, Color3.fromRGB(50, 75, 68)),ColorSequenceKeypoint.new(1.000, Color3.fromRGB(70, 105, 95))}; -- Changed
+DRR["4b"]["Color"] = ColorSequence.new{ColorSequenceKeypoint.new(0.000, Color3.fromRGB(117, 117, 117)),ColorSequenceKeypoint.new(1.000, Color3.fromRGB(255, 255, 255))};
 
 -- DrRay.Folder.Dropdown.Box.UIStroke
 DRR["4c"] = Instance.new("UIStroke", DRR["4a"]);
-DRR["4c"]["Color"] = Color3.fromRGB(40, 56, 51); -- Changed
+DRR["4c"]["Color"] = Color3.fromRGB(40, 45, 62);
 
 -- DrRay.Folder.Dropdown.Box.UICorner
 DRR["4d"] = Instance.new("UICorner", DRR["4a"]);
@@ -642,8 +634,8 @@ DRR["4f"]["SortOrder"] = Enum.SortOrder.LayoutOrder;
 DRR["50"] = Instance.new("Frame", DRR["30"]);
 DRR["50"]["Active"] = true;
 DRR["50"]["BorderSizePixel"] = 0;
-DRR["50"]["BackgroundColor3"] = Color3.fromRGB(40, 56, 51); -- Changed
-DRR["50"]["BackgroundTransparency"] = 0.2; -- Changed
+DRR["50"]["BackgroundColor3"] = Color3.fromRGB(40, 45, 62);
+DRR["50"]["BackgroundTransparency"] = 0.4000000059604645;
 DRR["50"]["Size"] = UDim2.new(0.9614325165748596, 0, 0.2624756097793579, 0);
 DRR["50"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
 DRR["50"]["Position"] = UDim2.new(0.019283747300505638, 0, 0.12373435497283936, 0);
@@ -657,7 +649,7 @@ DRR["51"]["CornerRadius"] = UDim.new(0.03999999910593033, 0);
 -- DrRay.Folder.Keybind.UIGradient
 DRR["52"] = Instance.new("UIGradient", DRR["50"]);
 DRR["52"]["Rotation"] = 90;
-DRR["52"]["Color"] = ColorSequence.new{ColorSequenceKeypoint.new(0.000, Color3.fromRGB(50, 75, 68)),ColorSequenceKeypoint.new(1.000, Color3.fromRGB(70, 105, 95))}; -- Changed
+DRR["52"]["Color"] = ColorSequence.new{ColorSequenceKeypoint.new(0.000, Color3.fromRGB(113, 113, 113)),ColorSequenceKeypoint.new(1.000, Color3.fromRGB(194, 194, 194))};
 
 -- DrRay.Folder.Keybind.Title
 DRR["53"] = Instance.new("TextLabel", DRR["50"]);
@@ -697,7 +689,7 @@ DRR["54"]["Position"] = UDim2.new(0.012893982231616974, 0, 0.7092373967170715, 0
 DRR["55"] = Instance.new("Frame", DRR["50"]);
 DRR["55"]["Active"] = true;
 DRR["55"]["BorderSizePixel"] = 0;
-DRR["55"]["BackgroundColor3"] = Color3.fromRGB(45, 66, 60); -- Changed
+DRR["55"]["BackgroundColor3"] = Color3.fromRGB(40, 45, 62);
 DRR["55"]["Size"] = UDim2.new(0.14899714291095734, 0, 0.29096919298171997, 0);
 DRR["55"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
 DRR["55"]["Position"] = UDim2.new(0.014326647855341434, 0, 0.34552592039108276, 0);
@@ -710,11 +702,11 @@ DRR["56"]["CornerRadius"] = UDim.new(0.20000000298023224, 0);
 -- DrRay.Folder.Keybind.Bind.UIGradient
 DRR["57"] = Instance.new("UIGradient", DRR["55"]);
 DRR["57"]["Rotation"] = 90;
-DRR["57"]["Color"] = ColorSequence.new{ColorSequenceKeypoint.new(0.000, Color3.fromRGB(50, 75, 68)),ColorSequenceKeypoint.new(1.000, Color3.fromRGB(70, 105, 95))}; -- Changed
+DRR["57"]["Color"] = ColorSequence.new{ColorSequenceKeypoint.new(0.000, Color3.fromRGB(117, 117, 117)),ColorSequenceKeypoint.new(1.000, Color3.fromRGB(255, 255, 255))};
 
 -- DrRay.Folder.Keybind.Bind.UIStroke
 DRR["58"] = Instance.new("UIStroke", DRR["55"]);
-DRR["58"]["Color"] = Color3.fromRGB(40, 56, 51); -- Changed
+DRR["58"]["Color"] = Color3.fromRGB(40, 45, 62);
 
 -- DrRay.Folder.Keybind.Bind.Button
 DRR["59"] = Instance.new("TextButton", DRR["55"]);
@@ -725,19 +717,19 @@ DRR["59"]["TextStrokeColor3"] = Color3.fromRGB(255, 255, 255);
 DRR["59"]["TextScaled"] = true;
 DRR["59"]["BackgroundColor3"] = Color3.fromRGB(0, 255, 39);
 DRR["59"]["FontFace"] = Font.new([[rbxassetid://11702779517]], Enum.FontWeight.Regular, Enum.FontStyle.Italic);
-DRR["59"]["TextColor3"] = Color3.fromRGB(225, 225, 225); -- Changed
+DRR["59"]["TextColor3"] = Color3.fromRGB(160, 160, 160);
 DRR["59"]["Selectable"] = false;
 DRR["59"]["Size"] = UDim2.new(1, 0, 0.59375, 0);
 DRR["59"]["Name"] = [[Button]];
 DRR["59"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
 DRR["59"]["Text"] = [[key]];
 DRR["59"]["Position"] = UDim2.new(0, 0, 0.21875, 0);
-DRR["59"]["BackgroundTransparency"] = 1; -- Changed
+DRR["59"]["BackgroundTransparency"] = 0.9900000095367432;
 
 -- DrRay.Folder.Label
 DRR["5a"] = Instance.new("Frame", DRR["30"]);
 DRR["5a"]["BorderSizePixel"] = 0;
-DRR["5a"]["BackgroundColor3"] = Color3.fromRGB(45, 66, 60); -- Changed
+DRR["5a"]["BackgroundColor3"] = Color3.fromRGB(40, 45, 62);
 DRR["5a"]["Size"] = UDim2.new(0.9614325165748596, 0, 0.07873434573411942, 0);
 DRR["5a"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
 DRR["5a"]["Position"] = UDim2.new(0.019283747300505638, 0, 0.01806684397161007, 0);
@@ -752,7 +744,7 @@ DRR["5b"]["CornerRadius"] = UDim.new(0.33000001311302185, 0);
 -- DrRay.Folder.Label.UIGradient
 DRR["5c"] = Instance.new("UIGradient", DRR["5a"]);
 DRR["5c"]["Rotation"] = 90;
-DRR["5c"]["Color"] = ColorSequence.new{ColorSequenceKeypoint.new(0.000, Color3.fromRGB(50, 75, 68)),ColorSequenceKeypoint.new(1.000, Color3.fromRGB(70, 105, 95))}; -- Changed
+DRR["5c"]["Color"] = ColorSequence.new{ColorSequenceKeypoint.new(0.000, Color3.fromRGB(166, 166, 166)),ColorSequenceKeypoint.new(1.000, Color3.fromRGB(255, 255, 255))};
 
 -- DrRay.Folder.Label.Title
 DRR["5d"] = Instance.new("TextLabel", DRR["5a"]);
@@ -774,8 +766,8 @@ DRR["5d"]["Position"] = UDim2.new(0.018000036478042603, 0, 0.22100010514259338, 
 -- DrRay.Folder.Slider
 DRR["5e"] = Instance.new("Frame", DRR["30"]);
 DRR["5e"]["BorderSizePixel"] = 0;
-DRR["5e"]["BackgroundColor3"] = Color3.fromRGB(40, 56, 51); -- Changed
-DRR["5e"]["BackgroundTransparency"] = 0.2; -- Changed
+DRR["5e"]["BackgroundColor3"] = Color3.fromRGB(40, 45, 62);
+DRR["5e"]["BackgroundTransparency"] = 0.4000000059604645;
 DRR["5e"]["Size"] = UDim2.new(0.9614325165748596, 0, 0.2624756097793579, 0);
 DRR["5e"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
 DRR["5e"]["Position"] = UDim2.new(0.019283747300505638, 0, 0.12373435497283936, 0);
@@ -789,7 +781,7 @@ DRR["5f"]["CornerRadius"] = UDim.new(0.03999999910593033, 0);
 -- DrRay.Folder.Slider.UIGradient
 DRR["60"] = Instance.new("UIGradient", DRR["5e"]);
 DRR["60"]["Rotation"] = 90;
-DRR["60"]["Color"] = ColorSequence.new{ColorSequenceKeypoint.new(0.000, Color3.fromRGB(50, 75, 68)),ColorSequenceKeypoint.new(1.000, Color3.fromRGB(70, 105, 95))}; -- Changed
+DRR["60"]["Color"] = ColorSequence.new{ColorSequenceKeypoint.new(0.000, Color3.fromRGB(108, 108, 108)),ColorSequenceKeypoint.new(1.000, Color3.fromRGB(232, 232, 232))};
 
 -- DrRay.Folder.Slider.Title
 DRR["61"] = Instance.new("TextLabel", DRR["5e"]);
@@ -811,7 +803,7 @@ DRR["61"]["Position"] = UDim2.new(0.017191976308822632, 0, 0.10911344736814499, 
 -- DrRay.Folder.Slider.ActualSlider
 DRR["62"] = Instance.new("Frame", DRR["5e"]);
 DRR["62"]["BorderSizePixel"] = 0;
-DRR["62"]["BackgroundColor3"] = Color3.fromRGB(45, 66, 60); -- Changed
+DRR["62"]["BackgroundColor3"] = Color3.fromRGB(0, 255, 39);
 DRR["62"]["Size"] = UDim2.new(0.9684813618659973, 0, 0.29096919298171997, 0);
 DRR["62"]["ClipsDescendants"] = true;
 DRR["62"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
@@ -825,19 +817,19 @@ DRR["63"]["CornerRadius"] = UDim.new(0.20000000298023224, 0);
 -- DrRay.Folder.Slider.ActualSlider.UIGradient
 DRR["64"] = Instance.new("UIGradient", DRR["62"]);
 DRR["64"]["Rotation"] = 90;
-DRR["64"]["Color"] = ColorSequence.new{ColorSequenceKeypoint.new(0.000, Color3.fromRGB(50, 75, 68)),ColorSequenceKeypoint.new(1.000, Color3.fromRGB(70, 105, 95))}; -- Changed
+DRR["64"]["Color"] = ColorSequence.new{ColorSequenceKeypoint.new(0.000, Color3.fromRGB(64, 64, 64)),ColorSequenceKeypoint.new(1.000, Color3.fromRGB(148, 148, 148))};
 
 -- DrRay.Folder.Slider.ActualSlider.UIStroke
 DRR["65"] = Instance.new("UIStroke", DRR["62"]);
-DRR["65"]["Color"] = Color3.fromRGB(0, 185, 120); -- Changed
+DRR["65"]["Color"] = Color3.fromRGB(0, 255, 39);
 
 -- DrRay.Folder.Slider.ActualSlider.Fill
 DRR["66"] = Instance.new("Frame", DRR["62"]);
 DRR["66"]["BorderSizePixel"] = 0;
-DRR["66"]["BackgroundColor3"] = Color3.fromRGB(0, 185, 120); -- Changed
+DRR["66"]["BackgroundColor3"] = Color3.fromRGB(0, 255, 39);
 DRR["66"]["Size"] = UDim2.new(1, 0, 1, 0);
 DRR["66"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
-DRR["66"]["Position"] = UDim2.new(-0.0010000000474974513, 0, 0, 0); -- Adjusted position to remove gap
+DRR["66"]["Position"] = UDim2.new(-0.0010000000474974513, 0, 0.029999999329447746, 0);
 DRR["66"]["Name"] = [[Fill]];
 
 -- DrRay.Folder.Slider.ActualSlider.Fill.UICorner
@@ -847,7 +839,7 @@ DRR["67"]["CornerRadius"] = UDim.new(0.20000000298023224, 0);
 -- DrRay.Folder.Slider.ActualSlider.Fill.UIGradient
 DRR["68"] = Instance.new("UIGradient", DRR["66"]);
 DRR["68"]["Rotation"] = 90;
-DRR["68"]["Color"] = ColorSequence.new{ColorSequenceKeypoint.new(0.000, Color3.fromRGB(0, 200, 130)),ColorSequenceKeypoint.new(1.000, Color3.fromRGB(0, 185, 120))}; -- Changed
+DRR["68"]["Color"] = ColorSequence.new{ColorSequenceKeypoint.new(0.000, Color3.fromRGB(107, 107, 107)),ColorSequenceKeypoint.new(1.000, Color3.fromRGB(255, 255, 255))};
 
 -- DrRay.Folder.Slider.ActualSlider.Trigger
 DRR["69"] = Instance.new("TextButton", DRR["62"]);
@@ -860,7 +852,7 @@ DRR["69"]["LayoutOrder"] = 5;
 DRR["69"]["Name"] = [[Trigger]];
 DRR["69"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
 DRR["69"]["Text"] = [[]];
-DRR["69"]["Position"] = UDim2.new(-0.0010000000474974513, 0, 0, 0); -- Adjusted position to remove gap
+DRR["69"]["Position"] = UDim2.new(-0.0010000000474974513, 0, 0.029999999329447746, 0);
 DRR["69"]["BackgroundTransparency"] = 1;
 
 -- DrRay.Folder.Slider.ActualSlider.Trigger.UICorner
@@ -910,8 +902,8 @@ DRR["6d"]["Position"] = UDim2.new(0.015759311616420746, 0, 0.7274229526519775, 0
 -- DrRay.Folder.Textbox
 DRR["6e"] = Instance.new("Frame", DRR["30"]);
 DRR["6e"]["BorderSizePixel"] = 0;
-DRR["6e"]["BackgroundColor3"] = Color3.fromRGB(40, 56, 51); -- Changed
-DRR["6e"]["BackgroundTransparency"] = 0.2; -- Changed
+DRR["6e"]["BackgroundColor3"] = Color3.fromRGB(40, 45, 62);
+DRR["6e"]["BackgroundTransparency"] = 0.4000000059604645;
 DRR["6e"]["Size"] = UDim2.new(0.9614325165748596, 0, 0.2624756097793579, 0);
 DRR["6e"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
 DRR["6e"]["Position"] = UDim2.new(0.019283747300505638, 0, 0.12373435497283936, 0);
@@ -925,7 +917,7 @@ DRR["6f"]["CornerRadius"] = UDim.new(0.03999999910593033, 0);
 -- DrRay.Folder.Textbox.UIGradient
 DRR["70"] = Instance.new("UIGradient", DRR["6e"]);
 DRR["70"]["Rotation"] = 90;
-DRR["70"]["Color"] = ColorSequence.new{ColorSequenceKeypoint.new(0.000, Color3.fromRGB(50, 75, 68)),ColorSequenceKeypoint.new(1.000, Color3.fromRGB(70, 105, 95))}; -- Changed
+DRR["70"]["Color"] = ColorSequence.new{ColorSequenceKeypoint.new(0.000, Color3.fromRGB(89, 89, 89)),ColorSequenceKeypoint.new(1.000, Color3.fromRGB(139, 139, 139))};
 
 -- DrRay.Folder.Textbox.Title
 DRR["71"] = Instance.new("TextLabel", DRR["6e"]);
@@ -964,7 +956,7 @@ DRR["72"]["Position"] = UDim2.new(0.012893982231616974, 0, 0.7092373967170715, 0
 -- DrRay.Folder.Textbox.TextboxBar
 DRR["73"] = Instance.new("Frame", DRR["6e"]);
 DRR["73"]["BorderSizePixel"] = 0;
-DRR["73"]["BackgroundColor3"] = Color3.fromRGB(45, 66, 60); -- Changed
+DRR["73"]["BackgroundColor3"] = Color3.fromRGB(40, 45, 62);
 DRR["73"]["Size"] = UDim2.new(0.9684813618659973, 0, 0.29096919298171997, 0);
 DRR["73"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
 DRR["73"]["Position"] = UDim2.new(0.014326647855341434, 0, 0.34552592039108276, 0);
@@ -977,11 +969,11 @@ DRR["74"]["CornerRadius"] = UDim.new(0.20000000298023224, 0);
 -- DrRay.Folder.Textbox.TextboxBar.UIGradient
 DRR["75"] = Instance.new("UIGradient", DRR["73"]);
 DRR["75"]["Rotation"] = 90;
-DRR["75"]["Color"] = ColorSequence.new{ColorSequenceKeypoint.new(0.000, Color3.fromRGB(50, 75, 68)),ColorSequenceKeypoint.new(1.000, Color3.fromRGB(70, 105, 95))}; -- Changed
+DRR["75"]["Color"] = ColorSequence.new{ColorSequenceKeypoint.new(0.000, Color3.fromRGB(117, 117, 117)),ColorSequenceKeypoint.new(1.000, Color3.fromRGB(255, 255, 255))};
 
 -- DrRay.Folder.Textbox.TextboxBar.UIStroke
 DRR["76"] = Instance.new("UIStroke", DRR["73"]);
-DRR["76"]["Color"] = Color3.fromRGB(40, 56, 51); -- Changed
+DRR["76"]["Color"] = Color3.fromRGB(40, 45, 62);
 
 -- DrRay.Folder.Textbox.TextboxBar.ActualTextbox
 DRR["77"] = Instance.new("TextBox", DRR["73"]);
@@ -1006,8 +998,8 @@ DRR["77"]["Name"] = [[ActualTextbox]];
 DRR["78"] = Instance.new("Frame", DRR["30"]);
 DRR["78"]["Active"] = true;
 DRR["78"]["BorderSizePixel"] = 0;
-DRR["78"]["BackgroundColor3"] = Color3.fromRGB(40, 56, 51); -- Changed
-DRR["78"]["BackgroundTransparency"] = 0.2; -- Changed
+DRR["78"]["BackgroundColor3"] = Color3.fromRGB(40, 45, 62);
+DRR["78"]["BackgroundTransparency"] = 0.4000000059604645;
 DRR["78"]["Size"] = UDim2.new(0.9614325165748596, 0, 0.15495234727859497, 0);
 DRR["78"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
 DRR["78"]["Position"] = UDim2.new(0.019283747300505638, 0, 0.6786856055259705, 0);
@@ -1021,7 +1013,7 @@ DRR["79"]["CornerRadius"] = UDim.new(0.03999999910593033, 0);
 -- DrRay.Folder.Toggle.UIGradient
 DRR["7a"] = Instance.new("UIGradient", DRR["78"]);
 DRR["7a"]["Rotation"] = 90;
-DRR["7a"]["Color"] = ColorSequence.new{ColorSequenceKeypoint.new(0.000, Color3.fromRGB(50, 75, 68)),ColorSequenceKeypoint.new(1.000, Color3.fromRGB(70, 105, 95))}; -- Changed
+DRR["7a"]["Color"] = ColorSequence.new{ColorSequenceKeypoint.new(0.000, Color3.fromRGB(109, 109, 109)),ColorSequenceKeypoint.new(0.765, Color3.fromRGB(181, 181, 181)),ColorSequenceKeypoint.new(1.000, Color3.fromRGB(217, 217, 217))};
 
 -- DrRay.Folder.Toggle.Title
 DRR["7b"] = Instance.new("TextLabel", DRR["78"]);
@@ -1061,7 +1053,7 @@ DRR["7c"]["Position"] = UDim2.new(0.011461318470537663, 0, 0.5852904319763184, 0
 -- DrRay.Folder.Toggle.Label
 DRR["7d"] = Instance.new("Frame", DRR["78"]);
 DRR["7d"]["BorderSizePixel"] = 0;
-DRR["7d"]["BackgroundColor3"] = Color3.fromRGB(0, 185, 120); -- Changed
+DRR["7d"]["BackgroundColor3"] = Color3.fromRGB(0, 255, 39);
 DRR["7d"]["Size"] = UDim2.new(0.03868212550878525, 0, 0.42860323190689087, 0);
 DRR["7d"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
 DRR["7d"]["Position"] = UDim2.new(0.92550128698349, 0, 0.27990657091140747, 0);
@@ -1075,11 +1067,11 @@ DRR["7e"]["CornerRadius"] = UDim.new(0.33000001311302185, 0);
 -- DrRay.Folder.Toggle.Label.UIGradient
 DRR["7f"] = Instance.new("UIGradient", DRR["7d"]);
 DRR["7f"]["Rotation"] = 90;
-DRR["7f"]["Color"] = ColorSequence.new{ColorSequenceKeypoint.new(0.000, Color3.fromRGB(0, 200, 130)),ColorSequenceKeypoint.new(1.000, Color3.fromRGB(0, 185, 120))}; -- Changed
+DRR["7f"]["Color"] = ColorSequence.new{ColorSequenceKeypoint.new(0.000, Color3.fromRGB(166, 166, 166)),ColorSequenceKeypoint.new(1.000, Color3.fromRGB(255, 255, 255))};
 
 -- DrRay.Folder.Toggle.Label.UIStroke
 DRR["80"] = Instance.new("UIStroke", DRR["7d"]);
-DRR["80"]["Color"] = Color3.fromRGB(40, 56, 51); -- Changed
+DRR["80"]["Color"] = Color3.fromRGB(40, 45, 62);
 DRR["80"]["Thickness"] = 2.4000000953674316;
 DRR["80"]["ApplyStrokeMode"] = Enum.ApplyStrokeMode.Border;
 
@@ -1102,13 +1094,13 @@ DRR["82"]["CornerRadius"] = UDim.new(0.33000001311302185, 0);
 -- DrRay.Folder.Toggle.Label.Label.UIGradient
 DRR["83"] = Instance.new("UIGradient", DRR["81"]);
 DRR["83"]["Rotation"] = 90;
-DRR["83"]["Color"] = ColorSequence.new{ColorSequenceKeypoint.new(0.000, Color3.fromRGB(0, 200, 130)),ColorSequenceKeypoint.new(1.000, Color3.fromRGB(0, 185, 120))}; -- Changed
+DRR["83"]["Color"] = ColorSequence.new{ColorSequenceKeypoint.new(0.000, Color3.fromRGB(166, 166, 166)),ColorSequenceKeypoint.new(1.000, Color3.fromRGB(255, 255, 255))};
 
 -- DrRay.Folder.Button
 DRR["84"] = Instance.new("TextButton", DRR["30"]);
 DRR["84"]["BorderSizePixel"] = 0;
 DRR["84"]["AutoButtonColor"] = false;
-DRR["84"]["BackgroundColor3"] = Color3.fromRGB(40, 56, 51); -- Changed
+DRR["84"]["BackgroundColor3"] = Color3.fromRGB(40, 45, 62);
 DRR["84"]["Selectable"] = false;
 DRR["84"]["Visible"] = false;
 DRR["84"]["Size"] = UDim2.new(0.9614325165748596, 0, 0.15495234727859497, 0);
@@ -1116,7 +1108,7 @@ DRR["84"]["Name"] = [[Button]];
 DRR["84"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
 DRR["84"]["Text"] = [[]];
 DRR["84"]["Position"] = UDim2.new(0.019283747300505638, 0, 0.6786856055259705, 0);
-DRR["84"]["BackgroundTransparency"] = 0.2; -- Changed
+DRR["84"]["BackgroundTransparency"] = 0.4000000059604645;
 
 -- DrRay.Folder.Button.UICorner
 DRR["85"] = Instance.new("UICorner", DRR["84"]);
@@ -1125,7 +1117,7 @@ DRR["85"]["CornerRadius"] = UDim.new(0.03999999910593033, 0);
 -- DrRay.Folder.Button.UIGradient
 DRR["86"] = Instance.new("UIGradient", DRR["84"]);
 DRR["86"]["Rotation"] = 90;
-DRR["86"]["Color"] = ColorSequence.new{ColorSequenceKeypoint.new(0.000, Color3.fromRGB(50, 75, 68)),ColorSequenceKeypoint.new(1.000, Color3.fromRGB(70, 105, 95))}; -- Changed
+DRR["86"]["Color"] = ColorSequence.new{ColorSequenceKeypoint.new(0.000, Color3.fromRGB(109, 109, 109)),ColorSequenceKeypoint.new(0.765, Color3.fromRGB(181, 181, 181)),ColorSequenceKeypoint.new(1.000, Color3.fromRGB(217, 217, 217))};
 
 -- DrRay.Folder.Button.Title
 DRR["87"] = Instance.new("TextLabel", DRR["84"]);
@@ -1166,7 +1158,7 @@ DRR["88"]["Position"] = UDim2.new(0.011461318470537663, 0, 0.5852904319763184, 0
 DRR["89"] = Instance.new("TextButton", DRR["30"]);
 DRR["89"]["Active"] = false;
 DRR["89"]["BorderSizePixel"] = 0;
-DRR["89"]["BackgroundColor3"] = Color3.fromRGB(45, 66, 60); -- Changed
+DRR["89"]["BackgroundColor3"] = Color3.fromRGB(40, 45, 62);
 DRR["89"]["Selectable"] = false;
 DRR["89"]["Visible"] = false;
 DRR["89"]["Size"] = UDim2.new(0.9995859265327454, 0, 0.17368526756763458, 0);
@@ -1181,11 +1173,11 @@ DRR["8a"]["CornerRadius"] = UDim.new(0.20000000298023224, 0);
 -- DrRay.Folder.DropdownButton.UIGradient
 DRR["8b"] = Instance.new("UIGradient", DRR["89"]);
 DRR["8b"]["Rotation"] = 90;
-DRR["8b"]["Color"] = ColorSequence.new{ColorSequenceKeypoint.new(0.000, Color3.fromRGB(50, 75, 68)),ColorSequenceKeypoint.new(1.000, Color3.fromRGB(70, 105, 95))}; -- Changed
+DRR["8b"]["Color"] = ColorSequence.new{ColorSequenceKeypoint.new(0.000, Color3.fromRGB(117, 117, 117)),ColorSequenceKeypoint.new(1.000, Color3.fromRGB(255, 255, 255))};
 
 -- DrRay.Folder.DropdownButton.UIStroke
 DRR["8c"] = Instance.new("UIStroke", DRR["89"]);
-DRR["8c"]["Color"] = Color3.fromRGB(40, 56, 51); -- Changed
+DRR["8c"]["Color"] = Color3.fromRGB(40, 45, 62);
 
 -- DrRay.Folder.DropdownButton.name
 DRR["8d"] = Instance.new("TextLabel", DRR["89"]);
@@ -1195,7 +1187,7 @@ DRR["8d"]["TextScaled"] = true;
 DRR["8d"]["BackgroundColor3"] = Color3.fromRGB(0, 255, 39);
 DRR["8d"]["FontFace"] = Font.new([[rbxassetid://11702779517]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
 DRR["8d"]["TextStrokeColor3"] = Color3.fromRGB(255, 255, 255);
-DRR["8d"]["TextColor3"] = Color3.fromRGB(225, 225, 225); -- Changed
+DRR["8d"]["TextColor3"] = Color3.fromRGB(160, 160, 160);
 DRR["8d"]["Size"] = UDim2.new(1, 0, 0.59375, 0);
 DRR["8d"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
 DRR["8d"]["Text"] = [[none]];
@@ -1291,8 +1283,8 @@ UILIB.__index = UILIB
 local listening = false
 local twServ = game:GetService("TweenService")
 local UIS = game:GetService("UserInputService")
-local GlobalColor1 = Color3.fromRGB(40, 56, 51) -- Changed (Off-state color)
-local GlobalColor2 = Color3.fromRGB(0, 185, 120) -- Changed (On-state color)
+local GlobalColor1 = Color3.fromRGB(39, 44, 61)
+local GlobalColor2 = Color3.fromRGB(0, 255, 38)
 local closed = false
 
 parent.TopBar.ProfileMenu.PlayerProfile.TextLabel.Text = game:GetService("Players").LocalPlayer.DisplayName
@@ -1423,15 +1415,13 @@ function UILIB:Load(name, img, direction)
 		end
 	end
 	function self:SetTheme(color, color2)
-		-- Note: This function might not work as expected because the default colors have been changed.
-		-- It's kept for structural integrity but would need to be updated to use the new green theme colors as a base.
 		for i,v in pairs(parent:GetChildren()) do
 			if v:IsA("GuiObject") then
 				pcall(function()
-					if v.BackgroundColor3 == Color3.fromRGB(40, 56, 51) then
+					if v.BackgroundColor3 == Color3.fromRGB(39, 44, 61) then
 						v.BackgroundColor3 = color
 						GlobalColor1 = color
-					elseif v.BackgroundColor3 == Color3.fromRGB(0, 185, 120) then
+					elseif v.BackgroundColor3 == Color3.fromRGB(0, 255, 38) then
 						v.BackgroundColor3 = color2
 						GlobalColor2 = color2
 					end
@@ -1441,6 +1431,16 @@ function UILIB:Load(name, img, direction)
 	end
 
 end
+
+
+
+
+
+
+
+
+
+
 
 function UILIB.newTab(name, img)	
 	local self = setmetatable({}, UILIB)
@@ -1466,14 +1466,14 @@ function UILIB.newTab(name, img)
 			if v:IsA("ImageButton") then
 				local vTab = parent.MainBar:FindFirstChild(v.Name)
 				if v.Name ~= name then
-					local twBtn = twServ:Create(v.UIGradient, TweenInfo.new(0.2), { Transparency = NumberSequence.new(0.75) })
+					local twBtn = twServ:Create(v, TweenInfo.new(0.2), { Transparency = 0.75})
 
 					twBtn:Play()
 
 					vTab.Visible = false
 				elseif v.Name == name then
 					vTab.Visible = true
-					local twBtn = twServ:Create(v.UIGradient, TweenInfo.new(0.2), { Transparency = NumberSequence.new(0) })
+					local twBtn = twServ:Create(v, TweenInfo.new(0.2), { Transparency = 0 })
 
 					twBtn:Play()
 
@@ -1491,12 +1491,12 @@ function UILIB.newTab(name, img)
 		newbtn.Name = name
 
 		newbtn.MouseEnter:Connect(function()
-			local twBtn = twServ:Create(newbtn, TweenInfo.new(0.2), { BackgroundTransparency = 0 })
+			local twBtn = twServ:Create(newbtn, TweenInfo.new(0.2), { Transparency = 0 })
 
 			twBtn:Play()
 		end)
 		newbtn.MouseLeave:Connect(function()
-			local twBtn = twServ:Create(newbtn, TweenInfo.new(0.2), { BackgroundTransparency = 0.2 })
+			local twBtn = twServ:Create(newbtn, TweenInfo.new(0.2), { Transparency = 0.4 })
 
 			twBtn:Play()
 		end)
@@ -1525,12 +1525,12 @@ function UILIB.newTab(name, img)
 		local textbox = newInput.TextboxBar.ActualTextbox
 
 		newInput.MouseEnter:Connect(function()
-			local twBtn = twServ:Create(newInput, TweenInfo.new(0.2), { BackgroundTransparency = 0 })
+			local twBtn = twServ:Create(newInput, TweenInfo.new(0.2), { Transparency = 0 })
 
 			twBtn:Play()
 		end)
 		newInput.MouseLeave:Connect(function()
-			local twBtn = twServ:Create(newInput, TweenInfo.new(0.2), { BackgroundTransparency = 0.2 })
+			local twBtn = twServ:Create(newInput, TweenInfo.new(0.2), { Transparency = 0.4 })
 
 			twBtn:Play()
 
@@ -1542,10 +1542,8 @@ function UILIB.newTab(name, img)
 		newInput.Title.Text = name
 		newInput.Name = name
 
-		textbox.FocusLost:Connect(function(enterPressed)
-			if enterPressed then
-				func(textbox.Text)
-			end
+		textbox.FocusLost:Connect(function()
+			func(textbox.Text)
 		end)
 
 	end
@@ -1555,12 +1553,12 @@ function UILIB.newTab(name, img)
 
 
 		newKey.MouseEnter:Connect(function()
-			local twBtn = twServ:Create(newKey, TweenInfo.new(0.2), { BackgroundTransparency = 0 })
+			local twBtn = twServ:Create(newKey, TweenInfo.new(0.2), { Transparency = 0 })
 
 			twBtn:Play()
 		end)
 		newKey.MouseLeave:Connect(function()
-			local twBtn = twServ:Create(newKey, TweenInfo.new(0.2), { BackgroundTransparency = 0.2 })
+			local twBtn = twServ:Create(newKey, TweenInfo.new(0.2), { Transparency = 0.4 })
 
 			twBtn:Play()
 		end)
@@ -1600,19 +1598,18 @@ function UILIB.newTab(name, img)
 
 			-- Connect the InputBegan event
 			a = game:GetService("UserInputService").InputBegan:Connect(function(input, processed)
-				if processed then return end
 				if input.UserInputType == Enum.UserInputType.Keyboard then
 					newKey.Bind.Button.Text = input.KeyCode.Name
 					listening = false
 					a:Disconnect()
-					func(input.KeyCode)
+					func(input)
 				elseif input.UserInputType == Enum.UserInputType.MouseButton1 or
 					input.UserInputType == Enum.UserInputType.MouseButton2 or
 					input.UserInputType == Enum.UserInputType.MouseButton3 then
 					newKey.Bind.Button.Text = input.UserInputType.Name
 					listening = false
 					a:Disconnect()
-					func(input.UserInputType)
+					func(input)
 				end
 			end)
 		end)
@@ -1623,12 +1620,12 @@ function UILIB.newTab(name, img)
 		local newSlider = reserved.Slider:Clone()
 
 		newSlider.MouseEnter:Connect(function()
-			local twBtn = twServ:Create(newSlider, TweenInfo.new(0.2), { BackgroundTransparency = 0 })
+			local twBtn = twServ:Create(newSlider, TweenInfo.new(0.2), { Transparency = 0 })
 
 			twBtn:Play()
 		end)
 		newSlider.MouseLeave:Connect(function()
-			local twBtn = twServ:Create(newSlider, TweenInfo.new(0.2), { BackgroundTransparency = 0.2 })
+			local twBtn = twServ:Create(newSlider, TweenInfo.new(0.2), { Transparency = 0.4 })
 
 			twBtn:Play()
 		end)
@@ -1649,7 +1646,7 @@ function UILIB.newTab(name, img)
 		local perc
 		local Percent
 		local MouseDown = false
-		local delayTw = 0.05 -- Made slider smoother
+		local delayTw = 0.3
 
 		local function Update()
 			MouseDown = true
@@ -1664,7 +1661,7 @@ function UILIB.newTab(name, img)
 					Label.Text = perc
 					func(perc, Label)
 				end
-				local tween = tweenServ:Create(Fill, TweenInfo.new(delayTw, Enum.EasingStyle.Linear, Enum.EasingDirection.Out), { Size = UDim2.fromScale(Percent, 1) })
+				local tween = tweenServ:Create(Fill, TweenInfo.new(delayTw, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), { Size = UDim2.fromScale(Percent, 1) })
 				tween:Play()
 			until MouseDown == false
 		end
@@ -1690,12 +1687,12 @@ function UILIB.newTab(name, img)
 		
 		
 		newToggle.MouseEnter:Connect(function()
-			local twBtn = twServ:Create(newToggle, TweenInfo.new(0.2), { BackgroundTransparency = 0 })
+			local twBtn = twServ:Create(newToggle, TweenInfo.new(0.2), { Transparency = 0 })
 
 			twBtn:Play()
 		end)
 		newToggle.MouseLeave:Connect(function()
-			local twBtn = twServ:Create(newToggle, TweenInfo.new(0.2), { BackgroundTransparency = 0.2 })
+			local twBtn = twServ:Create(newToggle, TweenInfo.new(0.2), { Transparency = 0.4 })
 
 			twBtn:Play()
 		end)
@@ -1775,10 +1772,16 @@ function UILIB.newTab(name, img)
 	return self
 end
 
+
+
+
+
+
+
+
 return UILIB
 
 end;
 };
 
 return require(DRR["93"]);
-
