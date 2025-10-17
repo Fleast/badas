@@ -1,5 +1,3 @@
-Tentu, saya bisa mengubah tema skrip GUI Anda menjadi warna hijau gelap material dengan latar belakang yang sedikit transparan. Saya akan mempertahankan semua pengaturan radius sudut seperti yang Anda minta.
-Berikut adalah skrip yang telah dimodifikasi:
 -- Instances: 147 | Scripts: 0 | Modules: 1
 local DRR = {};
 
