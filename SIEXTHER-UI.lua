@@ -1520,7 +1520,7 @@ function UILIB.newTab(name, img)
 		return newLabel.Title
         end
 
-	function self.newInput(name, desc, func)
+	function self.newInput(name, func)
 		local newInput = reserved.Textbox:Clone()
 		local textbox = newInput.TextboxBar.ActualTextbox
 
@@ -1540,7 +1540,6 @@ function UILIB.newTab(name, img)
 		newInput.Visible = true
 		newInput.Parent = newTab
 		newInput.Title.Text = name
-		newInput.Description.Text = desc
 		newInput.Name = name
 
 		textbox.FocusLost:Connect(function()
@@ -1549,7 +1548,7 @@ function UILIB.newTab(name, img)
 
 	end
 
-	function self.newKeybind(name, desc, func)
+	function self.newKeybind(name, func)
 		local newKey = reserved.Keybind:Clone()
 
 
@@ -1566,7 +1565,6 @@ function UILIB.newTab(name, img)
 		newKey.Parent = newTab
 		newKey.Title.Text = name
 		newKey.Name = name
-		newKey.Description.Text = desc
 		newKey.Visible =  true
 
 		local listening = false
@@ -1618,7 +1616,7 @@ function UILIB.newTab(name, img)
 	end
 
 
-	function self.newSlider(name, desc, max, manageSlider, func)
+	function self.newSlider(name, max, manageSlider, func)
 		local newSlider = reserved.Slider:Clone()
 
 		newSlider.MouseEnter:Connect(function()
@@ -1635,7 +1633,7 @@ function UILIB.newTab(name, img)
 		newSlider.Name = name
 		newSlider.Parent = newTab
 		newSlider.Title.Text = name
-		newSlider.Description.Text = desc
+		
 
 		local Mouse = game.Players.LocalPlayer:GetMouse()
 		local tweenServ = twServ
@@ -1678,14 +1676,14 @@ function UILIB.newTab(name, img)
 
 	end
 	
-	function self.newToggle(title, desc, toggle, func)
+	function self.newToggle(title, toggle, func)
 		local realToggle = toggle
 		local newToggle = reserved.Toggle:Clone()
 		newToggle.Parent = newTab
 		newToggle.Name = title
 		newToggle.Visible = true
 		newToggle.Title.Text = title
-		newToggle.Description.Text = desc
+		
 		
 		
 		newToggle.MouseEnter:Connect(function()
@@ -1727,14 +1725,14 @@ function UILIB.newTab(name, img)
 		
 	end
 	
-	function self.newDropdown(name, desc, listTable, func)
+	function self.newDropdown(name, listTable, func)
 		local newdd = reserved.Dropdown:Clone()
 		newdd.Visible = true
 		newdd.Parent = newTab
 		
 		newdd.Name = name
 		newdd.Title.Text = name
-		newdd.Description.Text = desc
+		
 		
 		for i, list in ipairs(listTable) do
 			local newddbtn = reserved.DropdownButton:Clone()
