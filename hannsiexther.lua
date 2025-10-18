@@ -1,57 +1,87 @@
---[[
-    KILASIK's Multi-Target Fling Exploit
-    Based on the working fling mechanism from zqyDSUWX
-    Features:
-    - Select multiple targets
-    - Continuous flinging until stopped
-    - Preserves player mobility (no teleporting to targets)
-    - Flings targets very far
-    - Compatible with JJSploit, Synapse X, etc.
-]]
+
 -- Services
 local Players = game:GetService("Players")
 local RunService = game:GetService("RunService")
 local Player = Players.LocalPlayer
+
 -- GUI Setup
 local ScreenGui = Instance.new("ScreenGui")
 ScreenGui.Name = "SIEXTHERxFLING"
 ScreenGui.ResetOnSpawn = false
 ScreenGui.Parent = game:GetService("CoreGui")
+
 -- Main Frame
 local MainFrame = Instance.new("Frame")
-MainFrame.Size = UDim2.new(0, 300, 0, 350)
-MainFrame.Position = UDim2.new(0.5, -150, 0.5, -175)
-MainFrame.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+MainFrame.Size = UDim2.new(0, 300, 0, 370) -- Increased height slightly for new buttons
+MainFrame.Position = UDim2.new(0.5, -150, 0.5, -185)
+MainFrame.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
+MainFrame.BackgroundTransparency = 0.25
 MainFrame.BorderSizePixel = 0
 MainFrame.Active = true
 MainFrame.Draggable = true
 MainFrame.Parent = ScreenGui
+
 -- Title Bar
 local TitleBar = Instance.new("Frame")
 TitleBar.Size = UDim2.new(1, 0, 0, 30)
-TitleBar.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
+TitleBar.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+TitleBar.BackgroundTransparency = 0.2
 TitleBar.BorderSizePixel = 0
 TitleBar.Parent = MainFrame
+
 -- Title
 local Title = Instance.new("TextLabel")
-Title.Size = UDim2.new(1, -30, 1, 0)
+Title.Size = UDim2.new(1, -60, 1, 0) -- Adjusted size for new minimize button
 Title.BackgroundTransparency = 1
 Title.Text = "SIEXTHERxFLING By Hann.Siexther"
 Title.TextColor3 = Color3.fromRGB(255, 80, 80)
 Title.Font = Enum.Font.SourceSansBold
 Title.TextSize = 18
 Title.Parent = TitleBar
+
 -- Close Button
 local CloseButton = Instance.new("TextButton")
 CloseButton.Position = UDim2.new(1, -30, 0, 0)
 CloseButton.Size = UDim2.new(0, 30, 0, 30)
 CloseButton.BackgroundColor3 = Color3.fromRGB(200, 0, 0)
+CloseButton.BackgroundTransparency = 0.2
 CloseButton.BorderSizePixel = 0
 CloseButton.Text = "X"
 CloseButton.TextColor3 = Color3.fromRGB(255, 255, 255)
 CloseButton.Font = Enum.Font.SourceSansBold
 CloseButton.TextSize = 18
 CloseButton.Parent = TitleBar
+
+-- Minimize Button (New)
+local MinimizeButton = Instance.new("TextButton")
+MinimizeButton.Position = UDim2.new(1, -60, 0, 0)
+MinimizeButton.Size = UDim2.new(0, 30, 0, 30)
+MinimizeButton.BackgroundColor3 = Color3.fromRGB(80, 80, 80)
+MinimizeButton.BackgroundTransparency = 0.2
+MinimizeButton.BorderSizePixel = 0
+MinimizeButton.Text = "_"
+MinimizeButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+MinimizeButton.Font = Enum.Font.SourceSansBold
+MinimizeButton.TextSize = 18
+MinimizeButton.Parent = TitleBar
+
+-- Restore Button (Minimized State, New)
+local RestoreButton = Instance.new("TextButton")
+RestoreButton.Size = UDim2.new(0, 150, 0, 30)
+RestoreButton.Position = UDim2.new(0, 10, 0, 10)
+RestoreButton.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
+RestoreButton.BackgroundTransparency = 0.2
+RestoreButton.BorderSizePixel = 1
+RestoreButton.BorderColor3 = Color3.fromRGB(255, 80, 80)
+RestoreButton.Text = "SIEXTHERxFLING"
+RestoreButton.TextColor3 = Color3.fromRGB(255, 80, 80)
+RestoreButton.Font = Enum.Font.SourceSansBold
+RestoreButton.TextSize = 16
+RestoreButton.Draggable = true
+RestoreButton.Active = true
+RestoreButton.Visible = false -- Initially hidden
+RestoreButton.Parent = ScreenGui
+
 -- Status Label
 local StatusLabel = Instance.new("TextLabel")
 StatusLabel.Position = UDim2.new(0, 10, 0, 40)
@@ -63,13 +93,16 @@ StatusLabel.Font = Enum.Font.SourceSans
 StatusLabel.TextSize = 16
 StatusLabel.TextXAlignment = Enum.TextXAlignment.Left
 StatusLabel.Parent = MainFrame
+
 -- Player Selection Frame
 local SelectionFrame = Instance.new("Frame")
 SelectionFrame.Position = UDim2.new(0, 10, 0, 70)
 SelectionFrame.Size = UDim2.new(1, -20, 0, 200)
 SelectionFrame.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+SelectionFrame.BackgroundTransparency = 0.4
 SelectionFrame.BorderSizePixel = 0
 SelectionFrame.Parent = MainFrame
+
 -- Player List ScrollFrame
 local PlayerScrollFrame = Instance.new("ScrollingFrame")
 PlayerScrollFrame.Position = UDim2.new(0, 5, 0, 5)
@@ -79,49 +112,58 @@ PlayerScrollFrame.BorderSizePixel = 0
 PlayerScrollFrame.ScrollBarThickness = 6
 PlayerScrollFrame.CanvasSize = UDim2.new(0, 0, 0, 0)
 PlayerScrollFrame.Parent = SelectionFrame
+
 -- Start Fling Button
 local StartButton = Instance.new("TextButton")
 StartButton.Position = UDim2.new(0, 10, 0, 280)
 StartButton.Size = UDim2.new(0.5, -15, 0, 40)
 StartButton.BackgroundColor3 = Color3.fromRGB(0, 180, 0)
+StartButton.BackgroundTransparency = 0.2
 StartButton.BorderSizePixel = 0
 StartButton.Text = "GAS SIEXTHER"
 StartButton.TextColor3 = Color3.fromRGB(255, 255, 255)
 StartButton.Font = Enum.Font.SourceSansBold
 StartButton.TextSize = 18
 StartButton.Parent = MainFrame
+
 -- Stop Fling Button
 local StopButton = Instance.new("TextButton")
 StopButton.Position = UDim2.new(0.5, 5, 0, 280)
 StopButton.Size = UDim2.new(0.5, -15, 0, 40)
 StopButton.BackgroundColor3 = Color3.fromRGB(180, 0, 0)
+StopButton.BackgroundTransparency = 0.2
 StopButton.BorderSizePixel = 0
 StopButton.Text = "BERHENTI"
 StopButton.TextColor3 = Color3.fromRGB(255, 255, 255)
 StopButton.Font = Enum.Font.SourceSansBold
 StopButton.TextSize = 18
 StopButton.Parent = MainFrame
+
 -- Select/Deselect Buttons
 local SelectAllButton = Instance.new("TextButton")
 SelectAllButton.Position = UDim2.new(0, 10, 0, 330)
 SelectAllButton.Size = UDim2.new(0.5, -15, 0, 30)
 SelectAllButton.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
+SelectAllButton.BackgroundTransparency = 0.2
 SelectAllButton.BorderSizePixel = 0
 SelectAllButton.Text = "PILIH SEMUA"
 SelectAllButton.TextColor3 = Color3.fromRGB(255, 255, 255)
 SelectAllButton.Font = Enum.Font.SourceSans
 SelectAllButton.TextSize = 14
 SelectAllButton.Parent = MainFrame
+
 local DeselectAllButton = Instance.new("TextButton")
 DeselectAllButton.Position = UDim2.new(0.5, 5, 0, 330)
 DeselectAllButton.Size = UDim2.new(0.5, -15, 0, 30)
 DeselectAllButton.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
+DeselectAllButton.BackgroundTransparency = 0.2
 DeselectAllButton.BorderSizePixel = 0
 DeselectAllButton.Text = "BATALKAN SEMUA"
 DeselectAllButton.TextColor3 = Color3.fromRGB(255, 255, 255)
 DeselectAllButton.Font = Enum.Font.SourceSans
 DeselectAllButton.TextSize = 14
 DeselectAllButton.Parent = MainFrame
+
 -- Variables
 local SelectedTargets = {}
 local PlayerCheckboxes = {}
@@ -129,6 +171,7 @@ local FlingActive = false
 local FlingConnection = nil
 getgenv().OldPos = nil
 getgenv().FPDH = workspace.FallenPartsDestroyHeight
+
 -- Function to update player list
 local function RefreshPlayerList()
     -- Clear existing player entries
@@ -150,6 +193,7 @@ local function RefreshPlayerList()
             PlayerEntry.Size = UDim2.new(1, -10, 0, 30)
             PlayerEntry.Position = UDim2.new(0, 5, 0, yPosition)
             PlayerEntry.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+            PlayerEntry.BackgroundTransparency = 0.5
             PlayerEntry.BorderSizePixel = 0
             PlayerEntry.Parent = PlayerScrollFrame
             
@@ -158,6 +202,7 @@ local function RefreshPlayerList()
             Checkbox.Size = UDim2.new(0, 24, 0, 24)
             Checkbox.Position = UDim2.new(0, 3, 0.5, -12)
             Checkbox.BackgroundColor3 = Color3.fromRGB(70, 70, 70)
+            Checkbox.BackgroundTransparency = 0.3
             Checkbox.BorderSizePixel = 0
             Checkbox.Text = ""
             Checkbox.Parent = PlayerEntry
@@ -219,6 +264,7 @@ local function RefreshPlayerList()
     -- Update scrollframe canvas size
     PlayerScrollFrame.CanvasSize = UDim2.new(0, 0, 0, yPosition + 5)
 end
+
 -- Count selected targets
 local function CountSelectedTargets()
     local count = 0
@@ -227,6 +273,7 @@ local function CountSelectedTargets()
     end
     return count
 end
+
 -- Update status display
 local function UpdateStatus()
     local count = CountSelectedTargets()
@@ -238,6 +285,7 @@ local function UpdateStatus()
         StatusLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
     end
 end
+
 -- Function to select/deselect all players
 local function ToggleAllPlayers(select)
     for _, player in ipairs(Players:GetPlayers()) do
@@ -257,6 +305,7 @@ local function ToggleAllPlayers(select)
     
     UpdateStatus()
 end
+
 -- Show notification
 local function Message(Title, Text, Time)
     game:GetService("StarterGui"):SetCore("SendNotification", {
@@ -265,7 +314,8 @@ local function Message(Title, Text, Time)
         Duration = Time or 5
     })
 end
--- The fling function from zqyDSUWX
+
+-- The fling function from zqyDSUWX (Unchanged)
 local function SkidFling(TargetPlayer)
     local Character = Player.Character
     local Humanoid = Character and Character:FindFirstChildOfClass("Humanoid")
@@ -404,6 +454,7 @@ local function SkidFling(TargetPlayer)
         return Message("TERJADI MASALAH", "KARAKTER KAMU BELUM SIAP", 2)
     end
 end
+
 -- Start flinging selected targets
 local function StartFling()
     if FlingActive then return end
@@ -458,6 +509,7 @@ local function StartFling()
         end
     end)
 end
+
 -- Stop flinging
 local function StopFling()
     if not FlingActive then return end
@@ -467,6 +519,7 @@ local function StopFling()
     UpdateStatus()
     Message("BERHENTI", "Fling telah dihentikan", 2)
 end
+
 -- Set up button connections
 StartButton.MouseButton1Click:Connect(StartFling)
 StopButton.MouseButton1Click:Connect(StopFling)
@@ -476,6 +529,18 @@ CloseButton.MouseButton1Click:Connect(function()
     StopFling()
     ScreenGui:Destroy()
 end)
+
+-- New connections for Minimize/Restore
+MinimizeButton.MouseButton1Click:Connect(function()
+    MainFrame.Visible = false
+    RestoreButton.Visible = true
+end)
+
+RestoreButton.MouseButton1Click:Connect(function()
+    RestoreButton.Visible = false
+    MainFrame.Visible = true
+end)
+
 -- Handle player joining/leaving
 Players.PlayerAdded:Connect(RefreshPlayerList)
 Players.PlayerRemoving:Connect(function(player)
@@ -485,9 +550,11 @@ Players.PlayerRemoving:Connect(function(player)
     RefreshPlayerList()
     UpdateStatus()
 end)
+
 -- Initialize
 RefreshPlayerList()
 UpdateStatus()
+
 -- Success message
 Message("HANN.SIEXTHER", "🔥 Siexther Fling Aktif🔥", 5)
 Message("@muhmdilhan_", "My Instagram", 3)
