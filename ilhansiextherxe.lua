@@ -1,6 +1,3 @@
--- Auto Walk Recorder & Player GUI by IlhanSiexther
--- Fixed version with Auto Play and proper JSON saving
-
 local HttpService = game:GetService("HttpService")
 local Players = game:GetService("Players")
 local RunService = game:GetService("RunService")
@@ -15,7 +12,7 @@ local rootPart = character:WaitForChild("HumanoidRootPart")
 -- Variables
 local isRecording = false
 local isPlaying = false
-local isAutoPlaying = false
+local isAutoRepeat = false
 local currentRecording = {}
 local recordings = {}
 local recordingName = ""
@@ -217,20 +214,20 @@ local stopCorner = Instance.new("UICorner")
 stopCorner.CornerRadius = UDim.new(0, 8)
 stopCorner.Parent = stopBtn
 
--- Auto Play Button (NEW)
-local autoPlayBtn = Instance.new("TextButton")
-autoPlayBtn.Size = UDim2.new(1, 0, 0, 35)
-autoPlayBtn.Position = UDim2.new(0, 0, 0, 138)
-autoPlayBtn.BackgroundColor3 = Color3.fromRGB(50, 100, 200)
-autoPlayBtn.Text = "🔄 AUTO PLAY SEMUA"
-autoPlayBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
-autoPlayBtn.TextSize = 14
-autoPlayBtn.Font = Enum.Font.GothamBold
-autoPlayBtn.Parent = contentFrame
+-- Auto Repeat Button (Centered, full width)
+local autoRepeatBtn = Instance.new("TextButton")
+autoRepeatBtn.Size = UDim2.new(1, 0, 0, 35)
+autoRepeatBtn.Position = UDim2.new(0, 0, 0, 138)
+autoRepeatBtn.BackgroundColor3 = Color3.fromRGB(150, 50, 200)
+autoRepeatBtn.Text = "🔁 AUTO PLAY"
+autoRepeatBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
+autoRepeatBtn.TextSize = 13
+autoRepeatBtn.Font = Enum.Font.GothamBold
+autoRepeatBtn.Parent = contentFrame
 
-local autoPlayCorner = Instance.new("UICorner")
-autoPlayCorner.CornerRadius = UDim.new(0, 8)
-autoPlayCorner.Parent = autoPlayBtn
+local autoRepeatCorner = Instance.new("UICorner")
+autoRepeatCorner.CornerRadius = UDim.new(0, 8)
+autoRepeatCorner.Parent = autoRepeatBtn
 
 -- Recordings List Label
 local listLabel = Instance.new("TextLabel")
@@ -405,10 +402,10 @@ local function stopRecording()
         updateStatus("Pemutaran dihentikan", Color3.fromRGB(255, 200, 50))
     end
     
-    if isAutoPlaying then
-        isAutoPlaying = false
-        autoPlayBtn.BackgroundColor3 = Color3.fromRGB(50, 100, 200)
-        autoPlayBtn.Text = "🔄 AUTO PLAY SEMUA"
+    if isAutoRepeat then
+        isAutoRepeat = false
+        autoRepeatBtn.BackgroundColor3 = Color3.fromRGB(150, 50, 200)
+        autoRepeatBtn.Text = "🔁 AUTO PLAY"
     end
 end
 
@@ -416,6 +413,17 @@ function playRecording(rec)
     if isRecording or isPlaying then return end
     
     isPlaying = true
+    
+    -- Update character references in case of respawn
+    character = player.Character
+    if not character then return end
+    humanoid = character:FindFirstChild("Humanoid")
+    rootPart = character:FindFirstChild("HumanoidRootPart")
+    if not humanoid or not rootPart then 
+        isPlaying = false
+        return 
+    end
+    
     updateStatus("Memulai pemutaran: " .. rec.name, Color3.fromRGB(100, 200, 255))
     
     -- Teleport ke posisi awal (deserialize)
@@ -426,11 +434,27 @@ function playRecording(rec)
     local playConnection
     
     playConnection = RunService.Heartbeat:Connect(function()
-        if not isPlaying or frameIndex > #rec.frames then
+        -- Update character references during playback
+        character = player.Character
+        if not character then 
             playConnection:Disconnect()
             isPlaying = false
-            humanoid:MoveTo(rootPart.Position)
-            updateStatus("Pemutaran selesai", Color3.fromRGB(100, 255, 100))
+            return
+        end
+        humanoid = character:FindFirstChild("Humanoid")
+        rootPart = character:FindFirstChild("HumanoidRootPart")
+        
+        if not isPlaying or frameIndex > #rec.frames or not humanoid or not rootPart then
+            playConnection:Disconnect()
+            isPlaying = false
+            if humanoid and rootPart then
+                humanoid:MoveTo(rootPart.Position)
+            end
+            
+            -- Don't show "Pemutaran selesai" if auto repeat is active
+            if not isAutoRepeat then
+                updateStatus("Pemutaran selesai", Color3.fromRGB(100, 255, 100))
+            end
             return
         end
         
@@ -459,8 +483,8 @@ function playRecording(rec)
     end)
 end
 
--- NEW: Auto Play All Recordings Function
-local function autoPlayAllRecordings()
+-- Auto Repeat Function (Infinite Loop - Doesn't stop on respawn)
+local function autoRepeatRecordings()
     if isRecording or isPlaying or #recordings == 0 then 
         if #recordings == 0 then
             updateStatus("Tidak ada rekaman", Color3.fromRGB(255, 200, 50))
@@ -468,33 +492,51 @@ local function autoPlayAllRecordings()
         return 
     end
     
-    isAutoPlaying = true
-    autoPlayBtn.BackgroundColor3 = Color3.fromRGB(150, 50, 50)
-    autoPlayBtn.Text = "⏹ STOP AUTO PLAY"
+    isAutoRepeat = true
+    autoRepeatBtn.BackgroundColor3 = Color3.fromRGB(200, 50, 50)
+    autoRepeatBtn.Text = "⏹ STOP REPEAT"
     
     spawn(function()
-        for i, rec in ipairs(recordings) do
-            if not isAutoPlaying then break end
+        local loopCount = 0
+        
+        -- Infinite loop until manually stopped
+        while isAutoRepeat do
+            loopCount = loopCount + 1
             
-            updateStatus("Auto Play: " .. rec.name .. " (" .. i .. "/" .. #recordings .. ")", Color3.fromRGB(100, 200, 255))
-            
-            -- Play recording
-            playRecording(rec)
-            
-            -- Wait until playback finishes
-            while isPlaying do
-                wait(0.1)
+            for i, rec in ipairs(recordings) do
+                if not isAutoRepeat then break end
+                
+                -- Wait for character if respawned
+                if not player.Character or not player.Character:FindFirstChild("HumanoidRootPart") then
+                    updateStatus("Loop " .. loopCount .. ": Menunggu respawn...", Color3.fromRGB(255, 200, 100))
+                    repeat wait(0.5) until player.Character and player.Character:FindFirstChild("HumanoidRootPart")
+                    wait(1) -- Extra wait after respawn
+                end
+                
+                if not isAutoRepeat then break end
+                
+                updateStatus("Loop " .. loopCount .. ": " .. rec.name .. " (" .. i .. "/" .. #recordings .. ")", Color3.fromRGB(200, 100, 255))
+                
+                -- Play recording
+                playRecording(rec)
+                
+                -- Wait until playback finishes
+                while isPlaying do
+                    wait(0.1)
+                end
+                
+                -- Check again if auto repeat is still active
+                if not isAutoRepeat then break end
+                
+                -- Wait 1 second before next recording
+                wait(1)
             end
             
-            -- Wait 1 second before next recording
-            wait(1)
-        end
-        
-        if isAutoPlaying then
-            isAutoPlaying = false
-            autoPlayBtn.BackgroundColor3 = Color3.fromRGB(50, 100, 200)
-            autoPlayBtn.Text = "🔄 AUTO PLAY SEMUA"
-            updateStatus("Auto Play selesai", Color3.fromRGB(100, 255, 100))
+            -- Check if auto repeat is still active before continuing loop
+            if not isAutoRepeat then break end
+            
+            -- Short pause before repeating entire sequence (2 seconds)
+            wait(2)
         end
     end)
 end
@@ -510,12 +552,16 @@ stopBtn.MouseButton1Click:Connect(function()
     stopRecording()
 end)
 
--- NEW: Auto Play Button Event
-autoPlayBtn.MouseButton1Click:Connect(function()
-    if isAutoPlaying then
-        stopRecording()
+-- Auto Repeat Button Event
+autoRepeatBtn.MouseButton1Click:Connect(function()
+    if isAutoRepeat then
+        isAutoRepeat = false
+        isPlaying = false
+        autoRepeatBtn.BackgroundColor3 = Color3.fromRGB(150, 50, 200)
+        autoRepeatBtn.Text = "🔁 AUTO PLAY"
+        updateStatus("Auto Play dihentikan", Color3.fromRGB(255, 200, 50))
     else
-        autoPlayAllRecordings()
+        autoRepeatRecordings()
     end
 end)
 
@@ -577,12 +623,23 @@ minimizeBtn.MouseButton1Click:Connect(function()
     end
 end)
 
--- Character respawn handling
+-- Character respawn handling - UPDATE CHARACTER REFERENCES BUT DON'T STOP AUTO REPEAT
 player.CharacterAdded:Connect(function(char)
     character = char
     humanoid = char:WaitForChild("Humanoid")
     rootPart = char:WaitForChild("HumanoidRootPart")
-    stopRecording()
+    
+    -- Only stop recording if active, but DON'T stop auto repeat
+    if isRecording then
+        isRecording = false
+        recordBtn.BackgroundColor3 = Color3.fromRGB(200, 50, 50)
+        updateStatus("Rekaman dihentikan (Respawn)", Color3.fromRGB(255, 200, 50))
+    end
+    
+    -- Auto repeat will automatically continue after respawn
+    if isAutoRepeat then
+        updateStatus("Auto Play: Menunggu respawn selesai...", Color3.fromRGB(200, 100, 255))
+    end
 end)
 
 -- Initialize
