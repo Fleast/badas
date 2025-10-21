@@ -43,8 +43,8 @@ local currentSound = nil
 local isPlaying = false
 local isPaused = false
 local isShuffleMode = false
-local playedSongs = {} -- Track lagu yang sudah diputar
-local shufflePlaylist = {} -- Playlist shuffle yang sudah diacak
+local playedSongs = {}
+local shufflePlaylist = {}
 
 -- Helper functions
 local function corner(parent, r)
@@ -98,35 +98,31 @@ local function loadMusicList()
     end
 end
 
--- Create shuffle playlist (acak semua lagu sekali tanpa repeat)
+-- Create shuffle playlist
 local function createShufflePlaylist()
     shufflePlaylist = {}
     local tempList = {}
     
-    -- Copy semua index lagu
     for i = 1, #musicList do
         table.insert(tempList, i)
     end
     
-    -- Acak menggunakan Fisher-Yates shuffle
     for i = #tempList, 2, -1 do
         local j = math.random(1, i)
         tempList[i], tempList[j] = tempList[j], tempList[i]
     end
     
     shufflePlaylist = tempList
-    playedSongs = {} -- Reset played songs
+    playedSongs = {}
 end
 
 -- Get next index with improved shuffle
 local function getNextIndex()
     if isShuffleMode then
-        -- Jika playlist shuffle kosong atau semua lagu sudah diputar, buat playlist baru
         if #playedSongs >= #musicList then
             createShufflePlaylist()
         end
         
-        -- Cari lagu yang belum diputar dari shuffle playlist
         for _, idx in ipairs(shufflePlaylist) do
             local alreadyPlayed = false
             for _, played in ipairs(playedSongs) do
@@ -141,11 +137,9 @@ local function getNextIndex()
             end
         end
         
-        -- Fallback: buat playlist baru jika tidak ada yang ditemukan
         createShufflePlaylist()
         return shufflePlaylist[1]
     else
-        -- Mode normal: next song
         return currentIndex >= #musicList and 1 or currentIndex + 1
     end
 end
@@ -446,7 +440,7 @@ local function formatTime(seconds)
     return string.format("%d:%02d", mins, secs)
 end
 
--- Play music function with improved shuffle tracking
+-- Play music function dengan audio realistis (Reverb, EQ, Compressor)
 local function playMusic(index)
     if currentSound then
         currentSound:Stop()
@@ -484,8 +478,39 @@ local function playMusic(index)
     
     songTitle.Text = music.name
     
+    -- Create sound group untuk efek audio
+    local soundGroup = Instance.new("SoundGroup")
+    soundGroup.Name = "MusicSoundGroup"
+    soundGroup.Parent = Services.SoundService
+    
+    -- Reverb effect untuk suara bergema alami
+    local reverb = Instance.new("ReverbSoundEffect")
+    reverb.DryLevel = -6  -- Suara asli
+    reverb.WetLevel = -3  -- Suara reverb (bergema)
+    reverb.DecayTime = 2.5  -- Durasi gema
+    reverb.Density = 0.8  -- Kepadatan gema
+    reverb.Diffusion = 0.7  -- Penyebaran gema
+    reverb.Parent = soundGroup
+    
+    -- Equalizer untuk kualitas audio lebih baik
+    local eq = Instance.new("EqualizerSoundEffect")
+    eq.HighGain = 2  -- Boost high frequencies
+    eq.MidGain = 0   -- Keep mid balanced
+    eq.LowGain = 4   -- Boost bass
+    eq.Parent = soundGroup
+    
+    -- Compressor untuk volume stabil
+    local compressor = Instance.new("CompressorSoundEffect")
+    compressor.Threshold = -20  -- Level kompresi
+    compressor.Ratio = 8        -- Rasio kompresi
+    compressor.Attack = 0.01    -- Response time
+    compressor.Release = 0.1    -- Recovery time
+    compressor.GainMakeup = 6   -- Boost volume setelah kompresi
+    compressor.Parent = soundGroup
+    
     local sound = Instance.new("Sound")
     sound.Parent = workspace
+    sound.SoundGroup = soundGroup
     
     local success = pcall(function()
         if getcustomasset then
@@ -497,17 +522,22 @@ local function playMusic(index)
     
     if not success then
         songTitle.Text = "Failed to load: " .. music.name
+        soundGroup:Destroy()
         return
     end
     
     currentSound = sound
-    sound.Volume = 0.5
+    sound.Volume = 0.6  -- Sedikit dinaikkan karena compressor
+    sound.RollOffMode = Enum.RollOffMode.Linear
+    sound.RollOffMinDistance = 50
+    sound.RollOffMaxDistance = 500
     sound:Play()
     isPlaying = true
     isPaused = false
     playPauseBtn.Text = "⏸"
     
     sound.Ended:Connect(function()
+        soundGroup:Destroy()
         playMusic(getNextIndex())
     end)
 end
@@ -537,7 +567,6 @@ end)
 
 prevBtn.MouseButton1Click:Connect(function()
     if isShuffleMode then
-        -- Previous pada shuffle mode: mainkan lagu random yang belum diputar
         local unplayedSongs = {}
         for i = 1, #musicList do
             local isPlayed = false
@@ -555,7 +584,6 @@ prevBtn.MouseButton1Click:Connect(function()
         if #unplayedSongs > 0 then
             playMusic(unplayedSongs[math.random(1, #unplayedSongs)])
         else
-            -- Semua lagu sudah diputar, reset dan acak ulang
             createShufflePlaylist()
             playMusic(shufflePlaylist[1])
         end
@@ -570,14 +598,13 @@ shuffleBtn.MouseButton1Click:Connect(function()
     
     if isShuffleMode then
         shuffleBtn.BackgroundColor3 = BUTTON_COLOR_ACTIVE
-        createShufflePlaylist() -- Buat playlist shuffle baru
+        createShufflePlaylist()
     else
         shuffleBtn.BackgroundColor3 = BUTTON_COLOR_NORMAL
-        playedSongs = {} -- Reset played songs
+        playedSongs = {}
         shufflePlaylist = {}
     end
     
-    -- Update gradient
     for _, obj in ipairs(shuffleBtn:GetChildren()) do
         if obj:IsA("UIGradient") then
             obj:Destroy()
@@ -597,7 +624,6 @@ RunService.RenderStepped:Connect(function(dt)
     hueOffset = (hueOffset + dt * 0.5) % 1
     
     if isPlaying and not isPaused then
-        -- Update progress bar
         if currentSound and currentSound.TimeLength > 0 then
             local progress = currentSound.TimePosition / currentSound.TimeLength
             progressBar.Size = UDim2.new(progress, 0, 1, 0)
@@ -605,7 +631,6 @@ RunService.RenderStepped:Connect(function(dt)
             durationLabel.Text = formatTime(currentSound.TimeLength)
         end
         
-        -- Animate visualizer bars
         for i, bar in ipairs(bars) do
             local height = math.random(20, 100)
             local targetSize = UDim2.new(1 / barCount, -scale("X", 2), 0, scale("Y", height))
@@ -616,18 +641,15 @@ RunService.RenderStepped:Connect(function(dt)
             bar.BackgroundColor3 = Color3.fromHSV(hue, 1, 1)
         end
         
-        -- Rotate album art
         albumArt.Rotation = albumArt.Rotation + 30 * dt
         
-        -- Pulse mini button glow
         if miniBtn.Visible then
-            local scale = 1 + math.sin(tick() * 3) * 0.05
-            miniGlow.Size = UDim2.new(1.4 * scale, 0, 1.4 * scale, 0)
-            miniGlow.Position = UDim2.new(-0.2 * scale, 0, -0.2 * scale, 0)
+            local sc = 1 + math.sin(tick() * 3) * 0.05
+            miniGlow.Size = UDim2.new(1.4 * sc, 0, 1.4 * sc, 0)
+            miniGlow.Position = UDim2.new(-0.2 * sc, 0, -0.2 * sc, 0)
             miniGlow.BackgroundTransparency = 0.6 + math.sin(tick() * 2) * 0.1
         end
     else
-        -- Reset bars when not playing
         for i, bar in ipairs(bars) do
             TweenService:Create(bar, TweenInfo.new(0.3), {
                 Size = UDim2.new(1 / barCount, -scale("X", 2), 0, scale("Y", 10))
@@ -636,7 +658,7 @@ RunService.RenderStepped:Connect(function(dt)
     end
 end)
 
--- Playlist scroll (will appear as overlay)
+-- Playlist overlay
 local playlistOverlay = Instance.new("Frame")
 playlistOverlay.Size = UDim2.new(1, 0, 1, 0)
 playlistOverlay.Position = UDim2.new(0, 0, 0, 0)
@@ -658,12 +680,11 @@ playlistFrame.Parent = playlistOverlay
 playlistFrame.ZIndex = 101
 corner(playlistFrame, 12)
 
--- Playlist title
 local playlistTitle = Instance.new("TextLabel")
 playlistTitle.Size = UDim2.new(1, -scale("X", 20), 0, scale("Y", 40))
 playlistTitle.Position = UDim2.new(0, scale("X", 10), 0, scale("Y", 10))
 playlistTitle.BackgroundTransparency = 1
-playlistTitle.Text = "📋 Playlist"
+playlistTitle.Text = "SIEXTHER - PLAYLIST"
 playlistTitle.TextColor3 = Color3.new(1, 1, 1)
 playlistTitle.Font = Enum.Font.GothamBold
 playlistTitle.TextSize = scale("Y", 16)
@@ -671,7 +692,6 @@ playlistTitle.TextXAlignment = Enum.TextXAlignment.Left
 playlistTitle.Parent = playlistFrame
 playlistTitle.ZIndex = 102
 
--- Close playlist button
 local closePlaylistBtn = Instance.new("TextButton")
 closePlaylistBtn.Size = UDim2.new(0, scale("X", 30), 0, scale("Y", 30))
 closePlaylistBtn.Position = UDim2.new(1, -scale("X", 40), 0, scale("Y", 15))
@@ -746,3 +766,4 @@ end)
 playlistFrame.MouseButton1Click:Connect(function()
     -- Do nothing, just prevent event propagation
 end)
+
