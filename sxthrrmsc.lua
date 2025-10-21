@@ -43,6 +43,8 @@ local currentSound = nil
 local isPlaying = false
 local isPaused = false
 local isShuffleMode = false
+local playedSongs = {} -- Track lagu yang sudah diputar
+local shufflePlaylist = {} -- Playlist shuffle yang sudah diacak
 
 -- Helper functions
 local function corner(parent, r)
@@ -96,16 +98,55 @@ local function loadMusicList()
     end
 end
 
--- Shuffle function
+-- Create shuffle playlist (acak semua lagu sekali tanpa repeat)
+local function createShufflePlaylist()
+    shufflePlaylist = {}
+    local tempList = {}
+    
+    -- Copy semua index lagu
+    for i = 1, #musicList do
+        table.insert(tempList, i)
+    end
+    
+    -- Acak menggunakan Fisher-Yates shuffle
+    for i = #tempList, 2, -1 do
+        local j = math.random(1, i)
+        tempList[i], tempList[j] = tempList[j], tempList[i]
+    end
+    
+    shufflePlaylist = tempList
+    playedSongs = {} -- Reset played songs
+end
+
+-- Get next index with improved shuffle
 local function getNextIndex()
-    if isShuffleMode and #musicList > 1 then
-        local nextIndex
-        repeat
-            nextIndex = math.random(1, #musicList)
-        until nextIndex ~= currentIndex
-        return nextIndex
+    if isShuffleMode then
+        -- Jika playlist shuffle kosong atau semua lagu sudah diputar, buat playlist baru
+        if #playedSongs >= #musicList then
+            createShufflePlaylist()
+        end
+        
+        -- Cari lagu yang belum diputar dari shuffle playlist
+        for _, idx in ipairs(shufflePlaylist) do
+            local alreadyPlayed = false
+            for _, played in ipairs(playedSongs) do
+                if played == idx then
+                    alreadyPlayed = true
+                    break
+                end
+            end
+            
+            if not alreadyPlayed then
+                return idx
+            end
+        end
+        
+        -- Fallback: buat playlist baru jika tidak ada yang ditemukan
+        createShufflePlaylist()
+        return shufflePlaylist[1]
     else
-        return currentIndex + 1
+        -- Mode normal: next song
+        return currentIndex >= #musicList and 1 or currentIndex + 1
     end
 end
 
@@ -122,7 +163,7 @@ local miniBtn = Instance.new("TextButton")
 miniBtn.Name = "MiniBtn"
 miniBtn.Size = UDim2.new(0, scale("X", 60), 0, scale("Y", 60))
 miniBtn.Position = UDim2.new(0.95, -scale("X", 60), 0.05, 0)
-miniBtn.BackgroundColor3 = Color3.fromRGB(100, 80, 200)
+miniBtn.BackgroundColor3 = Color3.fromRGB(70, 70, 90)
 miniBtn.Text = "🎵"
 miniBtn.TextScaled = true
 miniBtn.Font = Enum.Font.GothamBold
@@ -139,7 +180,7 @@ corner(miniBtn, 30)
 local miniGlow = Instance.new("Frame")
 miniGlow.Size = UDim2.new(1.4, 0, 1.4, 0)
 miniGlow.Position = UDim2.new(-0.2, 0, -0.2, 0)
-miniGlow.BackgroundColor3 = Color3.fromRGB(120, 100, 220)
+miniGlow.BackgroundColor3 = Color3.fromRGB(90, 90, 110)
 miniGlow.BackgroundTransparency = 0.7
 miniGlow.ZIndex = 998
 miniGlow.BorderSizePixel = 0
@@ -358,7 +399,11 @@ durationLabel.TextSize = scale("Y", 11)
 durationLabel.TextXAlignment = Enum.TextXAlignment.Right
 durationLabel.Parent = main
 
--- PERFECT CONTROL BUTTONS LAYOUT (Shuffle, Prev, Play, Next, Playlist)
+-- UNIFIED COLOR SCHEME FOR ALL BUTTONS
+local BUTTON_COLOR_NORMAL = Color3.fromRGB(70, 70, 90)
+local BUTTON_COLOR_ACTIVE = Color3.fromRGB(90, 90, 120)
+local BUTTON_COLOR_PLAY = Color3.fromRGB(80, 100, 200)
+
 local controlsFrame = Instance.new("Frame")
 controlsFrame.Size = UDim2.new(1, -scale("X", 40), 0, scale("Y", 70))
 controlsFrame.Position = UDim2.new(0, scale("X", 20), 0, scale("Y", 475))
@@ -387,12 +432,12 @@ local function createControlButton(text, position, color, size)
     return btn
 end
 
--- Main playback controls - CLEAN 5 BUTTON LAYOUT
-local shuffleBtn = createControlButton("🔀", UDim2.new(0.1, 0, 0.5, 0), Color3.fromRGB(80, 80, 120), UDim2.new(0, scale("X", 40), 0, scale("Y", 40)))
-local prevBtn = createControlButton("⏮", UDim2.new(0.3, 0, 0.5, 0), Color3.fromRGB(80, 80, 120))
-local playPauseBtn = createControlButton("▶", UDim2.new(0.5, 0, 0.5, 0), Color3.fromRGB(100, 200, 100), UDim2.new(0, scale("X", 60), 0, scale("Y", 60)))
-local nextBtn = createControlButton("⏭", UDim2.new(0.7, 0, 0.5, 0), Color3.fromRGB(80, 80, 120))
-local showPlaylistBtn = createControlButton("📋", UDim2.new(0.9, 0, 0.5, 0), Color3.fromRGB(100, 80, 200), UDim2.new(0, scale("X", 40), 0, scale("Y", 40)))
+-- All buttons now use unified color scheme
+local shuffleBtn = createControlButton("🔀", UDim2.new(0.1, 0, 0.5, 0), BUTTON_COLOR_NORMAL, UDim2.new(0, scale("X", 40), 0, scale("Y", 40)))
+local prevBtn = createControlButton("⏮", UDim2.new(0.3, 0, 0.5, 0), BUTTON_COLOR_NORMAL)
+local playPauseBtn = createControlButton("▶", UDim2.new(0.5, 0, 0.5, 0), BUTTON_COLOR_PLAY, UDim2.new(0, scale("X", 60), 0, scale("Y", 60)))
+local nextBtn = createControlButton("⏭", UDim2.new(0.7, 0, 0.5, 0), BUTTON_COLOR_NORMAL)
+local showPlaylistBtn = createControlButton("📋", UDim2.new(0.9, 0, 0.5, 0), BUTTON_COLOR_NORMAL, UDim2.new(0, scale("X", 40), 0, scale("Y", 40)))
 
 -- Format time function
 local function formatTime(seconds)
@@ -401,7 +446,7 @@ local function formatTime(seconds)
     return string.format("%d:%02d", mins, secs)
 end
 
--- Play music function
+-- Play music function with improved shuffle tracking
 local function playMusic(index)
     if currentSound then
         currentSound:Stop()
@@ -414,6 +459,20 @@ local function playMusic(index)
         currentIndex = #musicList
     elseif currentIndex > #musicList then
         currentIndex = 1
+    end
+    
+    -- Track lagu yang sudah diputar
+    if isShuffleMode then
+        local alreadyInList = false
+        for _, played in ipairs(playedSongs) do
+            if played == currentIndex then
+                alreadyInList = true
+                break
+            end
+        end
+        if not alreadyInList then
+            table.insert(playedSongs, currentIndex)
+        end
     end
     
     local music = musicList[currentIndex]
@@ -478,20 +537,58 @@ end)
 
 prevBtn.MouseButton1Click:Connect(function()
     if isShuffleMode then
-        playMusic(math.random(1, #musicList))
+        -- Previous pada shuffle mode: mainkan lagu random yang belum diputar
+        local unplayedSongs = {}
+        for i = 1, #musicList do
+            local isPlayed = false
+            for _, played in ipairs(playedSongs) do
+                if played == i then
+                    isPlayed = true
+                    break
+                end
+            end
+            if not isPlayed then
+                table.insert(unplayedSongs, i)
+            end
+        end
+        
+        if #unplayedSongs > 0 then
+            playMusic(unplayedSongs[math.random(1, #unplayedSongs)])
+        else
+            -- Semua lagu sudah diputar, reset dan acak ulang
+            createShufflePlaylist()
+            playMusic(shufflePlaylist[1])
+        end
     else
         playMusic(currentIndex - 1)
     end
 end)
 
--- Shuffle button functionality
+-- Shuffle button with visual feedback
 shuffleBtn.MouseButton1Click:Connect(function()
     isShuffleMode = not isShuffleMode
+    
     if isShuffleMode then
-        shuffleBtn.BackgroundColor3 = Color3.fromRGB(100, 200, 100)
+        shuffleBtn.BackgroundColor3 = BUTTON_COLOR_ACTIVE
+        createShufflePlaylist() -- Buat playlist shuffle baru
     else
-        shuffleBtn.BackgroundColor3 = Color3.fromRGB(80, 80, 120)
+        shuffleBtn.BackgroundColor3 = BUTTON_COLOR_NORMAL
+        playedSongs = {} -- Reset played songs
+        shufflePlaylist = {}
     end
+    
+    -- Update gradient
+    for _, obj in ipairs(shuffleBtn:GetChildren()) do
+        if obj:IsA("UIGradient") then
+            obj:Destroy()
+        end
+    end
+    createGradient(shuffleBtn, ColorSequence.new{
+        ColorSequenceKeypoint.new(0, Color3.new(shuffleBtn.BackgroundColor3.R * 1.2, 
+                                                shuffleBtn.BackgroundColor3.G * 1.2, 
+                                                shuffleBtn.BackgroundColor3.B * 1.2)),
+        ColorSequenceKeypoint.new(1, shuffleBtn.BackgroundColor3)
+    })
 end)
 
 -- Visualizer animation
@@ -566,7 +663,7 @@ local playlistTitle = Instance.new("TextLabel")
 playlistTitle.Size = UDim2.new(1, -scale("X", 20), 0, scale("Y", 40))
 playlistTitle.Position = UDim2.new(0, scale("X", 10), 0, scale("Y", 10))
 playlistTitle.BackgroundTransparency = 1
-playlistTitle.Text = "📋 Playlist"
+playlistTitle.Text = "SIEXTHER — PLAYLIST
 playlistTitle.TextColor3 = Color3.new(1, 1, 1)
 playlistTitle.Font = Enum.Font.GothamBold
 playlistTitle.TextSize = scale("Y", 16)
