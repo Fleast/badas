@@ -40,11 +40,13 @@ local MUSIC_FOLDER = "./IlhanSiexther"
 local musicList = {}
 local currentIndex = 1
 local currentSound = nil
+local currentSoundGroup = nil
 local isPlaying = false
 local isPaused = false
 local isShuffleMode = false
-local playedSongs = {}
-local shufflePlaylist = {}
+local isAudioFXEnabled = true
+local shuffleQueue = {}
+local shuffleIndex = 1
 
 -- Helper functions
 local function corner(parent, r)
@@ -98,49 +100,58 @@ local function loadMusicList()
     end
 end
 
--- Create shuffle playlist
-local function createShufflePlaylist()
-    shufflePlaylist = {}
-    local tempList = {}
+-- Create NEW shuffle queue - ambil semua lagu dan acak
+local function createNewShuffleQueue()
+    shuffleQueue = {}
     
+    -- Buat array dengan semua index lagu
     for i = 1, #musicList do
-        table.insert(tempList, i)
+        table.insert(shuffleQueue, i)
     end
     
-    for i = #tempList, 2, -1 do
+    -- Fisher-Yates shuffle algorithm untuk mengacak
+    for i = #shuffleQueue, 2, -1 do
         local j = math.random(1, i)
-        tempList[i], tempList[j] = tempList[j], tempList[i]
+        shuffleQueue[i], shuffleQueue[j] = shuffleQueue[j], shuffleQueue[i]
     end
     
-    shufflePlaylist = tempList
-    playedSongs = {}
+    -- Reset shuffle index ke awal
+    shuffleIndex = 1
 end
 
--- Get next index with improved shuffle
+-- Get next song index
 local function getNextIndex()
     if isShuffleMode then
-        if #playedSongs >= #musicList then
-            createShufflePlaylist()
+        -- Jika shuffle queue kosong atau sudah habis, buat queue baru
+        if #shuffleQueue == 0 or shuffleIndex > #shuffleQueue then
+            createNewShuffleQueue()
         end
         
-        for _, idx in ipairs(shufflePlaylist) do
-            local alreadyPlayed = false
-            for _, played in ipairs(playedSongs) do
-                if played == idx then
-                    alreadyPlayed = true
-                    break
-                end
-            end
-            
-            if not alreadyPlayed then
-                return idx
-            end
-        end
-        
-        createShufflePlaylist()
-        return shufflePlaylist[1]
+        local nextIdx = shuffleQueue[shuffleIndex]
+        shuffleIndex = shuffleIndex + 1
+        return nextIdx
     else
+        -- Mode normal: next song
         return currentIndex >= #musicList and 1 or currentIndex + 1
+    end
+end
+
+-- Get previous song index
+local function getPreviousIndex()
+    if isShuffleMode then
+        -- Mundur di shuffle queue
+        if shuffleIndex > 2 then
+            shuffleIndex = shuffleIndex - 2  -- -2 karena akan di +1 lagi di getNextIndex
+            return shuffleQueue[shuffleIndex]
+        else
+            -- Jika di awal, buat queue baru dan ambil yang terakhir
+            createNewShuffleQueue()
+            shuffleIndex = #shuffleQueue
+            return shuffleQueue[shuffleIndex]
+        end
+    else
+        -- Mode normal: previous song
+        return currentIndex <= 1 and #musicList or currentIndex - 1
     end
 end
 
@@ -222,6 +233,19 @@ title.TextSize = scale("Y", 14)
 title.TextXAlignment = Enum.TextXAlignment.Left
 title.Parent = titleBar
 
+-- Audio FX Toggle button (★)
+local audioFXBtn = Instance.new("TextButton")
+audioFXBtn.Size = UDim2.new(0, scale("X", 28), 0, scale("Y", 28))
+audioFXBtn.Position = UDim2.new(1, -scale("X", 102), 0.5, -scale("Y", 14))
+audioFXBtn.BackgroundColor3 = Color3.fromRGB(255, 200, 50)
+audioFXBtn.Text = "★"
+audioFXBtn.Font = Enum.Font.GothamBold
+audioFXBtn.TextSize = scale("Y", 18)
+audioFXBtn.TextColor3 = Color3.new(1, 1, 1)
+audioFXBtn.BorderSizePixel = 0
+audioFXBtn.Parent = titleBar
+corner(audioFXBtn, 6)
+
 -- Minimize button
 local minBtn = Instance.new("TextButton")
 minBtn.Size = UDim2.new(0, scale("X", 28), 0, scale("Y", 28))
@@ -253,7 +277,33 @@ closeBtn.MouseButton1Click:Connect(function()
         currentSound:Stop()
         currentSound:Destroy()
     end
+    if currentSoundGroup then
+        currentSoundGroup:Destroy()
+    end
     gui:Destroy()
+end)
+
+-- Audio FX Toggle functionality
+audioFXBtn.MouseButton1Click:Connect(function()
+    isAudioFXEnabled = not isAudioFXEnabled
+    
+    if isAudioFXEnabled then
+        audioFXBtn.BackgroundColor3 = Color3.fromRGB(255, 200, 50)
+        audioFXBtn.Text = "★"
+    else
+        audioFXBtn.BackgroundColor3 = Color3.fromRGB(100, 100, 100)
+        audioFXBtn.Text = "☆"
+    end
+    
+    -- Jika sedang ada lagu yang diputar, restart dengan/tanpa efek
+    if currentSound and isPlaying then
+        local currentTime = currentSound.TimePosition
+        local tempIndex = currentIndex
+        playMusic(tempIndex)
+        if currentSound then
+            currentSound.TimePosition = currentTime
+        end
+    end
 end)
 
 -- Minimize functionality
@@ -440,11 +490,16 @@ local function formatTime(seconds)
     return string.format("%d:%02d", mins, secs)
 end
 
--- Play music function dengan audio realistis (Reverb, EQ, Compressor)
+-- Play music function with audio effects toggle
 local function playMusic(index)
     if currentSound then
         currentSound:Stop()
         currentSound:Destroy()
+    end
+    
+    if currentSoundGroup then
+        currentSoundGroup:Destroy()
+        currentSoundGroup = nil
     end
     
     currentIndex = index or currentIndex
@@ -453,20 +508,6 @@ local function playMusic(index)
         currentIndex = #musicList
     elseif currentIndex > #musicList then
         currentIndex = 1
-    end
-    
-    -- Track lagu yang sudah diputar
-    if isShuffleMode then
-        local alreadyInList = false
-        for _, played in ipairs(playedSongs) do
-            if played == currentIndex then
-                alreadyInList = true
-                break
-            end
-        end
-        if not alreadyInList then
-            table.insert(playedSongs, currentIndex)
-        end
     end
     
     local music = musicList[currentIndex]
@@ -478,39 +519,43 @@ local function playMusic(index)
     
     songTitle.Text = music.name
     
-    -- Create sound group untuk efek audio
-    local soundGroup = Instance.new("SoundGroup")
-    soundGroup.Name = "MusicSoundGroup"
-    soundGroup.Parent = Services.SoundService
-    
-    -- Reverb effect untuk suara bergema alami
-    local reverb = Instance.new("ReverbSoundEffect")
-    reverb.DryLevel = -6  -- Suara asli
-    reverb.WetLevel = -3  -- Suara reverb (bergema)
-    reverb.DecayTime = 2.5  -- Durasi gema
-    reverb.Density = 0.8  -- Kepadatan gema
-    reverb.Diffusion = 0.7  -- Penyebaran gema
-    reverb.Parent = soundGroup
-    
-    -- Equalizer untuk kualitas audio lebih baik
-    local eq = Instance.new("EqualizerSoundEffect")
-    eq.HighGain = 2  -- Boost high frequencies
-    eq.MidGain = 0   -- Keep mid balanced
-    eq.LowGain = 4   -- Boost bass
-    eq.Parent = soundGroup
-    
-    -- Compressor untuk volume stabil
-    local compressor = Instance.new("CompressorSoundEffect")
-    compressor.Threshold = -20  -- Level kompresi
-    compressor.Ratio = 8        -- Rasio kompresi
-    compressor.Attack = 0.01    -- Response time
-    compressor.Release = 0.1    -- Recovery time
-    compressor.GainMakeup = 6   -- Boost volume setelah kompresi
-    compressor.Parent = soundGroup
-    
     local sound = Instance.new("Sound")
     sound.Parent = workspace
-    sound.SoundGroup = soundGroup
+    
+    -- Tambahkan audio effects HANYA jika isAudioFXEnabled = true
+    if isAudioFXEnabled then
+        local soundGroup = Instance.new("SoundGroup")
+        soundGroup.Name = "MusicSoundGroup"
+        soundGroup.Parent = Services.SoundService
+        currentSoundGroup = soundGroup
+        
+        -- Reverb effect
+        local reverb = Instance.new("ReverbSoundEffect")
+        reverb.DryLevel = -6
+        reverb.WetLevel = -3
+        reverb.DecayTime = 2.5
+        reverb.Density = 0.8
+        reverb.Diffusion = 0.7
+        reverb.Parent = soundGroup
+        
+        -- Equalizer
+        local eq = Instance.new("EqualizerSoundEffect")
+        eq.HighGain = 2
+        eq.MidGain = 0
+        eq.LowGain = 4
+        eq.Parent = soundGroup
+        
+        -- Compressor
+        local compressor = Instance.new("CompressorSoundEffect")
+        compressor.Threshold = -20
+        compressor.Ratio = 8
+        compressor.Attack = 0.01
+        compressor.Release = 0.1
+        compressor.GainMakeup = 6
+        compressor.Parent = soundGroup
+        
+        sound.SoundGroup = soundGroup
+    end
     
     local success = pcall(function()
         if getcustomasset then
@@ -522,12 +567,15 @@ local function playMusic(index)
     
     if not success then
         songTitle.Text = "Failed to load: " .. music.name
-        soundGroup:Destroy()
+        if currentSoundGroup then
+            currentSoundGroup:Destroy()
+            currentSoundGroup = nil
+        end
         return
     end
     
     currentSound = sound
-    sound.Volume = 0.6  -- Sedikit dinaikkan karena compressor
+    sound.Volume = isAudioFXEnabled and 0.6 or 0.5
     sound.RollOffMode = Enum.RollOffMode.Linear
     sound.RollOffMinDistance = 50
     sound.RollOffMaxDistance = 500
@@ -537,7 +585,10 @@ local function playMusic(index)
     playPauseBtn.Text = "⏸"
     
     sound.Ended:Connect(function()
-        soundGroup:Destroy()
+        if currentSoundGroup then
+            currentSoundGroup:Destroy()
+            currentSoundGroup = nil
+        end
         playMusic(getNextIndex())
     end)
 end
@@ -566,30 +617,7 @@ nextBtn.MouseButton1Click:Connect(function()
 end)
 
 prevBtn.MouseButton1Click:Connect(function()
-    if isShuffleMode then
-        local unplayedSongs = {}
-        for i = 1, #musicList do
-            local isPlayed = false
-            for _, played in ipairs(playedSongs) do
-                if played == i then
-                    isPlayed = true
-                    break
-                end
-            end
-            if not isPlayed then
-                table.insert(unplayedSongs, i)
-            end
-        end
-        
-        if #unplayedSongs > 0 then
-            playMusic(unplayedSongs[math.random(1, #unplayedSongs)])
-        else
-            createShufflePlaylist()
-            playMusic(shufflePlaylist[1])
-        end
-    else
-        playMusic(currentIndex - 1)
-    end
+    playMusic(getPreviousIndex())
 end)
 
 -- Shuffle button with visual feedback
@@ -598,11 +626,11 @@ shuffleBtn.MouseButton1Click:Connect(function()
     
     if isShuffleMode then
         shuffleBtn.BackgroundColor3 = BUTTON_COLOR_ACTIVE
-        createShufflePlaylist()
+        createNewShuffleQueue()
     else
         shuffleBtn.BackgroundColor3 = BUTTON_COLOR_NORMAL
-        playedSongs = {}
-        shufflePlaylist = {}
+        shuffleQueue = {}
+        shuffleIndex = 1
     end
     
     for _, obj in ipairs(shuffleBtn:GetChildren()) do
@@ -766,4 +794,3 @@ end)
 playlistFrame.MouseButton1Click:Connect(function()
     -- Do nothing, just prevent event propagation
 end)
-
