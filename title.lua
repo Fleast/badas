@@ -36,7 +36,7 @@ local function createTitle(text)
     titleLabel.BackgroundTransparency = 1
     titleLabel.Text = text
     titleLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
-    titleLabel.TextSize = 20
+    titleLabel.TextSize = 14  -- Dikecilkan dari 20 ke 14
     titleLabel.Font = Enum.Font.GothamBold
     titleLabel.TextStrokeTransparency = 0.5
     titleLabel.TextStrokeColor3 = Color3.fromRGB(0, 0, 0)
