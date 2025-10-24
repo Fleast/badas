@@ -1,7 +1,8 @@
--- Spectator GUI Script
+-- Enhanced Spectator GUI Script
 local Players = game:GetService("Players")
 local UserInputService = game:GetService("UserInputService")
 local RunService = game:GetService("RunService")
+local TweenService = game:GetService("TweenService")
 
 local player = Players.LocalPlayer
 local playerGui = player:WaitForChild("PlayerGui")
@@ -12,6 +13,8 @@ local spectatingPlayers = {}
 local isSpectating = false
 local originalCamera = workspace.CurrentCamera.CameraType
 local connection
+local randomMode = false
+local randomConnection
 
 -- Fungsi untuk mendapatkan daftar player yang bisa di-spectate
 local function getSpectatablePlayers()
@@ -22,6 +25,34 @@ local function getSpectatablePlayers()
         end
     end
     return players
+end
+
+-- Fungsi animasi zoom out/in
+local function playCameraTransition(callback)
+    local camera = workspace.CurrentCamera
+    local originalFOV = camera.FieldOfView
+    
+    -- Zoom out animation
+    local zoomOut = TweenService:Create(camera, TweenInfo.new(0.3, Enum.EasingStyle.Quad, Enum.EasingDirection.In), {
+        FieldOfView = originalFOV + 20
+    })
+    
+    zoomOut:Play()
+    zoomOut.Completed:Wait()
+    
+    -- Callback untuk ganti target
+    if callback then
+        callback()
+    end
+    
+    wait(0.1)
+    
+    -- Zoom in animation
+    local zoomIn = TweenService:Create(camera, TweenInfo.new(0.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+        FieldOfView = originalFOV
+    })
+    
+    zoomIn:Play()
 end
 
 -- Fungsi untuk memulai spectate
@@ -44,6 +75,18 @@ local function stopSpectate()
     end
 end
 
+-- Fungsi untuk teleport ke player
+local function teleportToPlayer()
+    if #spectatingPlayers > 0 and currentSpectateIndex > 0 then
+        local targetPlayer = spectatingPlayers[currentSpectateIndex]
+        if targetPlayer and targetPlayer.Character and targetPlayer.Character:FindFirstChild("HumanoidRootPart") then
+            if player.Character and player.Character:FindFirstChild("HumanoidRootPart") then
+                player.Character.HumanoidRootPart.CFrame = targetPlayer.Character.HumanoidRootPart.CFrame * CFrame.new(0, 0, 3)
+            end
+        end
+    end
+end
+
 -- Membuat GUI
 local screenGui = Instance.new("ScreenGui")
 screenGui.Name = "SpectatorGUI"
@@ -53,7 +96,7 @@ screenGui.Parent = playerGui
 -- Frame utama
 local mainFrame = Instance.new("Frame")
 mainFrame.Name = "MainFrame"
-mainFrame.Size = UDim2.new(0, 280, 0, 90)
+mainFrame.Size = UDim2.new(0, 280, 0, 130)
 mainFrame.Position = UDim2.new(0.5, -140, 0.1, 0)
 mainFrame.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
 mainFrame.BackgroundTransparency = 0.15
@@ -155,11 +198,11 @@ playerLabel.TextSize = 14
 playerLabel.Font = Enum.Font.Gotham
 playerLabel.Parent = contentFrame
 
--- Control Frame
+-- Control Frame (Navigation)
 local controlFrame = Instance.new("Frame")
 controlFrame.Name = "Controls"
 controlFrame.Size = UDim2.new(1, 0, 0, 30)
-controlFrame.Position = UDim2.new(0, 0, 1, -30)
+controlFrame.Position = UDim2.new(0, 0, 0, 28)
 controlFrame.BackgroundTransparency = 1
 controlFrame.Parent = contentFrame
 
@@ -183,12 +226,13 @@ prevCorner.Parent = prevBtn
 -- Button Next
 local nextBtn = Instance.new("TextButton")
 nextBtn.Name = "NextBtn"
-nextBtn.Size = UDim2.new(0, 80, 0, 35)
-nextBtn.Position = UDim2.new(1, -80, 0, 0)
+nextBtn.Size = UDim2.new(0, 60, 0, 28)
+nextBtn.Position = UDim2.new(1, -60, 0, 0)
 nextBtn.BackgroundColor3 = Color3.fromRGB(50, 120, 200)
+nextBtn.BackgroundTransparency = 0.15
 nextBtn.Text = ">"
 nextBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
-nextBtn.TextSize = 24
+nextBtn.TextSize = 20
 nextBtn.Font = Enum.Font.GothamBold
 nextBtn.Parent = controlFrame
 
@@ -196,12 +240,55 @@ local nextCorner = Instance.new("UICorner")
 nextCorner.CornerRadius = UDim.new(0, 8)
 nextCorner.Parent = nextBtn
 
+-- Action Frame (Teleport & Random)
+local actionFrame = Instance.new("Frame")
+actionFrame.Name = "Actions"
+actionFrame.Size = UDim2.new(1, 0, 0, 30)
+actionFrame.Position = UDim2.new(0, 0, 1, -30)
+actionFrame.BackgroundTransparency = 1
+actionFrame.Parent = contentFrame
+
+-- Button Teleport
+local teleportBtn = Instance.new("TextButton")
+teleportBtn.Name = "TeleportBtn"
+teleportBtn.Size = UDim2.new(0.48, 0, 0, 28)
+teleportBtn.Position = UDim2.new(0, 0, 0, 0)
+teleportBtn.BackgroundColor3 = Color3.fromRGB(100, 200, 100)
+teleportBtn.BackgroundTransparency = 0.15
+teleportBtn.Text = "📍 TP"
+teleportBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
+teleportBtn.TextSize = 14
+teleportBtn.Font = Enum.Font.GothamBold
+teleportBtn.Parent = actionFrame
+
+local teleportCorner = Instance.new("UICorner")
+teleportCorner.CornerRadius = UDim.new(0, 8)
+teleportCorner.Parent = teleportBtn
+
+-- Button Random Mode
+local randomBtn = Instance.new("TextButton")
+randomBtn.Name = "RandomBtn"
+randomBtn.Size = UDim2.new(0.48, 0, 0, 28)
+randomBtn.Position = UDim2.new(0.52, 0, 0, 0)
+randomBtn.BackgroundColor3 = Color3.fromRGB(200, 100, 200)
+randomBtn.BackgroundTransparency = 0.15
+randomBtn.Text = "🎲 Random"
+randomBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
+randomBtn.TextSize = 13
+randomBtn.Font = Enum.Font.GothamBold
+randomBtn.Parent = actionFrame
+
+local randomCorner = Instance.new("UICorner")
+randomCorner.CornerRadius = UDim.new(0, 8)
+randomCorner.Parent = randomBtn
+
 -- Button Minimized (tersembunyi di awal)
 local minimizedBtn = Instance.new("TextButton")
 minimizedBtn.Name = "MinimizedBtn"
 minimizedBtn.Size = UDim2.new(0, 50, 0, 50)
 minimizedBtn.Position = UDim2.new(0.5, -25, 0.1, 0)
 minimizedBtn.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+minimizedBtn.BackgroundTransparency = 0.15
 minimizedBtn.Text = "👁️"
 minimizedBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
 minimizedBtn.TextSize = 28
@@ -220,14 +307,15 @@ local function updatePlayerLabel()
     if #spectatingPlayers > 0 and currentSpectateIndex > 0 then
         local targetPlayer = spectatingPlayers[currentSpectateIndex]
         if targetPlayer then
-            playerLabel.Text = "Spectating: " .. targetPlayer.Name
+            local modeText = randomMode and " [RANDOM]" or ""
+            playerLabel.Text = "Spectating: " .. targetPlayer.Name .. modeText
         end
     else
         playerLabel.Text = "No players available"
     end
 end
 
--- Fungsi untuk navigasi spectator
+-- Fungsi untuk navigasi spectator dengan animasi
 local function navigateSpectate(direction)
     spectatingPlayers = getSpectatablePlayers()
     
@@ -237,29 +325,87 @@ local function navigateSpectate(direction)
         return
     end
     
-    currentSpectateIndex = currentSpectateIndex + direction
+    playCameraTransition(function()
+        currentSpectateIndex = currentSpectateIndex + direction
+        
+        if currentSpectateIndex > #spectatingPlayers then
+            currentSpectateIndex = 1
+        elseif currentSpectateIndex < 1 then
+            currentSpectateIndex = #spectatingPlayers
+        end
+        
+        local targetPlayer = spectatingPlayers[currentSpectateIndex]
+        startSpectate(targetPlayer)
+    end)
     
-    if currentSpectateIndex > #spectatingPlayers then
-        currentSpectateIndex = 1
-    elseif currentSpectateIndex < 1 then
-        currentSpectateIndex = #spectatingPlayers
-    end
-    
-    local targetPlayer = spectatingPlayers[currentSpectateIndex]
-    startSpectate(targetPlayer)
+    wait(0.4) -- Wait untuk animasi selesai
     updatePlayerLabel()
+end
+
+-- Fungsi random mode
+local function toggleRandomMode()
+    randomMode = not randomMode
+    
+    if randomMode then
+        randomBtn.BackgroundColor3 = Color3.fromRGB(220, 120, 220)
+        randomBtn.Text = "⏸️ Stop"
+        
+        -- Mulai random spectate
+        randomConnection = task.spawn(function()
+            while randomMode do
+                spectatingPlayers = getSpectatablePlayers()
+                
+                if #spectatingPlayers > 0 then
+                    playCameraTransition(function()
+                        currentSpectateIndex = math.random(1, #spectatingPlayers)
+                        local targetPlayer = spectatingPlayers[currentSpectateIndex]
+                        startSpectate(targetPlayer)
+                    end)
+                    
+                    wait(0.4) -- Wait untuk animasi
+                    updatePlayerLabel()
+                    wait(4.6) -- Total 5 detik per player
+                else
+                    playerLabel.Text = "No players available"
+                    wait(1)
+                end
+            end
+        end)
+    else
+        randomBtn.BackgroundColor3 = Color3.fromRGB(200, 100, 200)
+        randomBtn.Text = "🎲 Random"
+        if randomConnection then
+            task.cancel(randomConnection)
+        end
+        updatePlayerLabel()
+    end
 end
 
 -- Event handlers
 prevBtn.MouseButton1Click:Connect(function()
-    navigateSpectate(-1)
+    if not randomMode then
+        navigateSpectate(-1)
+    end
 end)
 
 nextBtn.MouseButton1Click:Connect(function()
-    navigateSpectate(1)
+    if not randomMode then
+        navigateSpectate(1)
+    end
+end)
+
+teleportBtn.MouseButton1Click:Connect(function()
+    teleportToPlayer()
+end)
+
+randomBtn.MouseButton1Click:Connect(function()
+    toggleRandomMode()
 end)
 
 closeBtn.MouseButton1Click:Connect(function()
+    if randomMode then
+        toggleRandomMode()
+    end
     stopSpectate()
     mainFrame.Visible = false
     minimizedBtn.Visible = false
@@ -291,3 +437,5 @@ addHoverEffect(nextBtn, Color3.fromRGB(50, 120, 200), Color3.fromRGB(70, 140, 22
 addHoverEffect(closeBtn, Color3.fromRGB(200, 50, 50), Color3.fromRGB(220, 70, 70))
 addHoverEffect(minimizeBtn, Color3.fromRGB(50, 50, 50), Color3.fromRGB(70, 70, 70))
 addHoverEffect(minimizedBtn, Color3.fromRGB(35, 35, 35), Color3.fromRGB(55, 55, 55))
+addHoverEffect(teleportBtn, Color3.fromRGB(100, 200, 100), Color3.fromRGB(120, 220, 120))
+addHoverEffect(randomBtn, Color3.fromRGB(200, 100, 200), Color3.fromRGB(220, 120, 220))
