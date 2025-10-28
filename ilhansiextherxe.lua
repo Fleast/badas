@@ -67,8 +67,8 @@ screenGui.Parent = player:WaitForChild("PlayerGui")
 
 local mainFrame = Instance.new("Frame")
 mainFrame.Name = "MainFrame"
-mainFrame.Size = UDim2.new(0, 320, 0, 420)
-mainFrame.Position = UDim2.new(0.5, -160, 0.5, -210)
+mainFrame.Size = UDim2.new(0, 260, 0, 350)
+mainFrame.Position = UDim2.new(0.5, -130, 0.5, -175)
 mainFrame.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
 mainFrame.BorderSizePixel = 0
 mainFrame.Active = true
@@ -82,7 +82,7 @@ mainCorner.Parent = mainFrame
 -- Top Bar
 local topBar = Instance.new("Frame")
 topBar.Name = "TopBar"
-topBar.Size = UDim2.new(1, 0, 0, 30)
+topBar.Size = UDim2.new(1, 0, 0, 28)
 topBar.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
 topBar.BorderSizePixel = 0
 topBar.Parent = mainFrame
@@ -92,25 +92,25 @@ topCorner.CornerRadius = UDim.new(0, 10)
 topCorner.Parent = topBar
 
 local titleLabel = Instance.new("TextLabel")
-titleLabel.Size = UDim2.new(1, -70, 1, 0)
-titleLabel.Position = UDim2.new(0, 10, 0, 0)
+titleLabel.Size = UDim2.new(1, -60, 1, 0)
+titleLabel.Position = UDim2.new(0, 8, 0, 0)
 titleLabel.BackgroundTransparency = 1
 titleLabel.Text = "SIEXTHER AUTO WALK"
 titleLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
-titleLabel.TextSize = 14
+titleLabel.TextSize = 12
 titleLabel.Font = Enum.Font.GothamBold
 titleLabel.TextXAlignment = Enum.TextXAlignment.Left
 titleLabel.Parent = topBar
 
--- Minimize Button
+-- Minimize Button (Camera Icon Only)
 local minimizeBtn = Instance.new("TextButton")
 minimizeBtn.Name = "MinimizeBtn"
-minimizeBtn.Size = UDim2.new(0, 25, 0, 25)
-minimizeBtn.Position = UDim2.new(1, -55, 0, 2.5)
+minimizeBtn.Size = UDim2.new(0, 24, 0, 24)
+minimizeBtn.Position = UDim2.new(1, -50, 0, 2)
 minimizeBtn.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
-minimizeBtn.Text = "-"
+minimizeBtn.Text = "−"
 minimizeBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
-minimizeBtn.TextSize = 18
+minimizeBtn.TextSize = 14
 minimizeBtn.Font = Enum.Font.GothamBold
 minimizeBtn.Parent = topBar
 
@@ -121,12 +121,12 @@ minimizeCorner.Parent = minimizeBtn
 -- Close Button
 local closeBtn = Instance.new("TextButton")
 closeBtn.Name = "CloseBtn"
-closeBtn.Size = UDim2.new(0, 25, 0, 25)
-closeBtn.Position = UDim2.new(1, -27, 0, 2.5)
+closeBtn.Size = UDim2.new(0, 24, 0, 24)
+closeBtn.Position = UDim2.new(1, -24, 0, 2)
 closeBtn.BackgroundColor3 = Color3.fromRGB(200, 50, 50)
 closeBtn.Text = "X"
 closeBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
-closeBtn.TextSize = 14
+closeBtn.TextSize = 12
 closeBtn.Font = Enum.Font.GothamBold
 closeBtn.Parent = topBar
 
@@ -137,31 +137,31 @@ closeCorner.Parent = closeBtn
 -- Content Frame
 local contentFrame = Instance.new("Frame")
 contentFrame.Name = "ContentFrame"
-contentFrame.Size = UDim2.new(1, -20, 1, -40)
-contentFrame.Position = UDim2.new(0, 10, 0, 35)
+contentFrame.Size = UDim2.new(1, -16, 1, -36)
+contentFrame.Position = UDim2.new(0, 8, 0, 32)
 contentFrame.BackgroundTransparency = 1
 contentFrame.Parent = mainFrame
 
 -- Recording Name Input
 local nameLabel = Instance.new("TextLabel")
-nameLabel.Size = UDim2.new(1, 0, 0, 20)
+nameLabel.Size = UDim2.new(1, 0, 0, 18)
 nameLabel.Position = UDim2.new(0, 0, 0, 0)
 nameLabel.BackgroundTransparency = 1
 nameLabel.Text = "Nama Rekaman:"
 nameLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
-nameLabel.TextSize = 12
+nameLabel.TextSize = 10
 nameLabel.Font = Enum.Font.Gotham
 nameLabel.TextXAlignment = Enum.TextXAlignment.Left
 nameLabel.Parent = contentFrame
 
 local nameInput = Instance.new("TextBox")
-nameInput.Size = UDim2.new(1, 0, 0, 30)
-nameInput.Position = UDim2.new(0, 0, 0, 25)
+nameInput.Size = UDim2.new(1, 0, 0, 26)
+nameInput.Position = UDim2.new(0, 0, 0, 20)
 nameInput.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
 nameInput.Text = ""
-nameInput.PlaceholderText = "Masukkan nama rekaman..."
+nameInput.PlaceholderText = "Masukkan nama..."
 nameInput.TextColor3 = Color3.fromRGB(255, 255, 255)
-nameInput.TextSize = 12
+nameInput.TextSize = 10
 nameInput.Font = Enum.Font.Gotham
 nameInput.Parent = contentFrame
 
@@ -171,12 +171,12 @@ nameCorner.Parent = nameInput
 
 -- Status Label
 local statusLabel = Instance.new("TextLabel")
-statusLabel.Size = UDim2.new(1, 0, 0, 25)
-statusLabel.Position = UDim2.new(0, 0, 0, 63)
+statusLabel.Size = UDim2.new(1, 0, 0, 22)
+statusLabel.Position = UDim2.new(0, 0, 0, 50)
 statusLabel.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
 statusLabel.Text = "Status: Siap"
 statusLabel.TextColor3 = Color3.fromRGB(100, 255, 100)
-statusLabel.TextSize = 12
+statusLabel.TextSize = 10
 statusLabel.Font = Enum.Font.GothamBold
 statusLabel.Parent = contentFrame
 
@@ -186,65 +186,65 @@ statusCorner.Parent = statusLabel
 
 -- Record Button
 local recordBtn = Instance.new("TextButton")
-recordBtn.Size = UDim2.new(0.48, 0, 0, 35)
-recordBtn.Position = UDim2.new(0, 0, 0, 95)
+recordBtn.Size = UDim2.new(0.48, 0, 0, 30)
+recordBtn.Position = UDim2.new(0, 0, 0, 77)
 recordBtn.BackgroundColor3 = Color3.fromRGB(200, 50, 50)
 recordBtn.Text = "🔴 REKAM"
 recordBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
-recordBtn.TextSize = 14
+recordBtn.TextSize = 11
 recordBtn.Font = Enum.Font.GothamBold
 recordBtn.Parent = contentFrame
 
 local recordCorner = Instance.new("UICorner")
-recordCorner.CornerRadius = UDim.new(0, 8)
+recordCorner.CornerRadius = UDim.new(0, 7)
 recordCorner.Parent = recordBtn
 
 -- Stop Button
 local stopBtn = Instance.new("TextButton")
-stopBtn.Size = UDim2.new(0.48, 0, 0, 35)
-stopBtn.Position = UDim2.new(0.52, 0, 0, 95)
+stopBtn.Size = UDim2.new(0.48, 0, 0, 30)
+stopBtn.Position = UDim2.new(0.52, 0, 0, 77)
 stopBtn.BackgroundColor3 = Color3.fromRGB(100, 100, 100)
 stopBtn.Text = "⏹ STOP"
 stopBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
-stopBtn.TextSize = 14
+stopBtn.TextSize = 11
 stopBtn.Font = Enum.Font.GothamBold
 stopBtn.Parent = contentFrame
 
 local stopCorner = Instance.new("UICorner")
-stopCorner.CornerRadius = UDim.new(0, 8)
+stopCorner.CornerRadius = UDim.new(0, 7)
 stopCorner.Parent = stopBtn
 
--- Auto Repeat Button (Centered, full width)
+-- Auto Repeat Button
 local autoRepeatBtn = Instance.new("TextButton")
-autoRepeatBtn.Size = UDim2.new(1, 0, 0, 35)
-autoRepeatBtn.Position = UDim2.new(0, 0, 0, 138)
-autoRepeatBtn.BackgroundColor3 = Color3.fromRGB(150, 50, 200)
+autoRepeatBtn.Size = UDim2.new(1, 0, 0, 30)
+autoRepeatBtn.Position = UDim2.new(0, 0, 0, 112)
+autoRepeatBtn.BackgroundColor3 = Color3.fromRGB(135, 206, 250)
 autoRepeatBtn.Text = "🔁 AUTO PLAY"
 autoRepeatBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
-autoRepeatBtn.TextSize = 13
+autoRepeatBtn.TextSize = 11
 autoRepeatBtn.Font = Enum.Font.GothamBold
 autoRepeatBtn.Parent = contentFrame
 
 local autoRepeatCorner = Instance.new("UICorner")
-autoRepeatCorner.CornerRadius = UDim.new(0, 8)
+autoRepeatCorner.CornerRadius = UDim.new(0, 7)
 autoRepeatCorner.Parent = autoRepeatBtn
 
 -- Recordings List Label
 local listLabel = Instance.new("TextLabel")
-listLabel.Size = UDim2.new(1, 0, 0, 20)
-listLabel.Position = UDim2.new(0, 0, 0, 181)
+listLabel.Size = UDim2.new(1, 0, 0, 18)
+listLabel.Position = UDim2.new(0, 0, 0, 147)
 listLabel.BackgroundTransparency = 1
 listLabel.Text = "Daftar Rekaman:"
 listLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
-listLabel.TextSize = 12
+listLabel.TextSize = 10
 listLabel.Font = Enum.Font.Gotham
 listLabel.TextXAlignment = Enum.TextXAlignment.Left
 listLabel.Parent = contentFrame
 
 -- Recordings ScrollFrame
 local recordingsScroll = Instance.new("ScrollingFrame")
-recordingsScroll.Size = UDim2.new(1, 0, 0, 160)
-recordingsScroll.Position = UDim2.new(0, 0, 0, 206)
+recordingsScroll.Size = UDim2.new(1, 0, 0, 140)
+recordingsScroll.Position = UDim2.new(0, 0, 0, 168)
 recordingsScroll.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
 recordingsScroll.BorderSizePixel = 0
 recordingsScroll.ScrollBarThickness = 4
@@ -255,7 +255,7 @@ scrollCorner.CornerRadius = UDim.new(0, 5)
 scrollCorner.Parent = recordingsScroll
 
 local listLayout = Instance.new("UIListLayout")
-listLayout.Padding = UDim.new(0, 5)
+listLayout.Padding = UDim.new(0, 4)
 listLayout.Parent = recordingsScroll
 
 -- Functions
@@ -273,7 +273,7 @@ local function refreshRecordingsList()
     
     for i, rec in ipairs(recordings) do
         local recFrame = Instance.new("Frame")
-        recFrame.Size = UDim2.new(1, -10, 0, 32)
+        recFrame.Size = UDim2.new(1, -8, 0, 28)
         recFrame.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
         recFrame.Parent = recordingsScroll
         
@@ -283,22 +283,22 @@ local function refreshRecordingsList()
         
         local recLabel = Instance.new("TextLabel")
         recLabel.Size = UDim2.new(0.5, 0, 1, 0)
-        recLabel.Position = UDim2.new(0, 8, 0, 0)
+        recLabel.Position = UDim2.new(0, 6, 0, 0)
         recLabel.BackgroundTransparency = 1
         recLabel.Text = rec.name
         recLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
-        recLabel.TextSize = 11
+        recLabel.TextSize = 9
         recLabel.Font = Enum.Font.Gotham
         recLabel.TextXAlignment = Enum.TextXAlignment.Left
         recLabel.Parent = recFrame
         
         local playBtn = Instance.new("TextButton")
-        playBtn.Size = UDim2.new(0, 55, 0, 22)
-        playBtn.Position = UDim2.new(0.5, 3, 0.5, -11)
+        playBtn.Size = UDim2.new(0, 48, 0, 20)
+        playBtn.Position = UDim2.new(0.5, 2, 0.5, -10)
         playBtn.BackgroundColor3 = Color3.fromRGB(50, 150, 50)
         playBtn.Text = "▶ Play"
         playBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
-        playBtn.TextSize = 10
+        playBtn.TextSize = 9
         playBtn.Font = Enum.Font.GothamBold
         playBtn.Parent = recFrame
         
@@ -307,12 +307,12 @@ local function refreshRecordingsList()
         playCorner.Parent = playBtn
         
         local deleteBtn = Instance.new("TextButton")
-        deleteBtn.Size = UDim2.new(0, 55, 0, 22)
-        deleteBtn.Position = UDim2.new(1, -58, 0.5, -11)
+        deleteBtn.Size = UDim2.new(0, 48, 0, 20)
+        deleteBtn.Position = UDim2.new(1, -50, 0.5, -10)
         deleteBtn.BackgroundColor3 = Color3.fromRGB(150, 50, 50)
         deleteBtn.Text = "🗑 Hapus"
         deleteBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
-        deleteBtn.TextSize = 10
+        deleteBtn.TextSize = 9
         deleteBtn.Font = Enum.Font.GothamBold
         deleteBtn.Parent = recFrame
         
@@ -363,7 +363,6 @@ local function startRecording()
         
         frameCount = frameCount + 1
         
-        -- Properly serialize all data
         local frameData = {
             position = serializeVector3(rootPart.CFrame.Position),
             rotation = serializeCFrame(rootPart.CFrame),
@@ -414,7 +413,6 @@ function playRecording(rec)
     
     isPlaying = true
     
-    -- Update character references in case of respawn
     character = player.Character
     if not character then return end
     humanoid = character:FindFirstChild("Humanoid")
@@ -424,9 +422,8 @@ function playRecording(rec)
         return 
     end
     
-    updateStatus("Memulai pemutaran: " .. rec.name, Color3.fromRGB(100, 200, 255))
+    updateStatus("Memulai: " .. rec.name, Color3.fromRGB(100, 200, 255))
     
-    -- Teleport ke posisi awal (deserialize)
     rootPart.CFrame = deserializeCFrame(rec.startPosition)
     wait(0.1)
     
@@ -434,7 +431,6 @@ function playRecording(rec)
     local playConnection
     
     playConnection = RunService.Heartbeat:Connect(function()
-        -- Update character references during playback
         character = player.Character
         if not character then 
             playConnection:Disconnect()
@@ -451,25 +447,21 @@ function playRecording(rec)
                 humanoid:MoveTo(rootPart.Position)
             end
             
-            -- Don't show "Pemutaran selesai" if auto repeat is active
             if not isAutoRepeat then
-                updateStatus("Pemutaran selesai", Color3.fromRGB(100, 255, 100))
+                updateStatus("Selesai", Color3.fromRGB(100, 255, 100))
             end
             return
         end
         
         local frame = rec.frames[frameIndex]
         
-        -- Deserialize and apply data
         rootPart.CFrame = deserializeCFrame(frame.rotation)
         rootPart.Velocity = deserializeVector3(frame.velocity)
         
-        -- Handle jumping
         if frame.jumping and humanoid:GetState() ~= Enum.HumanoidStateType.Jumping then
             humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
         end
         
-        -- Apply movement
         local moveDir = deserializeVector3(frame.moveDirection)
         if moveDir.Magnitude > 0 then
             humanoid:MoveTo(rootPart.Position + moveDir * 10)
@@ -483,7 +475,6 @@ function playRecording(rec)
     end)
 end
 
--- Auto Repeat Function (Infinite Loop - Doesn't stop on respawn)
 local function autoRepeatRecordings()
     if isRecording or isPlaying or #recordings == 0 then 
         if #recordings == 0 then
@@ -499,43 +490,35 @@ local function autoRepeatRecordings()
     spawn(function()
         local loopCount = 0
         
-        -- Infinite loop until manually stopped
         while isAutoRepeat do
             loopCount = loopCount + 1
             
             for i, rec in ipairs(recordings) do
                 if not isAutoRepeat then break end
                 
-                -- Wait for character if respawned
                 if not player.Character or not player.Character:FindFirstChild("HumanoidRootPart") then
-                    updateStatus("Loop " .. loopCount .. ": Menunggu respawn...", Color3.fromRGB(255, 200, 100))
+                    updateStatus("Loop " .. loopCount .. ": Respawn...", Color3.fromRGB(255, 200, 100))
                     repeat wait(0.5) until player.Character and player.Character:FindFirstChild("HumanoidRootPart")
-                    wait(1) -- Extra wait after respawn
+                    wait(1)
                 end
                 
                 if not isAutoRepeat then break end
                 
-                updateStatus("Loop " .. loopCount .. ": " .. rec.name .. " (" .. i .. "/" .. #recordings .. ")", Color3.fromRGB(200, 100, 255))
+                updateStatus("Loop " .. loopCount .. ": " .. rec.name, Color3.fromRGB(200, 100, 255))
                 
-                -- Play recording
                 playRecording(rec)
                 
-                -- Wait until playback finishes
                 while isPlaying do
                     wait(0.1)
                 end
                 
-                -- Check again if auto repeat is still active
                 if not isAutoRepeat then break end
                 
-                -- Wait 1 second before next recording
                 wait(1)
             end
             
-            -- Check if auto repeat is still active before continuing loop
             if not isAutoRepeat then break end
             
-            -- Short pause before repeating entire sequence (2 seconds)
             wait(2)
         end
     end)
@@ -552,7 +535,6 @@ stopBtn.MouseButton1Click:Connect(function()
     stopRecording()
 end)
 
--- Auto Repeat Button Event
 autoRepeatBtn.MouseButton1Click:Connect(function()
     if isAutoRepeat then
         isAutoRepeat = false
@@ -581,8 +563,8 @@ minimizeBtn.MouseButton1Click:Connect(function()
         
         local tweenInfo = TweenInfo.new(0.3, Enum.EasingStyle.Back, Enum.EasingDirection.In)
         local goal = {
-            Size = UDim2.new(0, 60, 0, 60),
-            Position = UDim2.new(0, 20, 0.5, -30)
+            Size = UDim2.new(0, 50, 0, 50),
+            Position = UDim2.new(0, 15, 0.5, -25)
         }
         local tween = TweenService:Create(mainFrame, tweenInfo, goal)
         tween:Play()
@@ -595,7 +577,7 @@ minimizeBtn.MouseButton1Click:Connect(function()
             cameraBtn.Size = UDim2.new(1, 0, 1, 0)
             cameraBtn.BackgroundTransparency = 1
             cameraBtn.Text = "🎥"
-            cameraBtn.TextSize = 32
+            cameraBtn.TextSize = 28
             cameraBtn.Font = Enum.Font.GothamBold
             cameraBtn.Parent = mainFrame
             
@@ -608,8 +590,8 @@ minimizeBtn.MouseButton1Click:Connect(function()
                 
                 local tweenInfo2 = TweenInfo.new(0.3, Enum.EasingStyle.Back, Enum.EasingDirection.Out)
                 local goal2 = {
-                    Size = UDim2.new(0, 320, 0, 420),
-                    Position = UDim2.new(0.5, -160, 0.5, -210)
+                    Size = UDim2.new(0, 260, 0, 350),
+                    Position = UDim2.new(0.5, -130, 0.5, -175)
                 }
                 local tween2 = TweenService:Create(mainFrame, tweenInfo2, goal2)
                 tween2:Play()
@@ -623,22 +605,19 @@ minimizeBtn.MouseButton1Click:Connect(function()
     end
 end)
 
--- Character respawn handling - UPDATE CHARACTER REFERENCES BUT DON'T STOP AUTO REPEAT
 player.CharacterAdded:Connect(function(char)
     character = char
     humanoid = char:WaitForChild("Humanoid")
     rootPart = char:WaitForChild("HumanoidRootPart")
     
-    -- Only stop recording if active, but DON'T stop auto repeat
     if isRecording then
         isRecording = false
         recordBtn.BackgroundColor3 = Color3.fromRGB(200, 50, 50)
-        updateStatus("Rekaman dihentikan (Respawn)", Color3.fromRGB(255, 200, 50))
+        updateStatus("Rekaman stop (Respawn)", Color3.fromRGB(255, 200, 50))
     end
     
-    -- Auto repeat will automatically continue after respawn
     if isAutoRepeat then
-        updateStatus("Auto Play: Menunggu respawn selesai...", Color3.fromRGB(200, 100, 255))
+        updateStatus("Auto Play: Respawn...", Color3.fromRGB(200, 100, 255))
     end
 end)
 
