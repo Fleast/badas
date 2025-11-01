@@ -8,6 +8,18 @@ if oldGui then
     oldGui:Destroy()
 end
 
+-- [[ BARU ]] Array random greeting messages
+local greetingMessages = {
+    "Have a nice day✨",
+    "Are you okay?",
+    "How's ur day??",
+    "Im here for you",
+    "Always be happy🤍"
+}
+
+-- [[ BARU ]] Pilih random greeting
+local randomGreeting = greetingMessages[math.random(1, #greetingMessages)]
+
 -- 1. Membuat IlhanSiextherls
 local IlhanSiextherls = Instance.new("ScreenGui")
 IlhanSiextherls.Name = "LoadingScreen"
@@ -199,8 +211,8 @@ local statuses = {
 
 local DURATION = 8
 
--- Start typing
-local line1 = "Hello " .. player.Name .. ", Welcome back! Have a nice day✨"
+-- Start typing - [[ DIUBAH ]] Menggunakan random greeting
+local line1 = "Hello " .. player.Name .. ", Welcome back! " .. randomGreeting
 local line2 = "Made by @muhmdilhan_"
 
 task.spawn(function()
