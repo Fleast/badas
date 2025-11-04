@@ -16,7 +16,6 @@ local connection
 local randomMode = false
 local randomConnection
 
--- Fungsi untuk mendapatkan daftar player yang bisa di-spectate
 local function getSpectatablePlayers()
     local players = {}
     for _, p in pairs(Players:GetPlayers()) do
@@ -27,32 +26,143 @@ local function getSpectatablePlayers()
     return players
 end
 
--- Fungsi animasi zoom out/in
-local function playCameraTransition(callback)
+-- Fungsi animasi cinematic transition yang lebih smooth
+local function playCinematicTransition(callback)
     local camera = workspace.CurrentCamera
+    local originalCFrame = camera.CFrame
     local originalFOV = camera.FieldOfView
     
-    -- Zoom out animation
-    local zoomOut = TweenService:Create(camera, TweenInfo.new(0.3, Enum.EasingStyle.Quad, Enum.EasingDirection.In), {
-        FieldOfView = originalFOV + 20
+    -- Simpan posisi dan orientasi asli
+    local originalPosition = originalCFrame.Position
+    local originalRotation = Vector3.new(
+        originalCFrame:ToEulerAnglesXYZ()
+    )
+    
+    -- Buat rotasi ringan untuk efek cinematic
+    local rotationAngle = math.rad(15) -- 15 derajat rotasi
+    local targetRotation = CFrame.fromEulerAnglesXYZ(
+        originalRotation.X + rotationAngle,
+        originalRotation.Y + rotationAngle,
+        originalRotation.Z
+    )
+    
+    -- Phase 1: Zoom out dengan rotasi ringan (0.4 detik)
+    local zoomOutTween = TweenService:Create(camera, TweenInfo.new(0.4, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {
+        FieldOfView = originalFOV + 25,
+        CFrame = originalCFrame * CFrame.Angles(rotationAngle * 0.3, rotationAngle * 0.5, 0) + originalCFrame.LookVector * -5
     })
     
-    zoomOut:Play()
-    zoomOut.Completed:Wait()
+    -- Phase 2: Transition cepat ke posisi netral (0.2 detik)
+    local neutralTween = TweenService:Create(camera, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), {
+        FieldOfView = originalFOV + 30,
+        CFrame = originalCFrame + Vector3.new(0, 3, -8) * CFrame.Angles(math.rad(-10), 0, 0)
+    })
     
-    -- Callback untuk ganti target
+    -- Eksekusi animasi
+    zoomOutTween:Play()
+    zoomOutTween.Completed:Wait()
+    
+    -- Callback untuk ganti target di tengah transisi
     if callback then
         callback()
     end
     
-    wait(0.1)
+    neutralTween:Play()
+    neutralTween.Completed:Wait()
     
-    -- Zoom in animation
-    local zoomIn = TweenService:Create(camera, TweenInfo.new(0.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+    -- Phase 3: Smooth zoom in ke target baru (0.6 detik)
+    local zoomInTween = TweenService:Create(camera, TweenInfo.new(0.6, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {
+        FieldOfView = originalFOV,
+        CFrame = camera.CFrame -- Tetap di posisi terakhir sebelum beralih ke target
+    })
+    
+    zoomInTween:Play()
+    zoomInTween.Completed:Wait()
+end
+
+-- Fungsi animasi alternatif yang lebih sederhana tapi tetap cinematic
+local function playSmoothTransition(callback)
+    local camera = workspace.CurrentCamera
+    local originalCFrame = camera.CFrame
+    local originalFOV = camera.FieldOfView
+    
+    -- Phase 1: Smooth zoom out dengan elevation ringan
+    local phase1 = TweenService:Create(camera, TweenInfo.new(0.3, Enum.EasingStyle.Cubic, Enum.EasingDirection.Out), {
+        FieldOfView = originalFOV + 20,
+        CFrame = originalCFrame * CFrame.new(0, 2, -3) * CFrame.Angles(math.rad(-5), 0, 0)
+    })
+    
+    -- Phase 2: Transition (ganti target di sini)
+    local phase2 = TweenService:Create(camera, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.In), {
+        FieldOfView = originalFOV + 25,
+        CFrame = originalCFrame * CFrame.new(0, 4, -6) * CFrame.Angles(math.rad(-8), math.rad(10), 0)
+    })
+    
+    phase1:Play()
+    phase1.Completed:Wait()
+    
+    -- Ganti target
+    if callback then
+        callback()
+    end
+    
+    phase2:Play()
+    phase2.Completed:Wait()
+    
+    -- Phase 3: Smooth return ke posisi normal
+    local phase3 = TweenService:Create(camera, TweenInfo.new(0.5, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {
+        FieldOfView = originalFOV
+        -- CFrame akan otomatis mengikuti subject baru
+    })
+    
+    phase3:Play()
+end
+
+-- Fungsi animasi cinematic dengan rotasi spiral ringan
+local function playSpiralTransition(callback)
+    local camera = workspace.CurrentCamera
+    local originalCFrame = camera.CFrame
+    local originalFOV = camera.FieldOfView
+    
+    -- Hitung posisi untuk spiral effect
+    local startPos = originalCFrame.Position
+    local lookVector = originalCFrame.LookVector
+    local rightVector = originalCFrame.RightVector
+    local upVector = originalCFrame.UpVector
+    
+    -- Phase 1: Naik dan mundur dengan rotasi ringan
+    local phase1 = TweenService:Create(camera, TweenInfo.new(0.4, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+        FieldOfView = originalFOV + 15,
+        CFrame = CFrame.new(
+            startPos + upVector * 2 - lookVector * 4 + rightVector * 1.5
+        ) * CFrame.Angles(math.rad(-3), math.rad(8), math.rad(2))
+    })
+    
+    -- Phase 2: Posisi tinggi untuk transition
+    local phase2 = TweenService:Create(camera, TweenInfo.new(0.3, Enum.EasingStyle.Cubic, Enum.EasingDirection.InOut), {
+        FieldOfView = originalFOV + 20,
+        CFrame = CFrame.new(
+            startPos + upVector * 5 - lookVector * 8 + rightVector * 0.5
+        ) * CFrame.Angles(math.rad(-10), math.rad(15), math.rad(1))
+    })
+    
+    phase1:Play()
+    phase1.Completed:Wait()
+    
+    -- Ganti target di antara phase 1 dan 2
+    if callback then
+        callback()
+    end
+    
+    phase2:Play()
+    phase2.Completed:Wait()
+    
+    -- Phase 3: Smooth descent ke target baru
+    local phase3 = TweenService:Create(camera, TweenInfo.new(0.6, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {
         FieldOfView = originalFOV
     })
     
-    zoomIn:Play()
+    phase3:Play()
 end
 
 -- Fungsi untuk memulai spectate
@@ -315,7 +425,7 @@ local function updatePlayerLabel()
     end
 end
 
--- Fungsi untuk navigasi spectator dengan animasi
+-- Fungsi untuk navigasi spectator dengan animasi cinematic
 local function navigateSpectate(direction)
     spectatingPlayers = getSpectatablePlayers()
     
@@ -325,7 +435,11 @@ local function navigateSpectate(direction)
         return
     end
     
-    playCameraTransition(function()
+    -- Pilih animasi secara random untuk variasi
+    local animTypes = {playSmoothTransition, playSpiralTransition}
+    local selectedAnim = animTypes[math.random(1, #animTypes)]
+    
+    selectedAnim(function()
         currentSpectateIndex = currentSpectateIndex + direction
         
         if currentSpectateIndex > #spectatingPlayers then
@@ -338,7 +452,7 @@ local function navigateSpectate(direction)
         startSpectate(targetPlayer)
     end)
     
-    wait(0.4) -- Wait untuk animasi selesai
+    wait(0.8) -- Wait untuk animasi cinematic yang lebih panjang
     updatePlayerLabel()
 end
 
@@ -356,15 +470,16 @@ local function toggleRandomMode()
                 spectatingPlayers = getSpectatablePlayers()
                 
                 if #spectatingPlayers > 0 then
-                    playCameraTransition(function()
+                    -- Gunakan animasi cinematic untuk random mode juga
+                    playSmoothTransition(function()
                         currentSpectateIndex = math.random(1, #spectatingPlayers)
                         local targetPlayer = spectatingPlayers[currentSpectateIndex]
                         startSpectate(targetPlayer)
                     end)
                     
-                    wait(0.4) -- Wait untuk animasi
+                    wait(0.8) -- Wait untuk animasi cinematic
                     updatePlayerLabel()
-                    wait(4.6) -- Total 5 detik per player
+                    wait(4.2) -- Total 5 detik per player
                 else
                     playerLabel.Text = "No players available"
                     wait(1)
