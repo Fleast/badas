@@ -22,7 +22,22 @@ local recordConnection = nil
 local playConnection = nil
 local pausedFrameIndex = 1
 local currentReorderFrame = nil
-local savedPosition = nil  -- [[ BARU ]] Menyimpan posisi terakhir
+local savedPosition = nil
+
+-- Color Scheme - Dark Modern
+local colors = {
+    background = Color3.fromRGB(18, 18, 22),
+    surface = Color3.fromRGB(25, 25, 30),
+    surfaceLight = Color3.fromRGB(32, 32, 38),
+    accent = Color3.fromRGB(70, 130, 255),
+    accentDark = Color3.fromRGB(14, 165, 233),
+    text = Color3.fromRGB(241, 245, 249),
+    textDim = Color3.fromRGB(148, 163, 184),
+    success = Color3.fromRGB(34, 197, 94),
+    warning = Color3.fromRGB(251, 146, 60),
+    danger = Color3.fromRGB(239, 68, 68),
+    stroke = Color3.fromRGB(70, 130, 255),
+}
 
 -- Helper function to convert CFrame rotation to saveable format
 local function serializeCFrame(cf)
@@ -65,6 +80,16 @@ local function saveRecordings()
     print("Recordings saved to", fileName)
 end
 
+-- Helper function to add stroke
+local function addStroke(element, color, thickness)
+    local stroke = Instance.new("UIStroke")
+    stroke.Color = color or colors.stroke
+    stroke.Thickness = thickness or 1
+    stroke.Transparency = 0
+    stroke.Parent = element
+    return stroke
+end
+
 -- Create GUI
 local screenGui = Instance.new("ScreenGui")
 screenGui.Name = "AutoWalkRecorder"
@@ -73,39 +98,39 @@ screenGui.Parent = player:WaitForChild("PlayerGui")
 
 local mainFrame = Instance.new("Frame")
 mainFrame.Name = "MainFrame"
-mainFrame.Size = UDim2.new(0, 240, 0, 340)  -- [[ DIUBAH ]] Diperkecil dari 260x380 menjadi 240x340
-mainFrame.Position = UDim2.new(0.5, -120, 0.5, -170)  -- [[ DIUBAH ]] Disesuaikan dengan ukuran baru
-mainFrame.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
-mainFrame.BackgroundTransparency = 0.15
+mainFrame.Size = UDim2.new(0, 240, 0, 340)
+mainFrame.Position = UDim2.new(0.5, -120, 0.5, -170)
+mainFrame.BackgroundColor3 = colors.background
 mainFrame.BorderSizePixel = 0
 mainFrame.Active = true
 mainFrame.Draggable = true
 mainFrame.Parent = screenGui
 
 local mainCorner = Instance.new("UICorner")
-mainCorner.CornerRadius = UDim.new(0, 8)  -- [[ DIUBAH ]] Diperkecil dari 10 menjadi 8
+mainCorner.CornerRadius = UDim.new(0, 12)
 mainCorner.Parent = mainFrame
+
+addStroke(mainFrame, colors.stroke, 2)
 
 -- Top Bar
 local topBar = Instance.new("Frame")
 topBar.Name = "TopBar"
-topBar.Size = UDim2.new(1, 0, 0, 26)  -- [[ DIUBAH ]] Diperkecil dari 28 menjadi 26
-topBar.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
-topBar.BackgroundTransparency = 0.15
+topBar.Size = UDim2.new(1, 0, 0, 26)
+topBar.BackgroundColor3 = colors.surface
 topBar.BorderSizePixel = 0
 topBar.Parent = mainFrame
 
 local topCorner = Instance.new("UICorner")
-topCorner.CornerRadius = UDim.new(0, 8)
+topCorner.CornerRadius = UDim.new(0, 12)
 topCorner.Parent = topBar
 
 local titleLabel = Instance.new("TextLabel")
 titleLabel.Size = UDim2.new(1, -55, 1, 0)
-titleLabel.Position = UDim2.new(0, 6, 0, 0)  -- [[ DIUBAH ]] Padding dikurangi
+titleLabel.Position = UDim2.new(0, 10, 0, 0)
 titleLabel.BackgroundTransparency = 1
 titleLabel.Text = "SIEXTHER AUTO WALK"
-titleLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
-titleLabel.TextSize = 11  -- [[ DIUBAH ]] Diperkecil dari 12
+titleLabel.TextColor3 = colors.accent
+titleLabel.TextSize = 11
 titleLabel.Font = Enum.Font.GothamBold
 titleLabel.TextXAlignment = Enum.TextXAlignment.Left
 titleLabel.Parent = topBar
@@ -113,182 +138,191 @@ titleLabel.Parent = topBar
 -- Minimize Button
 local minimizeBtn = Instance.new("TextButton")
 minimizeBtn.Name = "MinimizeBtn"
-minimizeBtn.Size = UDim2.new(0, 22, 0, 22)  -- [[ DIUBAH ]] Diperkecil dari 24x24
+minimizeBtn.Size = UDim2.new(0, 22, 0, 22)
 minimizeBtn.Position = UDim2.new(1, -46, 0, 2)
-minimizeBtn.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
-minimizeBtn.BackgroundTransparency = 0.15
+minimizeBtn.BackgroundColor3 = colors.surfaceLight
 minimizeBtn.Text = "−"
 minimizeBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
-minimizeBtn.TextSize = 13  -- [[ DIUBAH ]] Diperkecil dari 14
+minimizeBtn.TextSize = 13
 minimizeBtn.Font = Enum.Font.GothamBold
+minimizeBtn.BorderSizePixel = 0
 minimizeBtn.Parent = topBar
 
 local minimizeCorner = Instance.new("UICorner")
-minimizeCorner.CornerRadius = UDim.new(0, 4)
+minimizeCorner.CornerRadius = UDim.new(0, 6)
 minimizeCorner.Parent = minimizeBtn
 
 -- Close Button
 local closeBtn = Instance.new("TextButton")
 closeBtn.Name = "CloseBtn"
-closeBtn.Size = UDim2.new(0, 22, 0, 22)  -- [[ DIUBAH ]] Diperkecil dari 24x24
+closeBtn.Size = UDim2.new(0, 22, 0, 22)
 closeBtn.Position = UDim2.new(1, -22, 0, 2)
-closeBtn.BackgroundColor3 = Color3.fromRGB(200, 50, 50)
-closeBtn.BackgroundTransparency = 0.15
+closeBtn.BackgroundColor3 = colors.danger
 closeBtn.Text = "X"
 closeBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
-closeBtn.TextSize = 11  -- [[ DIUBAH ]] Diperkecil dari 12
-closeBtn.Font = Enum.Font.GothamBold
+closeBtn.TextSize = 11
+minimizeBtn.Font = Enum.Font.GothamBold
+closeBtn.BorderSizePixel = 0
 closeBtn.Parent = topBar
 
 local closeCorner = Instance.new("UICorner")
-closeCorner.CornerRadius = UDim.new(0, 4)
+closeCorner.CornerRadius = UDim.new(0, 6)
 closeCorner.Parent = closeBtn
+
 
 -- Content Frame
 local contentFrame = Instance.new("Frame")
 contentFrame.Name = "ContentFrame"
-contentFrame.Size = UDim2.new(1, -14, 1, -32)  -- [[ DIUBAH ]] Padding dikurangi
-contentFrame.Position = UDim2.new(0, 7, 0, 29)  -- [[ DIUBAH ]] Posisi disesuaikan
+contentFrame.Size = UDim2.new(1, -14, 1, -32)
+contentFrame.Position = UDim2.new(0, 7, 0, 29)
 contentFrame.BackgroundTransparency = 1
 contentFrame.Parent = mainFrame
 
 -- Recording Name Input
 local nameLabel = Instance.new("TextLabel")
-nameLabel.Size = UDim2.new(1, 0, 0, 16)  -- [[ DIUBAH ]] Diperkecil dari 18
+nameLabel.Size = UDim2.new(1, 0, 0, 16)
 nameLabel.Position = UDim2.new(0, 0, 0, 0)
 nameLabel.BackgroundTransparency = 1
 nameLabel.Text = "Nama Rekaman:"
 nameLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
-nameLabel.TextSize = 9  -- [[ DIUBAH ]] Diperkecil dari 10
+nameLabel.TextSize = 9
 nameLabel.Font = Enum.Font.Gotham
 nameLabel.TextXAlignment = Enum.TextXAlignment.Left
 nameLabel.Parent = contentFrame
 
 local nameInput = Instance.new("TextBox")
-nameInput.Size = UDim2.new(1, 0, 0, 24)  -- [[ DIUBAH ]] Diperkecil dari 26
-nameInput.Position = UDim2.new(0, 0, 0, 18)  -- [[ DIUBAH ]] Posisi disesuaikan
-nameInput.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
-nameInput.BackgroundTransparency = 0.15
+nameInput.Size = UDim2.new(1, 0, 0, 24)
+nameInput.Position = UDim2.new(0, 0, 0, 18)
+nameInput.BackgroundColor3 = colors.surface
 nameInput.Text = ""
 nameInput.PlaceholderText = "Masukkan nama..."
-nameInput.TextColor3 = Color3.fromRGB(255, 255, 255)
-nameInput.TextSize = 9  -- [[ DIUBAH ]] Diperkecil dari 10
+nameInput.PlaceholderColor3 = colors.textDim
+nameInput.TextColor3 = colors.text
+nameInput.TextSize = 9
 nameInput.Font = Enum.Font.Gotham
+nameInput.BorderSizePixel = 0
 nameInput.Parent = contentFrame
 
 local nameCorner = Instance.new("UICorner")
-nameCorner.CornerRadius = UDim.new(0, 4)
+nameCorner.CornerRadius = UDim.new(0, 6)
 nameCorner.Parent = nameInput
+
 
 -- Status Label
 local statusLabel = Instance.new("TextLabel")
-statusLabel.Size = UDim2.new(1, 0, 0, 20)  -- [[ DIUBAH ]] Diperkecil dari 22
-statusLabel.Position = UDim2.new(0, 0, 0, 45)  -- [[ DIUBAH ]] Posisi disesuaikan
-statusLabel.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
-statusLabel.BackgroundTransparency = 0.15
+statusLabel.Size = UDim2.new(1, 0, 0, 20)
+statusLabel.Position = UDim2.new(0, 0, 0, 45)
+statusLabel.BackgroundColor3 = colors.surface
 statusLabel.Text = "Status: Siap"
-statusLabel.TextColor3 = Color3.fromRGB(100, 255, 100)
-statusLabel.TextSize = 9  -- [[ DIUBAH ]] Diperkecil dari 10
+statusLabel.TextColor3 = colors.success
+statusLabel.TextSize = 9
 statusLabel.Font = Enum.Font.GothamBold
+statusLabel.BorderSizePixel = 0
 statusLabel.Parent = contentFrame
 
 local statusCorner = Instance.new("UICorner")
-statusCorner.CornerRadius = UDim.new(0, 4)
+statusCorner.CornerRadius = UDim.new(0, 6)
 statusCorner.Parent = statusLabel
+
 
 -- Record Button
 local recordBtn = Instance.new("TextButton")
-recordBtn.Size = UDim2.new(0.31, -2, 0, 28)  -- [[ DIUBAH ]] Diperkecil dari 30
-recordBtn.Position = UDim2.new(0, 0, 0, 68)  -- [[ DIUBAH ]] Posisi disesuaikan
-recordBtn.BackgroundColor3 = Color3.fromRGB(200, 50, 50)
-recordBtn.BackgroundTransparency = 0.15
+recordBtn.Size = UDim2.new(0.31, -2, 0, 28)
+recordBtn.Position = UDim2.new(0, 0, 0, 68)
+recordBtn.BackgroundColor3 = colors.danger
 recordBtn.Text = "🔴 REKAM"
 recordBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
-recordBtn.TextSize = 9  -- [[ DIUBAH ]] Diperkecil dari 10
+recordBtn.TextSize = 9
 recordBtn.Font = Enum.Font.GothamBold
+recordBtn.BorderSizePixel = 0
 recordBtn.Parent = contentFrame
 
 local recordCorner = Instance.new("UICorner")
 recordCorner.CornerRadius = UDim.new(0, 6)
 recordCorner.Parent = recordBtn
 
+
 -- Pause Button
 local pauseBtn = Instance.new("TextButton")
-pauseBtn.Size = UDim2.new(0.31, -2, 0, 28)  -- [[ DIUBAH ]] Diperkecil dari 30
-pauseBtn.Position = UDim2.new(0.34, 0, 0, 68)  -- [[ DIUBAH ]] Posisi disesuaikan
-pauseBtn.BackgroundColor3 = Color3.fromRGB(255, 165, 0)
-pauseBtn.BackgroundTransparency = 0.15
+pauseBtn.Size = UDim2.new(0.31, -2, 0, 28)
+pauseBtn.Position = UDim2.new(0.34, 0, 0, 68)
+pauseBtn.BackgroundColor3 = colors.warning
 pauseBtn.Text = "⏸ PAUSE"
 pauseBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
-pauseBtn.TextSize = 9  -- [[ DIUBAH ]] Diperkecil dari 10
+pauseBtn.TextSize = 9
 pauseBtn.Font = Enum.Font.GothamBold
 pauseBtn.Visible = false
+pauseBtn.BorderSizePixel = 0
 pauseBtn.Parent = contentFrame
 
 local pauseCorner = Instance.new("UICorner")
 pauseCorner.CornerRadius = UDim.new(0, 6)
 pauseCorner.Parent = pauseBtn
 
+
 -- Stop Button
 local stopBtn = Instance.new("TextButton")
-stopBtn.Size = UDim2.new(0.31, -2, 0, 28)  -- [[ DIUBAH ]] Diperkecil dari 30
-stopBtn.Position = UDim2.new(0.68, 0, 0, 68)  -- [[ DIUBAH ]] Posisi disesuaikan
-stopBtn.BackgroundColor3 = Color3.fromRGB(100, 100, 100)
-stopBtn.BackgroundTransparency = 0.15
+stopBtn.Size = UDim2.new(0.31, -2, 0, 28)
+stopBtn.Position = UDim2.new(0.68, 0, 0, 68)
+stopBtn.BackgroundColor3 = colors.surfaceLight
 stopBtn.Text = "⏹ STOP"
 stopBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
-stopBtn.TextSize = 9  -- [[ DIUBAH ]] Diperkecil dari 10
+stopBtn.TextSize = 9
 stopBtn.Font = Enum.Font.GothamBold
+stopBtn.BorderSizePixel = 0
 stopBtn.Parent = contentFrame
 
 local stopCorner = Instance.new("UICorner")
 stopCorner.CornerRadius = UDim.new(0, 6)
 stopCorner.Parent = stopBtn
 
+
 -- Auto Repeat Button
 local autoRepeatBtn = Instance.new("TextButton")
-autoRepeatBtn.Size = UDim2.new(1, 0, 0, 28)  -- [[ DIUBAH ]] Diperkecil dari 30
-autoRepeatBtn.Position = UDim2.new(0, 0, 0, 99)  -- [[ DIUBAH ]] Posisi disesuaikan
-autoRepeatBtn.BackgroundColor3 = Color3.fromRGB(135, 206, 250)
-autoRepeatBtn.BackgroundTransparency = 0.15
+autoRepeatBtn.Size = UDim2.new(1, 0, 0, 28)
+autoRepeatBtn.Position = UDim2.new(0, 0, 0, 99)
+autoRepeatBtn.BackgroundColor3 = colors.accent
 autoRepeatBtn.Text = "🔁 AUTO PLAY"
 autoRepeatBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
-autoRepeatBtn.TextSize = 10  -- [[ DIUBAH ]] Diperkecil dari 11
+autoRepeatBtn.TextSize = 10
 autoRepeatBtn.Font = Enum.Font.GothamBold
+autoRepeatBtn.BorderSizePixel = 0
 autoRepeatBtn.Parent = contentFrame
 
 local autoRepeatCorner = Instance.new("UICorner")
 autoRepeatCorner.CornerRadius = UDim.new(0, 6)
 autoRepeatCorner.Parent = autoRepeatBtn
 
+
 -- Recordings List Label
 local listLabel = Instance.new("TextLabel")
-listLabel.Size = UDim2.new(1, 0, 0, 16)  -- [[ DIUBAH ]] Diperkecil dari 18
-listLabel.Position = UDim2.new(0, 0, 0, 130)  -- [[ DIUBAH ]] Posisi disesuaikan
+listLabel.Size = UDim2.new(1, 0, 0, 16)
+listLabel.Position = UDim2.new(0, 0, 0, 130)
 listLabel.BackgroundTransparency = 1
 listLabel.Text = "Daftar Rekaman:"
 listLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
-listLabel.TextSize = 9  -- [[ DIUBAH ]] Diperkecil dari 10
+listLabel.TextSize = 9
 listLabel.Font = Enum.Font.Gotham
 listLabel.TextXAlignment = Enum.TextXAlignment.Left
 listLabel.Parent = contentFrame
 
 -- Recordings ScrollFrame
 local recordingsScroll = Instance.new("ScrollingFrame")
-recordingsScroll.Size = UDim2.new(1, 0, 0, 160)  -- [[ DIUBAH ]] Diperkecil dari 170
-recordingsScroll.Position = UDim2.new(0, 0, 0, 149)  -- [[ DIUBAH ]] Posisi disesuaikan
-recordingsScroll.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
-recordingsScroll.BackgroundTransparency = 0.15
+recordingsScroll.Size = UDim2.new(1, 0, 0, 160)
+recordingsScroll.Position = UDim2.new(0, 0, 0, 149)
+recordingsScroll.BackgroundColor3 = colors.surface
 recordingsScroll.BorderSizePixel = 0
-recordingsScroll.ScrollBarThickness = 3  -- [[ DIUBAH ]] Diperkecil dari 4
+recordingsScroll.ScrollBarThickness = 3
+recordingsScroll.ScrollBarImageColor3 = colors.accent
 recordingsScroll.Parent = contentFrame
 
 local scrollCorner = Instance.new("UICorner")
-scrollCorner.CornerRadius = UDim.new(0, 4)
+scrollCorner.CornerRadius = UDim.new(0, 6)
 scrollCorner.Parent = recordingsScroll
 
+
 local listLayout = Instance.new("UIListLayout")
-listLayout.Padding = UDim.new(0, 3)  -- [[ DIUBAH ]] Diperkecil dari 4
+listLayout.Padding = UDim.new(0, 3)
 listLayout.Parent = recordingsScroll
 
 -- Functions
@@ -313,22 +347,24 @@ local function refreshRecordingsList()
 
     for i, rec in ipairs(recordings) do
         local recFrame = Instance.new("Frame")
-        recFrame.Size = UDim2.new(1, -8, 0, 26)  -- [[ DIUBAH ]] Diperkecil dari 28
-        recFrame.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
-        recFrame.BackgroundTransparency = 0.15
+        recFrame.Size = UDim2.new(1, -8, 0, 26)
+        recFrame.BackgroundColor3 = colors.surfaceLight
+        recFrame.BorderSizePixel = 0
         recFrame.Parent = recordingsScroll
         
         local recCorner = Instance.new("UICorner")
-        recCorner.CornerRadius = UDim.new(0, 4)
+        recCorner.CornerRadius = UDim.new(0, 6)
         recCorner.Parent = recFrame
+        
+        
 
         local recLabel = Instance.new("TextLabel")
-        recLabel.Size = UDim2.new(1, -125, 1, 0)  -- [[ DIUBAH ]] Disesuaikan
+        recLabel.Size = UDim2.new(1, -125, 1, 0)
         recLabel.Position = UDim2.new(0, 5, 0, 0)
         recLabel.BackgroundTransparency = 1
         recLabel.Text = rec.name
-        recLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
-        recLabel.TextSize = 8  -- [[ DIUBAH ]] Diperkecil dari 9
+        recLabel.TextColor3 = colors.text
+        recLabel.TextSize = 8
         recLabel.Font = Enum.Font.Gotham
         recLabel.TextXAlignment = Enum.TextXAlignment.Left
         recLabel.TextTruncate = Enum.TextTruncate.AtEnd
@@ -336,102 +372,106 @@ local function refreshRecordingsList()
 
         -- Menu Button
         local menuBtn = Instance.new("TextButton")
-        menuBtn.Size = UDim2.new(0, 26, 0, 18)  -- [[ DIUBAH ]] Diperkecil dari 28x20
+        menuBtn.Size = UDim2.new(0, 26, 0, 18)
         menuBtn.Position = UDim2.new(1, -120, 0.5, -9)
-        menuBtn.BackgroundColor3 = Color3.fromRGB(70, 70, 70)
-        menuBtn.BackgroundTransparency = 0.15
+        menuBtn.BackgroundColor3 = colors.surface
         menuBtn.Text = "↑↓"
-        menuBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
-        menuBtn.TextSize = 11  -- [[ DIUBAH ]] Diperkecil dari 12
+        menuBtn.TextColor3 = colors.accent
+        menuBtn.TextSize = 11
         menuBtn.Font = Enum.Font.GothamBold
+        menuBtn.BorderSizePixel = 0
         menuBtn.Parent = recFrame
 
         local menuCorner = Instance.new("UICorner")
-        menuCorner.CornerRadius = UDim.new(0, 3)
+        menuCorner.CornerRadius = UDim.new(0, 4)
         menuCorner.Parent = menuBtn
+        
+        
 
         -- Reorder Frame
         local reorderFrame = Instance.new("Frame")
         reorderFrame.Name = "ReorderFrame"
-        reorderFrame.Size = UDim2.new(0, 20, 0, 40)  -- [[ DIUBAH ]] Diperkecil dari 22x44
+        reorderFrame.Size = UDim2.new(0, 20, 0, 40)
         reorderFrame.Position = UDim2.new(1, -142, 0.5, -20)
-        reorderFrame.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
-        reorderFrame.BackgroundTransparency = 0.15
-        reorderFrame.BorderSizePixel = 1
-        reorderFrame.BorderColor3 = Color3.fromRGB(100, 100, 100)
+        reorderFrame.BackgroundColor3 = colors.surface
+        reorderFrame.BorderSizePixel = 0
         reorderFrame.Visible = false
         reorderFrame.ZIndex = 10
         reorderFrame.Parent = recFrame
 
         local reorderCorner = Instance.new("UICorner")
-        reorderCorner.CornerRadius = UDim.new(0, 3)
+        reorderCorner.CornerRadius = UDim.new(0, 4)
         reorderCorner.Parent = reorderFrame
+        
+        
 
         -- Up Button
         local upBtn = Instance.new("TextButton")
-        upBtn.Size = UDim2.new(1, 0, 0, 18)  -- [[ DIUBAH ]] Diperkecil dari 20
+        upBtn.Size = UDim2.new(1, 0, 0, 18)
         upBtn.Position = UDim2.new(0, 0, 0, 0)
-        upBtn.BackgroundColor3 = Color3.fromRGB(70, 120, 70)
-        upBtn.BackgroundTransparency = 0.15
+        upBtn.BackgroundColor3 = colors.success
         upBtn.Text = "↑"
-        upBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
-        upBtn.TextSize = 13  -- [[ DIUBAH ]] Diperkecil dari 14
+        upBtn.TextColor3 = colors.text
+        upBtn.TextSize = 13
         upBtn.Font = Enum.Font.GothamBold
         upBtn.ZIndex = 11
+        upBtn.BorderSizePixel = 0
         upBtn.Parent = reorderFrame
 
         local upCorner = Instance.new("UICorner")
-        upCorner.CornerRadius = UDim.new(0, 2)
+        upCorner.CornerRadius = UDim.new(0, 3)
         upCorner.Parent = upBtn
 
         -- Down Button
         local downBtn = Instance.new("TextButton")
-        downBtn.Size = UDim2.new(1, 0, 0, 18)  -- [[ DIUBAH ]] Diperkecil dari 20
-        downBtn.Position = UDim2.new(0, 0, 0, 20)  -- [[ DIUBAH ]] Posisi disesuaikan
-        downBtn.BackgroundColor3 = Color3.fromRGB(120, 70, 70)
-        downBtn.BackgroundTransparency = 0.15
+        downBtn.Size = UDim2.new(1, 0, 0, 18)
+        downBtn.Position = UDim2.new(0, 0, 0, 20)
+        downBtn.BackgroundColor3 = colors.danger
         downBtn.Text = "↓"
-        downBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
-        downBtn.TextSize = 13  -- [[ DIUBAH ]] Diperkecil dari 14
+        downBtn.TextColor3 = colors.text
+        downBtn.TextSize = 13
         downBtn.Font = Enum.Font.GothamBold
         downBtn.ZIndex = 11
+        downBtn.BorderSizePixel = 0
         downBtn.Parent = reorderFrame
 
         local downCorner = Instance.new("UICorner")
-        downCorner.CornerRadius = UDim.new(0, 2)
+        downCorner.CornerRadius = UDim.new(0, 3)
         downCorner.Parent = downBtn
 
         -- Play Button
         local playBtn = Instance.new("TextButton")
-        playBtn.Size = UDim2.new(0, 44, 0, 18)  -- [[ DIUBAH ]] Diperkecil dari 48x20
+        playBtn.Size = UDim2.new(0, 44, 0, 18)
         playBtn.Position = UDim2.new(1, -92, 0.5, -9)
-        playBtn.BackgroundColor3 = Color3.fromRGB(50, 150, 50)
-        playBtn.BackgroundTransparency = 0.15
-        playBtn.Text = "▶ Play"
+        playBtn.BackgroundColor3 = colors.success
+        playBtn.Text = "PLAY"
         playBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
-        playBtn.TextSize = 8  -- [[ DIUBAH ]] Diperkecil dari 9
+        playBtn.TextSize = 8
         playBtn.Font = Enum.Font.GothamBold
+        playBtn.BorderSizePixel = 0
         playBtn.Parent = recFrame
 
         local playCorner = Instance.new("UICorner")
-        playCorner.CornerRadius = UDim.new(0, 3)
+        playCorner.CornerRadius = UDim.new(0, 4)
         playCorner.Parent = playBtn
+        
+        
 
         -- Delete Button
         local deleteBtn = Instance.new("TextButton")
-        deleteBtn.Size = UDim2.new(0, 44, 0, 18)  -- [[ DIUBAH ]] Diperkecil dari 48x20
+        deleteBtn.Size = UDim2.new(0, 44, 0, 18)
         deleteBtn.Position = UDim2.new(1, -46, 0.5, -9)
-        deleteBtn.BackgroundColor3 = Color3.fromRGB(150, 50, 50)
-        deleteBtn.BackgroundTransparency = 0.15
-        deleteBtn.Text = "🗑 Hapus"
+        deleteBtn.BackgroundColor3 = colors.danger
+        deleteBtn.Text = "HAPUS"
         deleteBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
-        deleteBtn.TextSize = 8  -- [[ DIUBAH ]] Diperkecil dari 9
+        deleteBtn.TextSize = 8
         deleteBtn.Font = Enum.Font.GothamBold
+        deleteBtn.BorderSizePixel = 0
         deleteBtn.Parent = recFrame
 
         local deleteCorner = Instance.new("UICorner")
-        deleteCorner.CornerRadius = UDim.new(0, 3)
-        deleteCorner.Parent = deleteBtn
+        deleteCorner.CornerRadius = UDim.new(0, 4)
+        deleteCorner.Parent = deleteBtn    
 
         -- Menu Button Click
         menuBtn.MouseButton1Click:Connect(function()
@@ -453,7 +493,7 @@ local function refreshRecordingsList()
                 recordings[i - 1] = temp
                 saveRecordings()
                 refreshRecordingsList()
-                updateStatus("Rekaman dinaikkan", Color3.fromRGB(100, 255, 100))
+                updateStatus("Rekaman dinaikkan", colors.success)
             end
         end)
 
@@ -465,7 +505,7 @@ local function refreshRecordingsList()
                 recordings[i + 1] = temp
                 saveRecordings()
                 refreshRecordingsList()
-                updateStatus("Rekaman diturunkan", Color3.fromRGB(100, 255, 100))
+                updateStatus("Rekaman diturunkan", colors.success)
             end
         end)
 
@@ -479,7 +519,7 @@ local function refreshRecordingsList()
             table.remove(recordings, i)
             saveRecordings()
             refreshRecordingsList()
-            updateStatus("Rekaman dihapus", Color3.fromRGB(255, 200, 50))
+            updateStatus("Rekaman dihapus", colors.warning)
         end)
     end
     
@@ -488,7 +528,7 @@ end
 
 local function startRecording()
     if nameInput.Text == "" then
-        updateStatus("Masukkan nama rekaman!", Color3.fromRGB(255, 100, 100))
+        updateStatus("Masukkan nama rekaman!", colors.danger)
         return
     end
     
@@ -499,11 +539,11 @@ local function startRecording()
         startPosition = serializeCFrame(rootPart.CFrame),
         frames = {}
     }
-    updateStatus("Merekam... Frame: 0", Color3.fromRGB(255, 100, 100))
-    recordBtn.BackgroundColor3 = Color3.fromRGB(100, 100, 100)
+    updateStatus("Merekam... Frame: 0", colors.danger)
+    recordBtn.BackgroundColor3 = colors.surfaceLight
     pauseBtn.Visible = true
     pauseBtn.Text = "⏸ PAUSE"
-    pauseBtn.BackgroundColor3 = Color3.fromRGB(255, 165, 0)
+    pauseBtn.BackgroundColor3 = colors.warning
     
     local frameCount = 0
     recordConnection = RunService.Heartbeat:Connect(function()
@@ -527,7 +567,7 @@ local function startRecording()
         table.insert(currentRecording.frames, frameData)
         
         if frameCount % 10 == 0 then
-            updateStatus("Merekam... Frame: " .. frameCount, Color3.fromRGB(255, 100, 100))
+            updateStatus("Merekam... Frame: " .. frameCount, colors.danger)
         end
     end)
 end
@@ -538,24 +578,24 @@ local function togglePauseRecording()
         
         if isPausedRecording then
             pauseBtn.Text = "▶ LANJUT"
-            pauseBtn.BackgroundColor3 = Color3.fromRGB(50, 150, 50)
-            updateStatus("Rekaman di-pause", Color3.fromRGB(255, 200, 50))
+            pauseBtn.BackgroundColor3 = colors.success
+            updateStatus("Rekaman di-pause", colors.warning)
         else
             pauseBtn.Text = "⏸ PAUSE"
-            pauseBtn.BackgroundColor3 = Color3.fromRGB(255, 165, 0)
-            updateStatus("Merekam... Frame: " .. #currentRecording.frames, Color3.fromRGB(255, 100, 100))
+            pauseBtn.BackgroundColor3 = colors.warning
+            updateStatus("Merekam... Frame: " .. #currentRecording.frames, colors.danger)
         end
     elseif isPlaying then
         isPausedPlaying = not isPausedPlaying
         
         if isPausedPlaying then
             pauseBtn.Text = "▶ LANJUT"
-            pauseBtn.BackgroundColor3 = Color3.fromRGB(50, 150, 50)
-            updateStatus("Playback di-pause", Color3.fromRGB(255, 200, 50))
+            pauseBtn.BackgroundColor3 = colors.success
+            updateStatus("Playback di-pause", colors.warning)
         else
             pauseBtn.Text = "⏸ PAUSE"
-            pauseBtn.BackgroundColor3 = Color3.fromRGB(255, 165, 0)
-            updateStatus("Memutar...", Color3.fromRGB(100, 200, 255))
+            pauseBtn.BackgroundColor3 = colors.warning
+            updateStatus("Memutar...", colors.accent)
         end
     end
 end
@@ -573,12 +613,12 @@ local function stopRecording()
             table.insert(recordings, currentRecording)
             saveRecordings()
             refreshRecordingsList()
-            updateStatus("Rekaman tersimpan: " .. #currentRecording.frames .. " frame", Color3.fromRGB(100, 255, 100))
+            updateStatus("Rekaman tersimpan: " .. #currentRecording.frames .. " frame", colors.success)
         else
-            updateStatus("Rekaman kosong", Color3.fromRGB(255, 200, 50))
+            updateStatus("Rekaman kosong", colors.warning)
         end
         
-        recordBtn.BackgroundColor3 = Color3.fromRGB(200, 50, 50)
+        recordBtn.BackgroundColor3 = colors.danger
         pauseBtn.Visible = false
         nameInput.Text = ""
     end
@@ -590,12 +630,12 @@ local function stopRecording()
             playConnection:Disconnect()
         end
         pauseBtn.Visible = false
-        updateStatus("Pemutaran dihentikan", Color3.fromRGB(255, 200, 50))
+        updateStatus("Pemutaran dihentikan", colors.warning)
     end
     
     if isAutoRepeat then
         isAutoRepeat = false
-        autoRepeatBtn.BackgroundColor3 = Color3.fromRGB(135, 206, 250)
+        autoRepeatBtn.BackgroundColor3 = colors.accent
         autoRepeatBtn.Text = "🔁 AUTO PLAY"
     end
 end
@@ -624,8 +664,8 @@ function playRecording(rec)
     
     pauseBtn.Visible = true
     pauseBtn.Text = "⏸ PAUSE"
-    pauseBtn.BackgroundColor3 = Color3.fromRGB(255, 165, 0)
-    updateStatus("Memulai: " .. rec.name, Color3.fromRGB(100, 200, 255))
+    pauseBtn.BackgroundColor3 = colors.warning
+    updateStatus("Memulai: " .. rec.name, colors.accent)
     
     rootPart.CFrame = deserializeCFrame(rec.startPosition)
     wait(0.1)
@@ -650,7 +690,7 @@ function playRecording(rec)
                 humanoid:MoveTo(rootPart.Position)
             end
             if not isAutoRepeat then
-                updateStatus("Selesai", Color3.fromRGB(100, 255, 100))
+                updateStatus("Selesai", colors.success)
             end
             return
         end
@@ -675,7 +715,7 @@ function playRecording(rec)
         pausedFrameIndex = pausedFrameIndex + 1
         
         if pausedFrameIndex % 30 == 0 then
-            updateStatus("Memutar... " .. math.floor((pausedFrameIndex/#rec.frames)*100) .. "%", Color3.fromRGB(100, 200, 255))
+            updateStatus("Memutar... " .. math.floor((pausedFrameIndex/#rec.frames)*100) .. "%", colors.accent)
         end
     end)
 end
@@ -683,13 +723,13 @@ end
 local function autoRepeatRecordings()
     if isRecording or isPlaying or #recordings == 0 then
         if #recordings == 0 then
-            updateStatus("Tidak ada rekaman", Color3.fromRGB(255, 200, 50))
+            updateStatus("Tidak ada rekaman", colors.warning)
         end
         return
     end
     
     isAutoRepeat = true
-    autoRepeatBtn.BackgroundColor3 = Color3.fromRGB(200, 50, 50)
+    autoRepeatBtn.BackgroundColor3 = colors.danger
     autoRepeatBtn.Text = "⏹ STOP REPEAT"
     
     spawn(function()
@@ -700,7 +740,7 @@ local function autoRepeatRecordings()
                 if not isAutoRepeat then
                     break
                 end
-                updateStatus("Loop " .. loopCount .. ": " .. rec.name, Color3.fromRGB(200, 100, 255))
+                updateStatus("Loop " .. loopCount .. ": " .. rec.name, Color3.fromRGB(168, 85, 247))
                 playRecording(rec)
                 while isPlaying do
                     wait(0.1)
@@ -737,9 +777,9 @@ autoRepeatBtn.MouseButton1Click:Connect(function()
     if isAutoRepeat then
         isAutoRepeat = false
         isPlaying = false
-        autoRepeatBtn.BackgroundColor3 = Color3.fromRGB(135, 206, 250)
+        autoRepeatBtn.BackgroundColor3 = colors.accent
         autoRepeatBtn.Text = "🔁 AUTO PLAY"
-        updateStatus("Auto Play dihentikan", Color3.fromRGB(255, 200, 50))
+        updateStatus("Auto Play dihentikan", colors.warning)
     else
         autoRepeatRecordings()
     end
@@ -759,28 +799,47 @@ minimizeBtn.MouseButton1Click:Connect(function()
         -- [[ BARU ]] Simpan posisi terakhir sebelum minimize
         savedPosition = mainFrame.Position
         
+        -- [[ BARU ]] Hapus stroke dari mainFrame
+        for _, child in ipairs(mainFrame:GetChildren()) do
+            if child:IsA("UIStroke") then
+                child:Destroy()
+            end
+        end
+        
         -- Langsung sembunyikan tanpa animasi
         contentFrame.Visible = false
         topBar.Visible = false
-        mainFrame.Size = UDim2.new(0, 45, 0, 45)  -- [[ DIUBAH ]] Diperkecil dari 50x50
-        mainFrame.Position = UDim2.new(0, 15, 0.5, -22.5)  -- [[ DIUBAH ]] Posisi disesuaikan
+        mainFrame.Size = UDim2.new(0, 45, 0, 45)
+        mainFrame.Position = UDim2.new(0, 15, 0.5, -22.5)
         mainFrame.Draggable = false
+        mainFrame.BackgroundColor3 = colors.surfaceLight -- [[ BARU ]] Buat lebih gelap
         mainCorner.CornerRadius = UDim.new(1, 0)
         
         local cameraBtn = Instance.new("TextButton")
         cameraBtn.Name = "CameraButton"
         cameraBtn.Size = UDim2.new(1, 0, 1, 0)
-        cameraBtn.BackgroundTransparency = 1
+        cameraBtn.BackgroundColor3 = colors.surfaceLight -- [[ BARU ]] Background gelap
+        cameraBtn.BackgroundTransparency = 0 -- [[ BARU ]] Pastikan tidak transparan
         cameraBtn.Text = "🎥"
-        cameraBtn.TextSize = 24  -- [[ DIUBAH ]] Diperkecil dari 28
+        cameraBtn.TextColor3 = colors.text -- [[ BARU ]] Warna text sesuai scheme
+        cameraBtn.TextSize = 27
         cameraBtn.Font = Enum.Font.GothamBold
+        cameraBtn.BorderSizePixel = 0
         cameraBtn.Parent = mainFrame
+        
+        -- [[ BARU ]] Tambahkan corner untuk button agar bulat
+        local btnCorner = Instance.new("UICorner")
+        btnCorner.CornerRadius = UDim.new(1, 0)
+        btnCorner.Parent = cameraBtn
         
         cameraBtn.MouseButton1Click:Connect(function()
             isMinimized = false
             cameraBtn:Destroy()
-            mainCorner.CornerRadius = UDim.new(0, 8)
+            mainCorner.CornerRadius = UDim.new(0, 12)
             mainFrame.Draggable = true
+            mainFrame.BackgroundColor3 = colors.background -- [[ BARU ]] Kembalikan warna background
+            -- [[ BARU ]] Kembalikan stroke ke mainFrame
+            addStroke(mainFrame, colors.stroke, 2)
             -- Langsung tampilkan tanpa animasi
             mainFrame.Size = UDim2.new(0, 240, 0, 340)
             -- [[ BARU ]] Kembalikan ke posisi terakhir yang disimpan
@@ -806,13 +865,13 @@ player.CharacterAdded:Connect(function(char)
         if recordConnection then
             recordConnection:Disconnect()
         end
-        recordBtn.BackgroundColor3 = Color3.fromRGB(200, 50, 50)
+        recordBtn.BackgroundColor3 = colors.danger
         pauseBtn.Visible = false
-        updateStatus("Rekaman stop (Respawn)", Color3.fromRGB(255, 200, 50))
+        updateStatus("Rekaman stop (Respawn)", colors.warning)
     end
     
     if isAutoRepeat then
-        updateStatus("Auto Play: Respawn...", Color3.fromRGB(200, 100, 255))
+        updateStatus("Auto Play: Respawn...", Color3.fromRGB(168, 85, 247))
     end
 end)
 
@@ -826,4 +885,4 @@ end)
 -- Initialize
 loadRecordings()
 refreshRecordingsList()
-updateStatus("Siap", Color3.fromRGB(100, 255, 100))
+updateStatus("Siap", colors.success)
