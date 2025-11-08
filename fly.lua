@@ -1,26 +1,38 @@
+--### SIEXTHER ###
 local main = Instance.new("ScreenGui")
 local Frame = Instance.new("Frame")
 local FrameCorner = Instance.new("UICorner")
+local FrameStroke = Instance.new("UIStroke")
 local up = Instance.new("TextButton")
 local upCorner = Instance.new("UICorner")
+local upStroke = Instance.new("UIStroke")
 local down = Instance.new("TextButton")
 local downCorner = Instance.new("UICorner")
+local downStroke = Instance.new("UIStroke")
 local onof = Instance.new("TextButton")
 local onofCorner = Instance.new("UICorner")
+local onofStroke = Instance.new("UIStroke")
 local TextLabel = Instance.new("TextLabel")
 local TextLabelCorner = Instance.new("UICorner")
+local TextLabelStroke = Instance.new("UIStroke")
 local plus = Instance.new("TextButton")
 local plusCorner = Instance.new("UICorner")
+local plusStroke = Instance.new("UIStroke")
 local speed = Instance.new("TextLabel")
 local speedCorner = Instance.new("UICorner")
+local speedStroke = Instance.new("UIStroke")
 local mine = Instance.new("TextButton")
 local mineCorner = Instance.new("UICorner")
+local mineStroke = Instance.new("UIStroke")
 local closebutton = Instance.new("TextButton")
 local closebuttonCorner = Instance.new("UICorner")
+local closebuttonStroke = Instance.new("UIStroke")
 local mini = Instance.new("TextButton")
 local miniCorner = Instance.new("UICorner")
+local miniStroke = Instance.new("UIStroke")
 local mini2 = Instance.new("TextButton")
 local mini2Corner = Instance.new("UICorner")
+local mini2Stroke = Instance.new("UIStroke")
 
 main.Name = "main"
 main.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
@@ -28,171 +40,237 @@ main.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 main.ResetOnSpawn = false
 
 Frame.Parent = main
-Frame.BackgroundColor3 = Color3.fromRGB(35, 35, 35) -- Warna dark
-Frame.BackgroundTransparency = 0.2 -- Sedikit transparan
-Frame.BorderSizePixel = 0 -- Menghilangkan border
+Frame.BackgroundColor3 = Color3.fromRGB(18, 18, 22) -- Dark modern background
+Frame.BackgroundTransparency = 0.1
+Frame.BorderSizePixel = 0
 Frame.Position = UDim2.new(0.100320168, 0, 0.379746825, 0)
-Frame.Size = UDim2.new(0, 190, 0, 57)
+Frame.Size = UDim2.new(0, 170, 0, 50) -- Diperkecil dari 190x57 menjadi 170x50
 
-FrameCorner.CornerRadius = UDim.new(0, 8)
+FrameCorner.CornerRadius = UDim.new(0, 12)
 FrameCorner.Parent = Frame
+
+FrameStroke.Parent = Frame
+FrameStroke.Color = Color3.fromRGB(70, 130, 255) -- Sky blue stroke baru
+FrameStroke.Thickness = 2
+FrameStroke.Transparency = 0
+FrameStroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
 
 up.Name = "up"
 up.Parent = Frame
-up.BackgroundColor3 = Color3.fromRGB(55, 55, 55) -- Warna dark
-up.BackgroundTransparency = 0.1
+up.BackgroundColor3 = Color3.fromRGB(28, 28, 35) -- Dark modern
+up.BackgroundTransparency = 0
 up.BorderSizePixel = 0
-up.Size = UDim2.new(0, 44, 0, 28)
-up.Font = Enum.Font.SourceSansBold
+up.Size = UDim2.new(0, 38, 0, 24) -- Diperkecil
+up.Font = Enum.Font.GothamBold
 up.Text = "UP"
-up.TextColor3 = Color3.fromRGB(255, 255, 255) -- Teks putih
-up.TextSize = 14.000
+up.TextColor3 = Color3.fromRGB(255, 255, 255)
+up.TextSize = 12.000
 
-upCorner.CornerRadius = UDim.new(0, 5)
+upCorner.CornerRadius = UDim.new(0, 8)
 upCorner.Parent = up
+
+upStroke.Parent = up
+upStroke.Color = Color3.fromRGB(70, 130, 255) -- Sky blue stroke baru
+upStroke.Thickness = 1.5
+upStroke.Transparency = 0.3
+upStroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
 
 down.Name = "down"
 down.Parent = Frame
-down.BackgroundColor3 = Color3.fromRGB(55, 55, 55) -- Warna dark
-down.BackgroundTransparency = 0.1
+down.BackgroundColor3 = Color3.fromRGB(28, 28, 35) -- Dark modern
+down.BackgroundTransparency = 0
 down.BorderSizePixel = 0
-down.Position = UDim2.new(0, 0, 0.491228074, 0)
-down.Size = UDim2.new(0, 44, 0, 28)
-down.Font = Enum.Font.SourceSansBold
+down.Position = UDim2.new(0, 0, 0.52, 0)
+down.Size = UDim2.new(0, 38, 0, 24) -- Diperkecil
+down.Font = Enum.Font.GothamBold
 down.Text = "DOWN"
-down.TextColor3 = Color3.fromRGB(255, 255, 255) -- Teks putih
-down.TextSize = 14.000
+down.TextColor3 = Color3.fromRGB(255, 255, 255)
+down.TextSize = 11.000
 
-downCorner.CornerRadius = UDim.new(0, 5)
+downCorner.CornerRadius = UDim.new(0, 8)
 downCorner.Parent = down
+
+downStroke.Parent = down
+downStroke.Color = Color3.fromRGB(70, 130, 255) -- Sky blue stroke baru
+downStroke.Thickness = 1.5
+downStroke.Transparency = 0.3
+downStroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
 
 onof.Name = "onof"
 onof.Parent = Frame
-onof.BackgroundColor3 = Color3.fromRGB(55, 55, 55) -- Warna dark
-onof.BackgroundTransparency = 0.1
+onof.BackgroundColor3 = Color3.fromRGB(28, 28, 35) -- Dark modern
+onof.BackgroundTransparency = 0
 onof.BorderSizePixel = 0
-onof.Position = UDim2.new(0.702823281, 0, 0.491228074, 0)
-onof.Size = UDim2.new(0, 56, 0, 28)
-onof.Font = Enum.Font.SourceSansBold
+onof.Position = UDim2.new(0.694, 0, 0.52, 0)
+onof.Size = UDim2.new(0, 52, 0, 24) -- Diperkecil
+onof.Font = Enum.Font.GothamBold
 onof.Text = "FLY"
-onof.TextColor3 = Color3.fromRGB(255, 255, 255) -- Teks putih
-onof.TextSize = 14.000
+onof.TextColor3 = Color3.fromRGB(70, 130, 255) -- Sky blue text
+onof.TextSize = 13.000
 
-onofCorner.CornerRadius = UDim.new(0, 5)
+onofCorner.CornerRadius = UDim.new(0, 8)
 onofCorner.Parent = onof
 
+onofStroke.Parent = onof
+onofStroke.Color = Color3.fromRGB(70, 130, 255) -- Sky blue stroke baru
+onofStroke.Thickness = 2
+onofStroke.Transparency = 0
+onofStroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
+
 TextLabel.Parent = Frame
-TextLabel.BackgroundColor3 = Color3.fromRGB(65, 65, 65) -- Warna dark
-TextLabel.BackgroundTransparency = 0.1
+TextLabel.BackgroundColor3 = Color3.fromRGB(28, 28, 35) -- Dark modern
+TextLabel.BackgroundTransparency = 0
 TextLabel.BorderSizePixel = 0
-TextLabel.Position = UDim2.new(0.469327301, 0, 0, 0)
-TextLabel.Size = UDim2.new(0, 100, 0, 28)
-TextLabel.Font = Enum.Font.SourceSansBold
+TextLabel.Position = UDim2.new(0.459, 0, 0, 0)
+TextLabel.Size = UDim2.new(0, 92, 0, 24) -- Diperkecil
+TextLabel.Font = Enum.Font.GothamBold
 TextLabel.Text = "HANN.SIEXTHER"
-TextLabel.TextColor3 = Color3.fromRGB(255, 255, 255) -- Teks putih
+TextLabel.TextColor3 = Color3.fromRGB(70, 130, 255) -- Sky blue text
 TextLabel.TextScaled = true
-TextLabel.TextSize = 14.000
+TextLabel.TextSize = 12.000
 TextLabel.TextWrapped = true
 
-TextLabelCorner.CornerRadius = UDim.new(0, 5)
+TextLabelCorner.CornerRadius = UDim.new(0, 8)
 TextLabelCorner.Parent = TextLabel
+
+TextLabelStroke.Parent = TextLabel
+TextLabelStroke.Color = Color3.fromRGB(70, 130, 255) -- Sky blue stroke baru
+TextLabelStroke.Thickness = 1.5
+TextLabelStroke.Transparency = 0.3
+TextLabelStroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
 
 plus.Name = "plus"
 plus.Parent = Frame
-plus.BackgroundColor3 = Color3.fromRGB(55, 55, 55) -- Warna dark
-plus.BackgroundTransparency = 0.1
+plus.BackgroundColor3 = Color3.fromRGB(28, 28, 35) -- Dark modern
+plus.BackgroundTransparency = 0
 plus.BorderSizePixel = 0
-plus.Position = UDim2.new(0.231578946, 0, 0, 0)
-plus.Size = UDim2.new(0, 45, 0, 28)
-plus.Font = Enum.Font.SourceSansBold
+plus.Position = UDim2.new(0.224, 0, 0, 0)
+plus.Size = UDim2.new(0, 40, 0, 24) -- Diperkecil
+plus.Font = Enum.Font.GothamBold
 plus.Text = "+"
-plus.TextColor3 = Color3.fromRGB(255, 255, 255) -- Teks putih
+plus.TextColor3 = Color3.fromRGB(255, 255, 255)
 plus.TextScaled = true
-plus.TextSize = 14.000
+plus.TextSize = 12.000
 plus.TextWrapped = true
 
-plusCorner.CornerRadius = UDim.new(0, 5)
+plusCorner.CornerRadius = UDim.new(0, 8)
 plusCorner.Parent = plus
+
+plusStroke.Parent = plus
+plusStroke.Color = Color3.fromRGB(70, 130, 255) -- Sky blue stroke baru
+plusStroke.Thickness = 1.5
+plusStroke.Transparency = 0.3
+plusStroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
 
 speed.Name = "speed"
 speed.Parent = Frame
-speed.BackgroundColor3 = Color3.fromRGB(65, 65, 65) -- Warna dark
-speed.BackgroundTransparency = 0.1
+speed.BackgroundColor3 = Color3.fromRGB(28, 28, 35) -- Dark modern
+speed.BackgroundTransparency = 0
 speed.BorderSizePixel = 0
-speed.Position = UDim2.new(0.468421042, 0, 0.491228074, 0)
-speed.Size = UDim2.new(0, 44, 0, 28)
-speed.Font = Enum.Font.SourceSansBold
+speed.Position = UDim2.new(0.459, 0, 0.52, 0)
+speed.Size = UDim2.new(0, 40, 0, 24) -- Diperkecil
+speed.Font = Enum.Font.GothamBold
 speed.Text = "1"
-speed.TextColor3 = Color3.fromRGB(255, 255, 255) -- Teks putih
+speed.TextColor3 = Color3.fromRGB(70, 130, 255) -- Sky blue text
 speed.TextScaled = true
-speed.TextSize = 14.000
+speed.TextSize = 12.000
 speed.TextWrapped = true
 
-speedCorner.CornerRadius = UDim.new(0, 5)
+speedCorner.CornerRadius = UDim.new(0, 8)
 speedCorner.Parent = speed
+
+speedStroke.Parent = speed
+speedStroke.Color = Color3.fromRGB(70, 130, 255) -- Sky blue stroke baru
+speedStroke.Thickness = 1.5
+speedStroke.Transparency = 0.3
+speedStroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
 
 mine.Name = "mine"
 mine.Parent = Frame
-mine.BackgroundColor3 = Color3.fromRGB(55, 55, 55) -- Warna dark
-mine.BackgroundTransparency = 0.1
+mine.BackgroundColor3 = Color3.fromRGB(28, 28, 35) -- Dark modern
+mine.BackgroundTransparency = 0
 mine.BorderSizePixel = 0
-mine.Position = UDim2.new(0.231578946, 0, 0.491228074, 0)
-mine.Size = UDim2.new(0, 45, 0, 29)
-mine.Font = Enum.Font.SourceSansBold
+mine.Position = UDim2.new(0.224, 0, 0.52, 0)
+mine.Size = UDim2.new(0, 40, 0, 24) -- Diperkecil
+mine.Font = Enum.Font.GothamBold
 mine.Text = "-"
-mine.TextColor3 = Color3.fromRGB(255, 255, 255) -- Teks putih
+mine.TextColor3 = Color3.fromRGB(255, 255, 255)
 mine.TextScaled = true
-mine.TextSize = 14.000
+mine.TextSize = 12.000
 mine.TextWrapped = true
 
-mineCorner.CornerRadius = UDim.new(0, 5)
+mineCorner.CornerRadius = UDim.new(0, 8)
 mineCorner.Parent = mine
+
+mineStroke.Parent = mine
+mineStroke.Color = Color3.fromRGB(70, 130, 255) -- Sky blue stroke baru
+mineStroke.Thickness = 1.5
+mineStroke.Transparency = 0.3
+mineStroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
 
 closebutton.Name = "Close"
 closebutton.Parent = main.Frame
-closebutton.BackgroundColor3 = Color3.fromRGB(180, 40, 40) -- Warna merah dark
-closebutton.BackgroundTransparency = 0.1
+closebutton.BackgroundColor3 = Color3.fromRGB(28, 28, 35) -- Dark modern
+closebutton.BackgroundTransparency = 0
 closebutton.BorderSizePixel = 0
-closebutton.Font = "SourceSansBold"
-closebutton.Size = UDim2.new(0, 45, 0, 28)
+closebutton.Font = "GothamBold"
+closebutton.Size = UDim2.new(0, 38, 0, 24) -- Diperkecil
 closebutton.Text = "X"
-closebutton.TextColor3 = Color3.fromRGB(255, 255, 255) -- Teks putih
-closebutton.TextSize = 30
-closebutton.Position =  UDim2.new(0, 0, -1, 27)
+closebutton.TextColor3 = Color3.fromRGB(255, 85, 85) -- Red text
+closebutton.TextSize = 20
+closebutton.Position =  UDim2.new(0, 0, -1, 24)
 
-closebuttonCorner.CornerRadius = UDim.new(0, 5)
+closebuttonCorner.CornerRadius = UDim.new(0, 8)
 closebuttonCorner.Parent = closebutton
+
+closebuttonStroke.Parent = closebutton
+closebuttonStroke.Color = Color3.fromRGB(255, 85, 85) -- Red stroke
+closebuttonStroke.Thickness = 2
+closebuttonStroke.Transparency = 0
+closebuttonStroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
 
 mini.Name = "minimize"
 mini.Parent = main.Frame
-mini.BackgroundColor3 = Color3.fromRGB(80, 80, 80) -- Warna abu-abu dark
-mini.BackgroundTransparency = 0.1
+mini.BackgroundColor3 = Color3.fromRGB(28, 28, 35) -- Dark modern
+mini.BackgroundTransparency = 0
 mini.BorderSizePixel = 0
-mini.Font = "SourceSansBold"
-mini.Size = UDim2.new(0, 45, 0, 28)
+mini.Font = "GothamBold"
+mini.Size = UDim2.new(0, 38, 0, 24) -- Diperkecil
 mini.Text = "-"
-mini.TextColor3 = Color3.fromRGB(255, 255, 255) -- Teks putih
-mini.TextSize = 40
-mini.Position = UDim2.new(0, 44, -1, 27)
+mini.TextColor3 = Color3.fromRGB(70, 130, 255) -- Sky blue text
+mini.TextSize = 26
+mini.Position = UDim2.new(0, 38, -1, 24)
 
-miniCorner.CornerRadius = UDim.new(0, 5)
+miniCorner.CornerRadius = UDim.new(0, 8)
 miniCorner.Parent = mini
+
+miniStroke.Parent = mini
+miniStroke.Color = Color3.fromRGB(70, 130, 255) -- Sky blue stroke baru
+miniStroke.Thickness = 1.5
+miniStroke.Transparency = 0.3
+miniStroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
 
 mini2.Name = "minimize2"
 mini2.Parent = main.Frame
-mini2.BackgroundColor3 = Color3.fromRGB(80, 80, 80) -- Warna abu-abu dark
-mini2.BackgroundTransparency = 0.1
+mini2.BackgroundColor3 = Color3.fromRGB(28, 28, 35) -- Dark modern
+mini2.BackgroundTransparency = 0
 mini2.BorderSizePixel = 0
-mini2.Font = "SourceSansBold"
-mini2.Size = UDim2.new(0, 45, 0, 28)
+mini2.Font = "GothamBold"
+mini2.Size = UDim2.new(0, 38, 0, 24) -- Diperkecil
 mini2.Text = "+"
-mini2.TextColor3 = Color3.fromRGB(255, 255, 255) -- Teks putih
-mini2.TextSize = 40
-mini2.Position = UDim2.new(0, 44, -1, 57)
+mini2.TextColor3 = Color3.fromRGB(70, 130, 255) -- Sky blue text
+mini2.TextSize = 26
+mini2.Position = UDim2.new(0, 38, -1, 48)
 mini2.Visible = false
 
-mini2Corner.CornerRadius = UDim.new(0, 5)
+mini2Corner.CornerRadius = UDim.new(0, 8)
 mini2Corner.Parent = mini2
+
+mini2Stroke.Parent = mini2
+mini2Stroke.Color = Color3.fromRGB(70, 130, 255) -- Sky blue stroke baru
+mini2Stroke.Thickness = 1.5
+mini2Stroke.Transparency = 0.3
+mini2Stroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
 
 speeds = 1
 
@@ -203,11 +281,8 @@ local hum = chr and chr:FindFirstChildWhichIsA("Humanoid")
 
 nowe = false
 
-game:GetService("StarterGui"):SetCore("SendNotification", { 
-	Title = "FLY GUI";
-	Text = "BY HANN.SIEXTHER";
-	Icon = "rbxthumb://type=Asset&id=5107182114&w=150&h=150"})
-Duration = 5;
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Fleast/hankill/refs/heads/main/Notify.lua"))()
+    getgenv().Notify({Title = 'SIEXTHER x FLY', Content = 'AKTIF', Duration = 4})
 
 Frame.Active = true
 Frame.Draggable = true
@@ -485,7 +560,8 @@ mini.MouseButton1Click:Connect(function()
 	mini.Visible = false
 	mini2.Visible = true
 	main.Frame.BackgroundTransparency = 1
-	closebutton.Position =  UDim2.new(0, 0, -1, 57)
+	FrameStroke.Transparency = 1
+	closebutton.Position =  UDim2.new(0, 0, -1, 48)
 end)
 
 mini2.MouseButton1Click:Connect(function()
@@ -497,6 +573,7 @@ mini2.MouseButton1Click:Connect(function()
 	mine.Visible = true
 	mini.Visible = true
 	mini2.Visible = false
-	main.Frame.BackgroundTransparency = 0.2 -- Mengembalikan transparansi
-	closebutton.Position =  UDim2.new(0, 0, -1, 27)
+	main.Frame.BackgroundTransparency = 0.1
+	FrameStroke.Transparency = 0
+	closebutton.Position =  UDim2.new(0, 0, -1, 24)
 end)
