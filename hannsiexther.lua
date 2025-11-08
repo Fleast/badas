@@ -1,5 +1,4 @@
-
--- Services
+-- SIEXTHER
 local Players = game:GetService("Players")
 local RunService = game:GetService("RunService")
 local Player = Players.LocalPlayer
@@ -12,157 +11,216 @@ ScreenGui.Parent = game:GetService("CoreGui")
 
 -- Main Frame
 local MainFrame = Instance.new("Frame")
-MainFrame.Size = UDim2.new(0, 300, 0, 370) -- Increased height slightly for new buttons
-MainFrame.Position = UDim2.new(0.5, -150, 0.5, -185)
-MainFrame.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
-MainFrame.BackgroundTransparency = 0.25
+MainFrame.Size = UDim2.new(0, 280, 0, 350)
+MainFrame.Position = UDim2.new(0.5, -140, 0.5, -175)
+MainFrame.BackgroundColor3 = Color3.fromRGB(15, 15, 20)
 MainFrame.BorderSizePixel = 0
 MainFrame.Active = true
 MainFrame.Draggable = true
 MainFrame.Parent = ScreenGui
 
+-- Main Frame Stroke
+local MainStroke = Instance.new("UIStroke")
+MainStroke.Color = Color3.fromRGB(70, 130, 255)
+MainStroke.Thickness = 2
+MainStroke.Parent = MainFrame
+
+-- Main Frame Corner
+local MainCorner = Instance.new("UICorner")
+MainCorner.CornerRadius = UDim.new(0, 10)
+MainCorner.Parent = MainFrame
+
 -- Title Bar
 local TitleBar = Instance.new("Frame")
-TitleBar.Size = UDim2.new(1, 0, 0, 30)
-TitleBar.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
-TitleBar.BackgroundTransparency = 0.2
+TitleBar.Size = UDim2.new(1, 0, 0, 40)
+TitleBar.BackgroundColor3 = Color3.fromRGB(20, 25, 30)
 TitleBar.BorderSizePixel = 0
 TitleBar.Parent = MainFrame
 
+-- Title Bar Corner
+local TitleCorner = Instance.new("UICorner")
+TitleCorner.CornerRadius = UDim.new(0, 10)
+TitleCorner.Parent = TitleBar
+
+-- Title Bar Bottom Cover (to square bottom corners)
+local TitleCover = Instance.new("Frame")
+TitleCover.Size = UDim2.new(1, 0, 0, 10)
+TitleCover.Position = UDim2.new(0, 0, 1, -10)
+TitleCover.BackgroundColor3 = Color3.fromRGB(20, 25, 30)
+TitleCover.BorderSizePixel = 0
+TitleCover.Parent = TitleBar
+
 -- Title
 local Title = Instance.new("TextLabel")
-Title.Size = UDim2.new(1, -60, 1, 0) -- Adjusted size for new minimize button
+Title.Size = UDim2.new(1, -70, 1, 0)
+Title.Position = UDim2.new(0, 10, 0, 0)
 Title.BackgroundTransparency = 1
-Title.Text = "SIEXTHERxFLING By Hann.Siexther"
-Title.TextColor3 = Color3.fromRGB(255, 80, 80)
-Title.Font = Enum.Font.SourceSansBold
-Title.TextSize = 18
+Title.Text = "SIEXTHER x FLING"
+Title.TextColor3 = Color3.fromRGB(70, 130, 255)
+Title.Font = Enum.Font.GothamBold
+Title.TextSize = 17
+Title.TextXAlignment = Enum.TextXAlignment.Left
 Title.Parent = TitleBar
 
 -- Close Button
 local CloseButton = Instance.new("TextButton")
-CloseButton.Position = UDim2.new(1, -30, 0, 0)
-CloseButton.Size = UDim2.new(0, 30, 0, 30)
-CloseButton.BackgroundColor3 = Color3.fromRGB(200, 0, 0)
-CloseButton.BackgroundTransparency = 0.2
+CloseButton.Position = UDim2.new(1, -35, 0.5, -12)
+CloseButton.Size = UDim2.new(0, 24, 0, 24)
+CloseButton.BackgroundColor3 = Color3.fromRGB(220, 50, 50)
 CloseButton.BorderSizePixel = 0
-CloseButton.Text = "X"
+CloseButton.Text = "×"
 CloseButton.TextColor3 = Color3.fromRGB(255, 255, 255)
-CloseButton.Font = Enum.Font.SourceSansBold
-CloseButton.TextSize = 18
+CloseButton.Font = Enum.Font.GothamBold
+CloseButton.TextSize = 20
 CloseButton.Parent = TitleBar
 
--- Minimize Button (New)
+local CloseCorner = Instance.new("UICorner")
+CloseCorner.CornerRadius = UDim.new(0, 6)
+CloseCorner.Parent = CloseButton
+
+-- Minimize Button
 local MinimizeButton = Instance.new("TextButton")
-MinimizeButton.Position = UDim2.new(1, -60, 0, 0)
-MinimizeButton.Size = UDim2.new(0, 30, 0, 30)
-MinimizeButton.BackgroundColor3 = Color3.fromRGB(80, 80, 80)
-MinimizeButton.BackgroundTransparency = 0.2
+MinimizeButton.Position = UDim2.new(1, -65, 0.5, -12)
+MinimizeButton.Size = UDim2.new(0, 24, 0, 24)
+MinimizeButton.BackgroundColor3 = Color3.fromRGB(50, 50, 60)
 MinimizeButton.BorderSizePixel = 0
-MinimizeButton.Text = "_"
+MinimizeButton.Text = "—"
 MinimizeButton.TextColor3 = Color3.fromRGB(255, 255, 255)
-MinimizeButton.Font = Enum.Font.SourceSansBold
-MinimizeButton.TextSize = 18
+MinimizeButton.Font = Enum.Font.GothamBold
+MinimizeButton.TextSize = 16
 MinimizeButton.Parent = TitleBar
 
--- Restore Button (Minimized State, New)
+local MinCorner = Instance.new("UICorner")
+MinCorner.CornerRadius = UDim.new(0, 6)
+MinCorner.Parent = MinimizeButton
+
+-- Restore Button (Minimized State)
 local RestoreButton = Instance.new("TextButton")
-RestoreButton.Size = UDim2.new(0, 150, 0, 30)
-RestoreButton.Position = UDim2.new(0, 10, 0, 10)
-RestoreButton.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
-RestoreButton.BackgroundTransparency = 0.2
-RestoreButton.BorderSizePixel = 1
-RestoreButton.BorderColor3 = Color3.fromRGB(255, 80, 80)
-RestoreButton.Text = "SIEXTHERxFLING"
-RestoreButton.TextColor3 = Color3.fromRGB(255, 80, 80)
-RestoreButton.Font = Enum.Font.SourceSansBold
-RestoreButton.TextSize = 16
+RestoreButton.Size = UDim2.new(0, 43, 0, 43)
+RestoreButton.Position = UDim2.new(0, 15, 0.5, -22.5)
+RestoreButton.BackgroundColor3 = Color3.fromRGB(15, 15, 20)
+RestoreButton.BorderSizePixel = 0
+RestoreButton.Text = "☠️"
+RestoreButton.TextColor3 = Color3.fromRGB(70, 130, 255)
+RestoreButton.Font = Enum.Font.GothamBold
+RestoreButton.TextSize = 20
 RestoreButton.Draggable = true
 RestoreButton.Active = true
-RestoreButton.Visible = false -- Initially hidden
+RestoreButton.Visible = false
 RestoreButton.Parent = ScreenGui
+
+local RestoreStroke = Instance.new("UIStroke")
+RestoreStroke.Color = Color3.fromRGB(70, 130, 255)
+RestoreStroke.Thickness = 2
+RestoreStroke.Parent = RestoreButton
+
+local RestoreCorner = Instance.new("UICorner")
+RestoreCorner.CornerRadius = UDim.new(0, 8)
+RestoreCorner.Parent = RestoreButton
 
 -- Status Label
 local StatusLabel = Instance.new("TextLabel")
-StatusLabel.Position = UDim2.new(0, 10, 0, 40)
-StatusLabel.Size = UDim2.new(1, -20, 0, 25)
+StatusLabel.Position = UDim2.new(0, 15, 0, 50)
+StatusLabel.Size = UDim2.new(1, -30, 0, 25)
 StatusLabel.BackgroundTransparency = 1
 StatusLabel.Text = "Pilih target untuk difling"
-StatusLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
-StatusLabel.Font = Enum.Font.SourceSans
-StatusLabel.TextSize = 16
+StatusLabel.TextColor3 = Color3.fromRGB(200, 200, 200)
+StatusLabel.Font = Enum.Font.Gotham
+StatusLabel.TextSize = 14
 StatusLabel.TextXAlignment = Enum.TextXAlignment.Left
 StatusLabel.Parent = MainFrame
 
 -- Player Selection Frame
 local SelectionFrame = Instance.new("Frame")
-SelectionFrame.Position = UDim2.new(0, 10, 0, 70)
-SelectionFrame.Size = UDim2.new(1, -20, 0, 200)
-SelectionFrame.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
-SelectionFrame.BackgroundTransparency = 0.4
+SelectionFrame.Position = UDim2.new(0, 15, 0, 80)
+SelectionFrame.Size = UDim2.new(1, -30, 0, 175)
+SelectionFrame.BackgroundColor3 = Color3.fromRGB(25, 30, 35)
 SelectionFrame.BorderSizePixel = 0
 SelectionFrame.Parent = MainFrame
 
+local SelectionStroke = Instance.new("UIStroke")
+SelectionStroke.Color = Color3.fromRGB(70, 130, 255)
+SelectionStroke.Thickness = 1
+SelectionStroke.Transparency = 0.5
+SelectionStroke.Parent = SelectionFrame
+
+local SelectionCorner = Instance.new("UICorner")
+SelectionCorner.CornerRadius = UDim.new(0, 8)
+SelectionCorner.Parent = SelectionFrame
+
 -- Player List ScrollFrame
 local PlayerScrollFrame = Instance.new("ScrollingFrame")
-PlayerScrollFrame.Position = UDim2.new(0, 5, 0, 5)
-PlayerScrollFrame.Size = UDim2.new(1, -10, 1, -10)
+PlayerScrollFrame.Position = UDim2.new(0, 8, 0, 8)
+PlayerScrollFrame.Size = UDim2.new(1, -16, 1, -16)
 PlayerScrollFrame.BackgroundTransparency = 1
 PlayerScrollFrame.BorderSizePixel = 0
-PlayerScrollFrame.ScrollBarThickness = 6
+PlayerScrollFrame.ScrollBarThickness = 4
+PlayerScrollFrame.ScrollBarImageColor3 = Color3.fromRGB(70, 130, 255)
 PlayerScrollFrame.CanvasSize = UDim2.new(0, 0, 0, 0)
 PlayerScrollFrame.Parent = SelectionFrame
 
 -- Start Fling Button
 local StartButton = Instance.new("TextButton")
-StartButton.Position = UDim2.new(0, 10, 0, 280)
-StartButton.Size = UDim2.new(0.5, -15, 0, 40)
-StartButton.BackgroundColor3 = Color3.fromRGB(0, 180, 0)
-StartButton.BackgroundTransparency = 0.2
+StartButton.Position = UDim2.new(0, 15, 0, 265)
+StartButton.Size = UDim2.new(0.5, -20, 0, 38)
+StartButton.BackgroundColor3 = Color3.fromRGB(50, 180, 100)
 StartButton.BorderSizePixel = 0
-StartButton.Text = "GAS SIEXTHER"
+StartButton.Text = "MULAI"
 StartButton.TextColor3 = Color3.fromRGB(255, 255, 255)
-StartButton.Font = Enum.Font.SourceSansBold
-StartButton.TextSize = 18
+StartButton.Font = Enum.Font.GothamBold
+StartButton.TextSize = 15
 StartButton.Parent = MainFrame
+
+local StartCorner = Instance.new("UICorner")
+StartCorner.CornerRadius = UDim.new(0, 8)
+StartCorner.Parent = StartButton
 
 -- Stop Fling Button
 local StopButton = Instance.new("TextButton")
-StopButton.Position = UDim2.new(0.5, 5, 0, 280)
-StopButton.Size = UDim2.new(0.5, -15, 0, 40)
-StopButton.BackgroundColor3 = Color3.fromRGB(180, 0, 0)
-StopButton.BackgroundTransparency = 0.2
+StopButton.Position = UDim2.new(0.5, 5, 0, 265)
+StopButton.Size = UDim2.new(0.5, -20, 0, 38)
+StopButton.BackgroundColor3 = Color3.fromRGB(220, 50, 50)
 StopButton.BorderSizePixel = 0
 StopButton.Text = "BERHENTI"
 StopButton.TextColor3 = Color3.fromRGB(255, 255, 255)
-StopButton.Font = Enum.Font.SourceSansBold
-StopButton.TextSize = 18
+StopButton.Font = Enum.Font.GothamBold
+StopButton.TextSize = 15
 StopButton.Parent = MainFrame
+
+local StopCorner = Instance.new("UICorner")
+StopCorner.CornerRadius = UDim.new(0, 8)
+StopCorner.Parent = StopButton
 
 -- Select/Deselect Buttons
 local SelectAllButton = Instance.new("TextButton")
-SelectAllButton.Position = UDim2.new(0, 10, 0, 330)
-SelectAllButton.Size = UDim2.new(0.5, -15, 0, 30)
-SelectAllButton.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
-SelectAllButton.BackgroundTransparency = 0.2
+SelectAllButton.Position = UDim2.new(0, 15, 0, 312)
+SelectAllButton.Size = UDim2.new(0.5, -20, 0, 28)
+SelectAllButton.BackgroundColor3 = Color3.fromRGB(40, 45, 55)
 SelectAllButton.BorderSizePixel = 0
 SelectAllButton.Text = "PILIH SEMUA"
-SelectAllButton.TextColor3 = Color3.fromRGB(255, 255, 255)
-SelectAllButton.Font = Enum.Font.SourceSans
-SelectAllButton.TextSize = 14
+SelectAllButton.TextColor3 = Color3.fromRGB(200, 200, 200)
+SelectAllButton.Font = Enum.Font.Gotham
+SelectAllButton.TextSize = 12
 SelectAllButton.Parent = MainFrame
 
+local SelectAllCorner = Instance.new("UICorner")
+SelectAllCorner.CornerRadius = UDim.new(0, 6)
+SelectAllCorner.Parent = SelectAllButton
+
 local DeselectAllButton = Instance.new("TextButton")
-DeselectAllButton.Position = UDim2.new(0.5, 5, 0, 330)
-DeselectAllButton.Size = UDim2.new(0.5, -15, 0, 30)
-DeselectAllButton.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
-DeselectAllButton.BackgroundTransparency = 0.2
+DeselectAllButton.Position = UDim2.new(0.5, 5, 0, 312)
+DeselectAllButton.Size = UDim2.new(0.5, -20, 0, 28)
+DeselectAllButton.BackgroundColor3 = Color3.fromRGB(40, 45, 55)
 DeselectAllButton.BorderSizePixel = 0
 DeselectAllButton.Text = "BATALKAN SEMUA"
-DeselectAllButton.TextColor3 = Color3.fromRGB(255, 255, 255)
-DeselectAllButton.Font = Enum.Font.SourceSans
-DeselectAllButton.TextSize = 14
+DeselectAllButton.TextColor3 = Color3.fromRGB(200, 200, 200)
+DeselectAllButton.Font = Enum.Font.Gotham
+DeselectAllButton.TextSize = 12
 DeselectAllButton.Parent = MainFrame
+
+local DeselectAllCorner = Instance.new("UICorner")
+DeselectAllCorner.CornerRadius = UDim.new(0, 6)
+DeselectAllCorner.Parent = DeselectAllButton
 
 -- Variables
 local SelectedTargets = {}
@@ -174,63 +232,73 @@ getgenv().FPDH = workspace.FallenPartsDestroyHeight
 
 -- Function to update player list
 local function RefreshPlayerList()
-    -- Clear existing player entries
     for _, child in pairs(PlayerScrollFrame:GetChildren()) do
         child:Destroy()
     end
     PlayerCheckboxes = {}
     
-    -- Get players and sort them
     local PlayerList = Players:GetPlayers()
     table.sort(PlayerList, function(a, b) return a.Name:lower() < b.Name:lower() end)
     
-    -- Create entries for each player
     local yPosition = 5
     for _, player in ipairs(PlayerList) do
-        if player ~= Player then -- Don't include yourself
-            -- Create player entry frame
+        if player ~= Player then
             local PlayerEntry = Instance.new("Frame")
-            PlayerEntry.Size = UDim2.new(1, -10, 0, 30)
+            PlayerEntry.Size = UDim2.new(1, -10, 0, 32)
             PlayerEntry.Position = UDim2.new(0, 5, 0, yPosition)
-            PlayerEntry.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
-            PlayerEntry.BackgroundTransparency = 0.5
+            PlayerEntry.BackgroundColor3 = Color3.fromRGB(35, 40, 48)
             PlayerEntry.BorderSizePixel = 0
             PlayerEntry.Parent = PlayerScrollFrame
             
-            -- Create checkbox
+            local EntryCorner = Instance.new("UICorner")
+            EntryCorner.CornerRadius = UDim.new(0, 6)
+            EntryCorner.Parent = PlayerEntry
+            
+            local EntryStroke = Instance.new("UIStroke")
+            EntryStroke.Color = Color3.fromRGB(70, 130, 255)
+            EntryStroke.Thickness = 1
+            EntryStroke.Transparency = 0.8
+            EntryStroke.Parent = PlayerEntry
+            
             local Checkbox = Instance.new("TextButton")
-            Checkbox.Size = UDim2.new(0, 24, 0, 24)
-            Checkbox.Position = UDim2.new(0, 3, 0.5, -12)
-            Checkbox.BackgroundColor3 = Color3.fromRGB(70, 70, 70)
-            Checkbox.BackgroundTransparency = 0.3
+            Checkbox.Size = UDim2.new(0, 20, 0, 20)
+            Checkbox.Position = UDim2.new(0, 6, 0.5, -10)
+            Checkbox.BackgroundColor3 = Color3.fromRGB(50, 55, 65)
             Checkbox.BorderSizePixel = 0
             Checkbox.Text = ""
             Checkbox.Parent = PlayerEntry
             
-            -- Checkmark (initially invisible)
+            local CheckCorner = Instance.new("UICorner")
+            CheckCorner.CornerRadius = UDim.new(0, 4)
+            CheckCorner.Parent = Checkbox
+            
+            local CheckStroke = Instance.new("UIStroke")
+            CheckStroke.Color = Color3.fromRGB(70, 130, 255)
+            CheckStroke.Thickness = 1
+            CheckStroke.Transparency = 0.6
+            CheckStroke.Parent = Checkbox
+            
             local Checkmark = Instance.new("TextLabel")
             Checkmark.Size = UDim2.new(1, 0, 1, 0)
             Checkmark.BackgroundTransparency = 1
             Checkmark.Text = "✓"
-            Checkmark.TextColor3 = Color3.fromRGB(0, 255, 0)
-            Checkmark.TextSize = 18
-            Checkmark.Font = Enum.Font.SourceSansBold
+            Checkmark.TextColor3 = Color3.fromRGB(70, 130, 255)
+            Checkmark.TextSize = 16
+            Checkmark.Font = Enum.Font.GothamBold
             Checkmark.Visible = SelectedTargets[player.Name] ~= nil
             Checkmark.Parent = Checkbox
             
-            -- Player name label
             local NameLabel = Instance.new("TextLabel")
-            NameLabel.Size = UDim2.new(1, -35, 1, 0)
-            NameLabel.Position = UDim2.new(0, 30, 0, 0)
+            NameLabel.Size = UDim2.new(1, -38, 1, 0)
+            NameLabel.Position = UDim2.new(0, 32, 0, 0)
             NameLabel.BackgroundTransparency = 1
             NameLabel.Text = player.Name
-            NameLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
-            NameLabel.TextSize = 16
-            NameLabel.Font = Enum.Font.SourceSans
+            NameLabel.TextColor3 = Color3.fromRGB(220, 220, 220)
+            NameLabel.TextSize = 14
+            NameLabel.Font = Enum.Font.Gotham
             NameLabel.TextXAlignment = Enum.TextXAlignment.Left
             NameLabel.Parent = PlayerEntry
             
-            -- Make entire entry clickable
             local ClickArea = Instance.new("TextButton")
             ClickArea.Size = UDim2.new(1, 0, 1, 0)
             ClickArea.BackgroundTransparency = 1
@@ -238,7 +306,6 @@ local function RefreshPlayerList()
             ClickArea.ZIndex = 2
             ClickArea.Parent = PlayerEntry
             
-            -- Selection toggle on click
             ClickArea.MouseButton1Click:Connect(function()
                 if SelectedTargets[player.Name] then
                     SelectedTargets[player.Name] = nil
@@ -247,25 +314,21 @@ local function RefreshPlayerList()
                     SelectedTargets[player.Name] = player
                     Checkmark.Visible = true
                 end
-                
                 UpdateStatus()
             end)
             
-            -- Store reference to this player's UI
             PlayerCheckboxes[player.Name] = {
                 Entry = PlayerEntry,
                 Checkmark = Checkmark
             }
             
-            yPosition = yPosition + 35
+            yPosition = yPosition + 37
         end
     end
     
-    -- Update scrollframe canvas size
     PlayerScrollFrame.CanvasSize = UDim2.new(0, 0, 0, yPosition + 5)
 end
 
--- Count selected targets
 local function CountSelectedTargets()
     local count = 0
     for _ in pairs(SelectedTargets) do
@@ -274,19 +337,17 @@ local function CountSelectedTargets()
     return count
 end
 
--- Update status display
 local function UpdateStatus()
     local count = CountSelectedTargets()
     if FlingActive then
-        StatusLabel.Text = "— 🔥🔥🔥 SIEXTHER x FLING 🔥🔥🔥 — " .. count .. " terpilih"
-        StatusLabel.TextColor3 = Color3.fromRGB(255, 80, 80)
+        StatusLabel.Text = "SIEXTHER x FLING — " .. count .. " terpilih"
+        StatusLabel.TextColor3 = Color3.fromRGB(70, 130, 255)
     else
         StatusLabel.Text = count .. " SIEXTHER FLING terpilih" 
-        StatusLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+        StatusLabel.TextColor3 = Color3.fromRGB(200, 200, 200)
     end
 end
 
--- Function to select/deselect all players
 local function ToggleAllPlayers(select)
     for _, player in ipairs(Players:GetPlayers()) do
         if player ~= Player then
@@ -302,11 +363,9 @@ local function ToggleAllPlayers(select)
             end
         end
     end
-    
     UpdateStatus()
 end
 
--- Show notification
 local function Message(Title, Text, Time)
     game:GetService("StarterGui"):SetCore("SendNotification", {
         Title = Title,
@@ -315,7 +374,6 @@ local function Message(Title, Text, Time)
     })
 end
 
--- The fling function from zqyDSUWX (Unchanged)
 local function SkidFling(TargetPlayer)
     local Character = Player.Character
     local Humanoid = Character and Character:FindFirstChildOfClass("Humanoid")
@@ -323,11 +381,7 @@ local function SkidFling(TargetPlayer)
     local TCharacter = TargetPlayer.Character
     if not TCharacter then return end
     
-    local THumanoid
-    local TRootPart
-    local THead
-    local Accessory
-    local Handle
+    local THumanoid, TRootPart, THead, Accessory, Handle
     if TCharacter:FindFirstChildOfClass("Humanoid") then
         THumanoid = TCharacter:FindFirstChildOfClass("Humanoid")
     end
@@ -343,6 +397,7 @@ local function SkidFling(TargetPlayer)
     if Accessory and Accessory:FindFirstChild("Handle") then
         Handle = Accessory.Handle
     end
+    
     if Character and Humanoid and RootPart then
         if RootPart.Velocity.Magnitude < 50 then
             getgenv().OldPos = RootPart.CFrame
@@ -398,7 +453,6 @@ local function SkidFling(TargetPlayer)
                         task.wait()
                         FPos(BasePart, CFrame.new(0, 1.5, THumanoid.WalkSpeed), CFrame.Angles(math.rad(90), 0, 0))
                         task.wait()
-                        
                         FPos(BasePart, CFrame.new(0, -1.5, 0), CFrame.Angles(math.rad(90), 0, 0))
                         task.wait()
                         FPos(BasePart, CFrame.new(0, -1.5, 0), CFrame.Angles(0, 0, 0))
@@ -435,7 +489,6 @@ local function SkidFling(TargetPlayer)
         Humanoid:SetStateEnabled(Enum.HumanoidStateType.Seated, true)
         workspace.CurrentCamera.CameraSubject = Humanoid
         
-        -- Reset character position
         if getgenv().OldPos then
             repeat
                 RootPart.CFrame = getgenv().OldPos * CFrame.new(0, .5, 0)
@@ -455,7 +508,6 @@ local function SkidFling(TargetPlayer)
     end
 end
 
--- Start flinging selected targets
 local function StartFling()
     if FlingActive then return end
     
@@ -469,19 +521,19 @@ local function StartFling()
     
     FlingActive = true
     UpdateStatus()
-    Message("🔥SIEXTHER🔥", "FLINGING " .. count .. " target", 2)
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/Fleast/hankill/refs/heads/main/Notify.lua"))()
+    getgenv().Notify({Title = 'SIEXTHER x FLING', Content = "FLINGING " .. count .. " target", Duration = 4})
+
     
-    -- Start flinger in separate thread
+    
     spawn(function()
         while FlingActive do
             local validTargets = {}
             
-            -- Process all targets first to determine which are valid
             for name, player in pairs(SelectedTargets) do
                 if player and player.Parent then
                     validTargets[name] = player
                 else
-                    -- Remove players who left
                     SelectedTargets[name] = nil
                     local checkbox = PlayerCheckboxes[name]
                     if checkbox then
@@ -490,37 +542,29 @@ local function StartFling()
                 end
             end
             
-            -- Then attempt to fling each valid target
             for _, player in pairs(validTargets) do
                 if FlingActive then
                     SkidFling(player)
-                    -- Brief wait between targets to allow movement to reset
                     wait(0.1)
                 else
                     break
                 end
             end
             
-            -- Update status periodically
             UpdateStatus()
-            
-            -- Wait a moment before starting next fling cycle
             wait(0.5)
         end
     end)
 end
 
--- Stop flinging
 local function StopFling()
     if not FlingActive then return end
-    
     FlingActive = false
-    
     UpdateStatus()
-    Message("BERHENTI", "Fling telah dihentikan", 2)
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/Fleast/hankill/refs/heads/main/Notify.lua"))()
+    getgenv().Notify({Title = 'SIEXTHER x FLING', Content = 'FLING TELAH DIHENTIKAN', Duration = 2})
 end
 
--- Set up button connections
 StartButton.MouseButton1Click:Connect(StartFling)
 StopButton.MouseButton1Click:Connect(StopFling)
 SelectAllButton.MouseButton1Click:Connect(function() ToggleAllPlayers(true) end)
@@ -530,7 +574,6 @@ CloseButton.MouseButton1Click:Connect(function()
     ScreenGui:Destroy()
 end)
 
--- New connections for Minimize/Restore
 MinimizeButton.MouseButton1Click:Connect(function()
     MainFrame.Visible = false
     RestoreButton.Visible = true
@@ -541,7 +584,6 @@ RestoreButton.MouseButton1Click:Connect(function()
     MainFrame.Visible = true
 end)
 
--- Handle player joining/leaving
 Players.PlayerAdded:Connect(RefreshPlayerList)
 Players.PlayerRemoving:Connect(function(player)
     if SelectedTargets[player.Name] then
@@ -551,10 +593,8 @@ Players.PlayerRemoving:Connect(function(player)
     UpdateStatus()
 end)
 
--- Initialize
 RefreshPlayerList()
 UpdateStatus()
 
--- Success message
-Message("HANN.SIEXTHER", "🔥 Siexther Fling Aktif🔥", 5)
-Message("@muhmdilhan_", "My Instagram", 3)
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Fleast/hankill/refs/heads/main/Notify.lua"))()
+    getgenv().Notify({Title = 'SIEXTHER x FLING', Content = 'Made By @muhmdilhan_', Duration = 6})
