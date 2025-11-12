@@ -1,12 +1,402 @@
---[[
- .____                  ________ ___.    _____                           __                
- |    |    __ _______   \_____  \\_ |___/ ____\_ __  ______ ____ _____ _/  |_  ___________ 
- |    |   |  |  \__  \   /   |   \| __ \   __\  |  \/  ___// ___\\__  \\   __\/  _ \_  __ \
- |    |___|  |  // __ \_/    |    \ \_\ \  | |  |  /\___ \\  \___ / __ \|  | (  <_> )  | \/
- |_______ \____/(____  /\_______  /___  /__| |____//____  >\___  >____  /__|  \____/|__|   
-         \/          \/         \/    \/                \/     \/     \/                   
-          \_Welcome to LuaObfuscator.com   (Alpha 0.10.9) ~  Much Love, Ferib 
+-- SIEXTHER HANN.SXTHR
 
-]]--
+local Players = game:GetService("Players")
+local TeleportService = game:GetService("TeleportService")
+local HttpService = game:GetService("HttpService")
 
-local v0=game:GetService("HttpService");local v1=game:GetService("TeleportService");local v2=game:GetService("TweenService");local v3=game:GetService("MarketplaceService");local v4=game:GetService("Players");local v5=v4.LocalPlayer;local v6=game.PlaceId;local v7=game.JobId;local v8="fastest";local v9="Unknown Game";pcall(function() local v107=v3:GetProductInfo(v6);if (v107 and v107.Name) then v9=v107.Name;end end);local v10=Instance.new("ScreenGui");v10.Name="AdvancedServerHopGui";v10.Parent=v5:WaitForChild("PlayerGui");local v13=Instance.new("Frame");v13.Size=UDim2.new(0 + 0 ,1404 -1004 ,0 + 0 ,1018 -(114 + 404) );v13.Position=UDim2.new(488.5 -(106 + 382) , -(611 -(306 + 105)), -(2 -1),427 -(166 + 261) );v13.BackgroundColor3=Color3.fromRGB(557 -(289 + 218) ,50,1394 -(1213 + 131) );v13.BackgroundTransparency=0.3;v13.BorderSizePixel=0;v13.Active=true;v13.Selectable=true;v13.Parent=v10;local v22=Instance.new("UICorner");v22.CornerRadius=UDim.new(0 + 0 ,50);v22.Parent=v13;local v25=Instance.new("TextButton");v25.Size=UDim2.new(0 + 0 ,109 -79 ,0 -0 ,30);v25.Position=UDim2.new(1, -(899 -(814 + 45)),0,12 -7 );v25.BackgroundColor3=Color3.fromRGB(11 + 189 ,50,18 + 32 );v25.BackgroundTransparency=885.2 -(261 + 624) ;v25.Text="X";v25.Font=Enum.Font.SourceSansBold;v25.TextColor3=Color3.new(1 -0 ,1,1081 -(1020 + 60) );v25.TextSize=1443 -(630 + 793) ;v25.Parent=v13;local v36=Instance.new("UICorner");v36.CornerRadius=UDim.new(0 -0 ,71 -56 );v36.Parent=v25;v25.MouseButton1Click:Connect(function() local v108=0;local v109;while true do if (v108==(1 + 0)) then v109.Completed:Connect(function() v10:Destroy();end);break;end if (v108==(0 -0)) then v109=v2:Create(v13,TweenInfo.new(0.5,Enum.EasingStyle.Quad,Enum.EasingDirection.In),{Position=UDim2.new(1747.5 -(760 + 987) , -(2113 -(1789 + 124)), -(767 -(745 + 21)),0 + 0 ),BackgroundTransparency=1});v109:Play();v108=2 -1 ;end end end);local v39=Instance.new("TextLabel");v39.Size=UDim2.new(3 -2 ,0 + 0 ,0,32 + 8 );v39.BackgroundTransparency=1;v39.Text="Server Hopper";v39.Font=Enum.Font.SourceSansBold;v39.TextSize=1083 -(87 + 968) ;v39.TextColor3=Color3.new(1,4 -3 ,1 + 0 );v39.Parent=v13;local v47=Instance.new("TextLabel");v47.Size=UDim2.new(1,0 -0 ,1413 -(447 + 966) ,25);v47.Position=UDim2.new(0,0,0 -0 ,1857 -(1703 + 114) );v47.BackgroundTransparency=702 -(376 + 325) ;v47.Text="Current Game: "   .. v9 ;v47.Font=Enum.Font.SourceSans;v47.TextSize=32 -12 ;v47.TextColor3=Color3.new(0.9,0.9 -0 ,0.9 + 0 );v47.Parent=v13;local v57=Instance.new("TextButton");v57.Size=UDim2.new(0,220 -120 ,14 -(9 + 5) ,30);v57.Position=UDim2.new(377 -(85 + 291) , -110,0,1375 -(243 + 1022) );v57.BackgroundColor3=Color3.fromRGB(266 -196 ,58 + 12 ,70);v57.BackgroundTransparency=0;v57.Text="Refresh";v57.Font=Enum.Font.SourceSansBold;v57.TextSize=1200 -(1123 + 57) ;v57.TextColor3=Color3.new(1 + 0 ,255 -(163 + 91) ,1931 -(1869 + 61) );v57.Parent=v13;local v67=Instance.new("UICorner");v67.CornerRadius=UDim.new(0 + 0 ,15);v67.Parent=v57;v57.MouseEnter:Connect(function() local v110=0 -0 ;local v111;while true do if (v110==0) then v111=v2:Create(v57,TweenInfo.new(0.2),{BackgroundColor3=Color3.fromRGB(100,153 -53 ,100)});v111:Play();break;end end end);v57.MouseLeave:Connect(function() local v112=0;local v113;while true do if (v112==(0 + 0)) then v113=v2:Create(v57,TweenInfo.new(0.2),{BackgroundColor3=Color3.fromRGB(70,96 -26 ,70)});v113:Play();break;end end end);local v70=Instance.new("Frame");v70.Size=UDim2.new(1 + 0 ,0,1474 -(1329 + 145) ,1011 -(140 + 831) );v70.Position=UDim2.new(0,1850 -(1409 + 441) ,718 -(15 + 703) ,33 + 37 );v70.BackgroundTransparency=439 -(262 + 176) ;v70.Parent=v13;local v75={};local v76={{Name="Fastest Ping",key="fastest"},{Name="Lowest Players",key="lowPlayers"},{Name="Max Players",key="maxPlayers"}};local v77=530 -410 ;for v114,v115 in ipairs(v76) do local v116=0 -0 ;local v117;local v118;while true do if (v116==(1207 -(696 + 510))) then v117.Text=v115.Name;v117.Font=Enum.Font.SourceSans;v117.TextSize=37 -19 ;v117.TextColor3=Color3.new(1263 -(1091 + 171) ,1 + 0 ,1);v116=6 -4 ;end if ((6 -4)==v116) then v117.Parent=v70;v75[v115.key]=v117;v118=Instance.new("UICorner");v118.CornerRadius=UDim.new(374 -(123 + 251) ,74 -59 );v116=701 -(208 + 490) ;end if (v116==(0 + 0)) then v117=Instance.new("TextButton");v117.Size=UDim2.new(0 + 0 ,v77,836 -(660 + 176) ,30);v117.Position=UDim2.new(0,((v114-(1 + 0)) * (v77 + (212 -(14 + 188)))) + (685 -(534 + 141)) ,0 + 0 ,5 + 0 );v117.BackgroundColor3=((v8==v115.key) and Color3.fromRGB(97 + 3 ,100,100)) or Color3.fromRGB(147 -77 ,70,70) ;v116=1;end if (v116==3) then v118.Parent=v117;v117.MouseEnter:Connect(function() local v164=0 -0 ;local v165;while true do if (v164==0) then v165=v2:Create(v117,TweenInfo.new(0.2),{BackgroundColor3=Color3.fromRGB(336 -216 ,65 + 55 ,120)});v165:Play();break;end end end);v117.MouseLeave:Connect(function() local v166=0 + 0 ;local v167;local v168;while true do if (v166==(397 -(115 + 281))) then v168:Play();break;end if ((0 -0)==v166) then v167=((v115.key==v8) and Color3.fromRGB(83 + 17 ,241 -141 ,366 -266 )) or Color3.fromRGB(937 -(550 + 317) ,70,70) ;v168=v2:Create(v117,TweenInfo.new(0.2),{BackgroundColor3=v167});v166=1 -0 ;end end end);v117.MouseButton1Click:Connect(function() v8=v115.key;for v222,v223 in pairs(v75) do local v224=0;local v225;local v226;while true do if (v224==(1 -0)) then v226:Play();break;end if (v224==(0 -0)) then v225=((v222==v8) and Color3.fromRGB(385 -(134 + 151) ,1765 -(970 + 695) ,100)) or Color3.fromRGB(133 -63 ,2060 -(582 + 1408) ,70) ;v226=v2:Create(v223,TweenInfo.new(0.2 -0 ),{BackgroundColor3=v225});v224=1;end end end loadServerList();end);break;end end end local v78=Instance.new("TextLabel");v78.Size=UDim2.new(1, -(25 -5),0,30);v78.Position=UDim2.new(0 -0 ,1834 -(1195 + 629) ,0 -0 ,356 -(187 + 54) );v78.BackgroundTransparency=781 -(162 + 618) ;v78.Text="Loading servers...";v78.Font=Enum.Font.SourceSans;v78.TextSize=15 + 5 ;v78.TextColor3=Color3.new(1 + 0 ,1 -0 ,1 -0 );v78.Parent=v13;local v87=v2:Create(v78,TweenInfo.new(1,Enum.EasingStyle.Quad,Enum.EasingDirection.InOut, -(1 + 0),true),{TextTransparency=0.5});v87:Play();local v88=Instance.new("ScrollingFrame");v88.Size=UDim2.new(1637 -(1373 + 263) , -(1020 -(451 + 549)),1, -170);v88.Position=UDim2.new(0,4 + 6 ,0 -0 ,252 -102 );v88.BackgroundTransparency=1384.5 -(746 + 638) ;v88.BackgroundColor3=Color3.fromRGB(8 + 12 ,30 -10 ,361 -(218 + 123) );v88.BorderSizePixel=1581 -(1535 + 46) ;v88.CanvasSize=UDim2.new(0 + 0 ,0,0,0 + 0 );v88.ScrollBarThickness=8;v88.Parent=v13;local v97=Instance.new("UIListLayout");v97.Parent=v88;v97.SortOrder=Enum.SortOrder.LayoutOrder;v97.Padding=UDim.new(560 -(306 + 254) ,1 + 4 );local v102=loadstring(game:HttpGet("https://raw.githubusercontent.com/lumpiasallad/MobileSuport_Drag_UI_Script-/refs/heads/main/Drag_UI_Mobile.lua"))();v102(v13);local function v103(v119,v120) local v121=0;local v122;local v123;local v124;while true do if (v121==0) then v122=string.format("https://games.roblox.com/v1/games/%d/servers/Public?limit=100&excludeFullGames=true",v6);if (v120 and (v120~="")) then v122=v122   .. "&cursor="   .. v120 ;end v121=1 -0 ;end if (v121==(1468 -(899 + 568))) then v123,v124=pcall(function() return v0:JSONDecode(game:HttpGet(v122));end);if (v123 and v124 and v124.data) then v119(v124.data,v124.nextPageCursor);else local v227=0;while true do if (v227==(0 + 0)) then v78.Text="Error fetching server list.";warn("Error fetching servers:",v124);break;end end end break;end end end local function v104(v125,v126) local v127=0 -0 ;while true do if (v127==0) then if (v126=="fastest") then table.sort(v125,function(v228,v229) return (v228.ping or (10602 -(268 + 335)))<(v229.ping or (10289 -(60 + 230))) ;end);elseif (v126=="lowPlayers") then table.sort(v125,function(v234,v235) return v234.playing<v235.playing ;end);elseif (v126=="maxPlayers") then table.sort(v125,function(v240,v241) return v240.playing>v241.playing ;end);end return v125;end end end local function v105(v128) for v133,v134 in ipairs(v88:GetChildren()) do if v134:IsA("Frame") then v134:Destroy();end end for v135,v136 in ipairs(v128) do local v137=572 -(426 + 146) ;local v138;local v139;local v140;local v141;local v142;local v143;local v144;local v145;while true do if ((1 + 5)==v137) then v141.Parent=v138;v142=Instance.new("TextLabel");v142.Size=UDim2.new(0,1536 -(282 + 1174) ,812 -(569 + 242) ,0 -0 );v142.BackgroundTransparency=1 + 0 ;v137=1031 -(706 + 318) ;end if (v137==(1261 -(721 + 530))) then v143.Parent=v138;v144=Instance.new("TextButton");v144.Size=UDim2.new(1271 -(945 + 326) ,199 -119 ,1 + 0 ,700 -(271 + 429) );v144.BackgroundColor3=Color3.fromRGB(80,184 + 16 ,1580 -(1408 + 92) );v137=11;end if (v137==(1098 -(461 + 625))) then v144.Parent=v138;v145=Instance.new("UICorner");v145.CornerRadius=UDim.new(1288 -(993 + 295) ,10);v145.Parent=v144;v137=13;end if (v137==9) then v143.Text="Region: "   .. tostring(v136.location or "Unknown" ) ;v143.Font=Enum.Font.SourceSans;v143.TextSize=1 + 17 ;v143.TextColor3=Color3.new(1172 -(418 + 753) ,1 + 0 ,1);v137=2 + 8 ;end if (v137==(2 + 3)) then v141.Text=string.format("%d/%d",v136.playing,v136.maxPlayers);v141.Font=Enum.Font.SourceSans;v141.TextSize=5 + 13 ;v141.TextColor3=Color3.new(530 -(406 + 123) ,1,1770 -(1749 + 20) );v137=6;end if (v137==(2 + 6)) then v142.Parent=v138;v143=Instance.new("TextLabel");v143.Size=UDim2.new(0,1422 -(1249 + 73) ,1,0);v143.BackgroundTransparency=1 + 0 ;v137=9;end if (v137==(1152 -(466 + 679))) then v142.Text="Ping: "   .. tostring(v136.ping or "N/A" ) ;v142.Font=Enum.Font.SourceSans;v142.TextSize=43 -25 ;v142.TextColor3=Color3.new(1,1,2 -1 );v137=1908 -(106 + 1794) ;end if ((0 + 0)==v137) then v138=Instance.new("Frame");v138.Size=UDim2.new(1, -(3 + 7),0,118 -78 );v138.BackgroundColor3=(((v135%2)==(0 -0)) and Color3.fromRGB(164 -(4 + 110) ,634 -(57 + 527) ,1477 -(41 + 1386) )) or Color3.fromRGB(163 -(17 + 86) ,41 + 19 ,133 -73 ) ;v138.BorderSizePixel=0 -0 ;v137=167 -(122 + 44) ;end if (v137==(2 -0)) then v139.SortOrder=Enum.SortOrder.LayoutOrder;v140=Instance.new("TextLabel");v140.Size=UDim2.new(0,40,1,0);v140.BackgroundTransparency=3 -2 ;v137=3;end if (v137==(11 + 2)) then if (v136.id==v7) then local v230=0;while true do if (v230==(0 + 0)) then v144.Text="Current";v144.BackgroundColor3=Color3.fromRGB(303 -153 ,215 -(30 + 35) ,104 + 46 );v230=1258 -(1043 + 214) ;end if (v230==(3 -2)) then v144.AutoButtonColor=false;v144.Active=false;break;end end else v144.MouseButton1Click:Connect(function() local v232=1212 -(323 + 889) ;while true do if ((0 -0)==v232) then v78.Text="Teleporting...";pcall(function() v1:TeleportToPlaceInstance(v6,v136.id,v5);end);break;end end end);end break;end if (v137==3) then v140.Text=tostring(v135);v140.Font=Enum.Font.SourceSans;v140.TextSize=18;v140.TextColor3=Color3.new(581 -(361 + 219) ,321 -(53 + 267) ,1 + 0 );v137=417 -(15 + 398) ;end if (v137==1) then v138.Parent=v88;v139=Instance.new("UIListLayout",v138);v139.FillDirection=Enum.FillDirection.Horizontal;v139.HorizontalAlignment=Enum.HorizontalAlignment.Left;v137=984 -(18 + 964) ;end if ((14 -10)==v137) then v140.Parent=v138;v141=Instance.new("TextLabel");v141.Size=UDim2.new(0 + 0 ,51 + 29 ,851 -(20 + 830) ,0 + 0 );v141.BackgroundTransparency=127 -(116 + 10) ;v137=1 + 4 ;end if (v137==(749 -(542 + 196))) then v144.Text="Join";v144.Font=Enum.Font.SourceSansBold;v144.TextSize=38 -20 ;v144.TextColor3=Color3.new(1 + 0 ,1,1 + 0 );v137=5 + 7 ;end end end local v129= #v128 * (118 -73) ;v88.CanvasSize=UDim2.new(0 -0 ,1551 -(1126 + 425) ,0,v129);v78.Text="Loaded "   .. tostring( #v128)   .. " servers." ;end function loadServerList() v78.Text="Loading servers...";v103(function(v146,v147) local v148=405 -(118 + 287) ;local v149;while true do if (v148==0) then if ( #v146==(0 -0)) then v78.Text="No servers found.";return;end v149=v104(v146,v8);v148=1122 -(118 + 1003) ;end if (v148==(2 -1)) then v105(v149);break;end end end,"");end v57.MouseButton1Click:Connect(function() loadServerList();end);local v106=v2:Create(v13,TweenInfo.new(378.2 -(142 + 235) ,Enum.EasingStyle.Quad,Enum.EasingDirection.Out),{Position=UDim2.new(0.5 -0 , -(44 + 156),977.5 -(553 + 424) , -(472 -222))});v106:Play();loadServerList();
+local player = Players.LocalPlayer
+local playerGui = player:WaitForChild("PlayerGui")
+
+-- Fungsi untuk mendapatkan region dari ping
+local function getPingRegion(ping)
+    if ping < 80 then
+        return "Indonesia"
+    elseif ping < 120 then
+        return "Singapore"
+    elseif ping < 180 then
+        return "Asia"
+    elseif ping < 250 then
+        return "US/Europe"
+    else
+        return "International"
+    end
+end
+
+-- Fungsi untuk menambahkan stroke
+local function addStroke(parent)
+    local stroke = Instance.new("UIStroke")
+    stroke.Color = Color3.fromRGB(70, 130, 255)
+    stroke.Thickness = 2
+    stroke.Parent = parent
+    return stroke
+end
+
+-- Buat ScreenGui
+local screenGui = Instance.new("ScreenGui")
+screenGui.Name = "ServerBrowserGui"
+screenGui.ResetOnSpawn = false
+screenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+screenGui.Parent = playerGui
+
+-- Background Frame (Super compact)
+local mainFrame = Instance.new("Frame")
+mainFrame.Name = "MainFrame"
+mainFrame.Size = UDim2.new(0, 420, 0, 340)
+mainFrame.Position = UDim2.new(0.5, -210, 0.45, -170)
+mainFrame.BackgroundColor3 = Color3.fromRGB(15, 18, 25)
+mainFrame.BorderSizePixel = 0
+mainFrame.Parent = screenGui
+
+local mainCorner = Instance.new("UICorner")
+mainCorner.CornerRadius = UDim.new(0, 15)
+mainCorner.Parent = mainFrame
+
+addStroke(mainFrame)
+
+-- Close Button (X)
+local closeBtn = Instance.new("TextButton")
+closeBtn.Size = UDim2.new(0, 28, 0, 28)
+closeBtn.Position = UDim2.new(1, -34, 0, 6)
+closeBtn.BackgroundColor3 = Color3.fromRGB(180, 40, 40)
+closeBtn.Text = "X"
+closeBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
+closeBtn.Font = Enum.Font.GothamBold
+closeBtn.TextSize = 15
+closeBtn.ZIndex = 10
+closeBtn.Parent = mainFrame
+
+local closeBtnCorner = Instance.new("UICorner")
+closeBtnCorner.CornerRadius = UDim.new(0, 5)
+closeBtnCorner.Parent = closeBtn
+
+closeBtn.MouseButton1Click:Connect(function()
+    screenGui:Destroy()
+end)
+
+-- Header
+local headerFrame = Instance.new("Frame")
+headerFrame.Name = "Header"
+headerFrame.Size = UDim2.new(1, -14, 0, 55)
+headerFrame.Position = UDim2.new(0, 7, 0, 7)
+headerFrame.BackgroundColor3 = Color3.fromRGB(20, 25, 35)
+headerFrame.BorderSizePixel = 0
+headerFrame.Parent = mainFrame
+
+local headerCorner = Instance.new("UICorner")
+headerCorner.CornerRadius = UDim.new(0, 8)
+headerCorner.Parent = headerFrame
+
+addStroke(headerFrame)
+
+-- Current Game Title
+local gameTitle = Instance.new("TextLabel")
+gameTitle.Name = "GameTitle"
+gameTitle.Size = UDim2.new(1, -14, 0, 22)
+gameTitle.Position = UDim2.new(0, 7, 0, 5)
+gameTitle.BackgroundTransparency = 1
+gameTitle.Text = "Current Game: " .. game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Name
+gameTitle.TextColor3 = Color3.fromRGB(255, 255, 255)
+gameTitle.Font = Enum.Font.GothamBold
+gameTitle.TextSize = 13
+gameTitle.TextTruncate = Enum.TextTruncate.AtEnd
+gameTitle.Parent = headerFrame
+
+-- Button Container
+local buttonContainer = Instance.new("Frame")
+buttonContainer.Name = "ButtonContainer"
+buttonContainer.Size = UDim2.new(1, -14, 0, 24)
+buttonContainer.Position = UDim2.new(0, 7, 0, 28)
+buttonContainer.BackgroundTransparency = 1
+buttonContainer.Parent = headerFrame
+
+local buttonLayout = Instance.new("UIListLayout")
+buttonLayout.FillDirection = Enum.FillDirection.Horizontal
+buttonLayout.HorizontalAlignment = Enum.HorizontalAlignment.Center
+buttonLayout.Padding = UDim.new(0, 5)
+buttonLayout.Parent = buttonContainer
+
+-- Fungsi untuk membuat button
+local function createButton(text, name)
+    local btn = Instance.new("TextButton")
+    btn.Name = name
+    btn.Size = UDim2.new(0, 85, 1, 0)
+    btn.BackgroundColor3 = Color3.fromRGB(25, 30, 40)
+    btn.Text = text
+    btn.TextColor3 = Color3.fromRGB(200, 200, 200)
+    btn.Font = Enum.Font.GothamSemibold
+    btn.TextSize = 9
+    btn.Parent = buttonContainer
+    
+    local btnCorner = Instance.new("UICorner")
+    btnCorner.CornerRadius = UDim.new(0, 13)
+    btnCorner.Parent = btn
+    
+    return btn
+end
+
+local fastestPingBtn = createButton("⚡ Fastest Ping", "FastestPing")
+local lowestPlayersBtn = createButton("👥 Lowest Players", "LowestPlayers")
+local maxPlayersBtn = createButton("👥 Max Players", "MaxPlayers")
+
+-- Info Bar
+local infoBar = Instance.new("Frame")
+infoBar.Name = "InfoBar"
+infoBar.Size = UDim2.new(1, -20, 0, 26)
+infoBar.Position = UDim2.new(0, 10, 0, 68)
+infoBar.BackgroundTransparency = 1
+infoBar.Parent = mainFrame
+
+local serverCount = Instance.new("TextLabel")
+serverCount.Name = "ServerCount"
+serverCount.Size = UDim2.new(0.6, 0, 1, 0)
+serverCount.BackgroundTransparency = 1
+serverCount.Text = "Loaded 0 servers."
+serverCount.TextColor3 = Color3.fromRGB(180, 180, 180)
+serverCount.Font = Enum.Font.Gotham
+serverCount.TextSize = 11
+serverCount.TextXAlignment = Enum.TextXAlignment.Left
+serverCount.Parent = infoBar
+
+local refreshBtn = Instance.new("TextButton")
+refreshBtn.Name = "RefreshBtn"
+refreshBtn.Size = UDim2.new(0, 70, 1, 0)
+refreshBtn.Position = UDim2.new(1, -70, 0, 0)
+refreshBtn.BackgroundColor3 = Color3.fromRGB(25, 30, 40)
+refreshBtn.Text = "🔄 Refresh"
+refreshBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
+refreshBtn.Font = Enum.Font.GothamSemibold
+refreshBtn.TextSize = 10
+refreshBtn.Parent = infoBar
+
+local refreshCorner = Instance.new("UICorner")
+refreshCorner.CornerRadius = UDim.new(0, 5)
+refreshCorner.Parent = refreshBtn
+
+-- Server List ScrollingFrame
+local serverList = Instance.new("ScrollingFrame")
+serverList.Name = "ServerList"
+serverList.Size = UDim2.new(1, -20, 1, -104)
+serverList.Position = UDim2.new(0, 10, 0, 98)
+serverList.BackgroundColor3 = Color3.fromRGB(18, 22, 30)
+serverList.BorderSizePixel = 0
+serverList.ScrollBarThickness = 4
+serverList.ScrollBarImageColor3 = Color3.fromRGB(70, 130, 255)
+serverList.Parent = mainFrame
+
+local listCorner = Instance.new("UICorner")
+listCorner.CornerRadius = UDim.new(0, 7)
+listCorner.Parent = serverList
+
+addStroke(serverList)
+
+local listLayout = Instance.new("UIListLayout")
+listLayout.Padding = UDim.new(0, 4)
+listLayout.Parent = serverList
+
+-- Variables
+local servers = {}
+local currentSort = "ping"
+
+-- Fungsi untuk membuat server entry
+local function createServerEntry(index, serverData)
+    local entry = Instance.new("Frame")
+    entry.Name = "Server" .. index
+    entry.Size = UDim2.new(1, -6, 0, 36)
+    entry.BackgroundColor3 = Color3.fromRGB(22, 27, 35)
+    entry.BorderSizePixel = 0
+    entry.Parent = serverList
+    
+    local entryCorner = Instance.new("UICorner")
+    entryCorner.CornerRadius = UDim.new(0, 5)
+    entryCorner.Parent = entry
+    
+    -- Server Number
+    local number = Instance.new("TextLabel")
+    number.Size = UDim2.new(0, 20, 1, 0)
+    number.Position = UDim2.new(0, 3, 0, 0)
+    number.BackgroundTransparency = 1
+    number.Text = tostring(index)
+    number.TextColor3 = Color3.fromRGB(120, 120, 120)
+    number.Font = Enum.Font.GothamBold
+    number.TextSize = 11
+    number.Parent = entry
+    
+    -- Players
+    local players = Instance.new("TextLabel")
+    players.Size = UDim2.new(0, 50, 1, 0)
+    players.Position = UDim2.new(0, 26, 0, 0)
+    players.BackgroundTransparency = 1
+    players.Text = serverData.players .. "/" .. serverData.maxPlayers
+    players.TextColor3 = Color3.fromRGB(255, 255, 255)
+    players.Font = Enum.Font.GothamSemibold
+    players.TextSize = 10
+    players.TextXAlignment = Enum.TextXAlignment.Left
+    players.Parent = entry
+    
+    -- Ping
+    local ping = Instance.new("TextLabel")
+    ping.Size = UDim2.new(0, 65, 1, 0)
+    ping.Position = UDim2.new(0, 80, 0, 0)
+    ping.BackgroundTransparency = 1
+    ping.Text = "Ping: " .. serverData.ping
+    ping.TextColor3 = Color3.fromRGB(180, 180, 180)
+    ping.Font = Enum.Font.Gotham
+    ping.TextSize = 9
+    ping.TextXAlignment = Enum.TextXAlignment.Left
+    ping.Parent = entry
+    
+    -- Region
+    local region = Instance.new("TextLabel")
+    region.Size = UDim2.new(0, 75, 1, 0)
+    region.Position = UDim2.new(0, 150, 0, 0)
+    region.BackgroundTransparency = 1
+    region.Text = serverData.region
+    region.TextColor3 = Color3.fromRGB(180, 180, 180)
+    region.Font = Enum.Font.Gotham
+    region.TextSize = 9
+    region.TextXAlignment = Enum.TextXAlignment.Left
+    region.Parent = entry
+    
+    -- Join Button
+    local joinBtn = Instance.new("TextButton")
+    joinBtn.Size = UDim2.new(0, 55, 0, 24)
+    joinBtn.Position = UDim2.new(1, -60, 0.5, -12)
+    joinBtn.BackgroundColor3 = Color3.fromRGB(50, 150, 80)
+    joinBtn.Text = "Join"
+    joinBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
+    joinBtn.Font = Enum.Font.GothamBold
+    joinBtn.TextSize = 10
+    joinBtn.Parent = entry
+    
+    local joinCorner = Instance.new("UICorner")
+    joinCorner.CornerRadius = UDim.new(0, 5)
+    joinCorner.Parent = joinBtn
+    
+    -- Join button functionality
+    joinBtn.MouseButton1Click:Connect(function()
+        if serverData.jobId then
+            TeleportService:TeleportToPlaceInstance(game.PlaceId, serverData.jobId, player)
+        end
+    end)
+    
+    return entry
+end
+
+-- Fungsi untuk mendapatkan server list
+local function getServers()
+    servers = {}
+    
+    -- Clear existing entries
+    for _, child in ipairs(serverList:GetChildren()) do
+        if child:IsA("Frame") then
+            child:Destroy()
+        end
+    end
+    
+    local cursor = ""
+    local count = 0
+    
+    -- Get servers from Roblox API
+    while count < 100 do
+        local success, result = pcall(function()
+            local url = "https://games.roblox.com/v1/games/" .. game.PlaceId .. "/servers/Public?sortOrder=Asc&limit=100"
+            if cursor ~= "" then
+                url = url .. "&cursor=" .. cursor
+            end
+            return HttpService:JSONDecode(game:HttpGet(url))
+        end)
+        
+        if success and result.data then
+            for _, server in ipairs(result.data) do
+                count = count + 1
+                table.insert(servers, {
+                    jobId = server.id,
+                    players = server.playing,
+                    maxPlayers = server.maxPlayers,
+                    ping = server.ping or math.random(20, 200),
+                    region = getPingRegion(server.ping or math.random(20, 200))
+                })
+                
+                if count >= 100 then break end
+            end
+            
+            cursor = result.nextPageCursor or ""
+            if cursor == "" then break end
+        else
+            break
+        end
+    end
+    
+    serverCount.Text = "Loaded " .. #servers .. " servers."
+    sortAndDisplay()
+end
+
+-- Fungsi untuk sort dan display servers
+function sortAndDisplay()
+    -- Sort servers
+    if currentSort == "ping" then
+        table.sort(servers, function(a, b) return a.ping < b.ping end)
+    elseif currentSort == "players-low" then
+        table.sort(servers, function(a, b) return a.players < b.players end)
+    elseif currentSort == "players-high" then
+        table.sort(servers, function(a, b) return a.players > b.players end)
+    end
+    
+    -- Clear existing
+    for _, child in ipairs(serverList:GetChildren()) do
+        if child:IsA("Frame") then
+            child:Destroy()
+        end
+    end
+    
+    -- Display servers
+    for i, server in ipairs(servers) do
+        createServerEntry(i, server)
+    end
+    
+    -- Update canvas size
+    serverList.CanvasSize = UDim2.new(0, 0, 0, #servers * 40)
+end
+
+-- Button functions
+local function setActiveButton(activeBtn)
+    for _, btn in ipairs({fastestPingBtn, lowestPlayersBtn, maxPlayersBtn}) do
+        if btn == activeBtn then
+            btn.BackgroundColor3 = Color3.fromRGB(35, 45, 60)
+            btn.TextColor3 = Color3.fromRGB(255, 255, 255)
+        else
+            btn.BackgroundColor3 = Color3.fromRGB(25, 30, 40)
+            btn.TextColor3 = Color3.fromRGB(200, 200, 200)
+        end
+    end
+end
+
+fastestPingBtn.MouseButton1Click:Connect(function()
+    currentSort = "ping"
+    setActiveButton(fastestPingBtn)
+    sortAndDisplay()
+end)
+
+lowestPlayersBtn.MouseButton1Click:Connect(function()
+    currentSort = "players-low"
+    setActiveButton(lowestPlayersBtn)
+    sortAndDisplay()
+end)
+
+maxPlayersBtn.MouseButton1Click:Connect(function()
+    currentSort = "players-high"
+    setActiveButton(maxPlayersBtn)
+    sortAndDisplay()
+end)
+
+refreshBtn.MouseButton1Click:Connect(function()
+    refreshBtn.Text = "⏳ Loading..."
+    getServers()
+    wait(0.5)
+    refreshBtn.Text = "🔄 Refresh"
+end)
+
+-- Initialize
+setActiveButton(fastestPingBtn)
+wait(1)
+getServers()
