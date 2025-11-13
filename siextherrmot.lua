@@ -28,8 +28,8 @@ function Notify(titletxt, text, time)
         local nw = sw / 5
 
         Main.Name = "MainFrame"
-        Main.BackgroundColor3 = Color3.fromRGB(33, 33, 33) -- [[ PERUBAHAN ]] Tema gelap
-        Main.BackgroundTransparency = 0.2
+        Main.BackgroundColor3 = Color3.fromRGB(20, 20, 25)
+        Main.BackgroundTransparency = 0
         Main.BorderSizePixel = 0
         Main.Size = UDim2.new(0, nw, 0, nh)
 
@@ -100,7 +100,7 @@ end
 local screenGui = Instance.new("ScreenGui")
 screenGui.Name = guiName
 screenGui.Parent = GazeGoGui
--- [[ TAMBAHAN BARU ]] Mengganti nama variabel agar tidak konflik
+
 local screenGuiContainer = Instance.new("ScreenGui")
 screenGuiContainer.Name = "DraggableGui"
 screenGuiContainer.Parent = cloneref(game.CoreGui)
@@ -115,22 +115,33 @@ end
 local frame = Instance.new("TextButton")
 frame.Name = "HANN.SIEXTHER"
 frame.Text = ""
-frame.Size = getScaledSize(0.3, 0.4) 
+frame.Size = getScaledSize(0.28, 0.38)
 frame.Position = UDim2.new(0.5, -frame.Size.X.Offset / 2, 0.5, -frame.Size.Y.Offset / 2)
-frame.BackgroundColor3 = Color3.fromRGB(48, 48, 48) -- [[ PERUBAHAN ]] Warna background utama
-frame.BackgroundTransparency = 0.2 -- [[ PERUBAHAN ]] Transparansi
-frame.BorderSizePixel = 1
-frame.BorderColor3 = Color3.fromRGB(20, 20, 20) -- [[ PERUBAHAN ]] Warna border
+frame.BackgroundColor3 = Color3.fromRGB(18, 18, 22)
+frame.BackgroundTransparency = 0
+frame.BorderSizePixel = 0
 frame.Active = true
 frame.Draggable = true
 frame.Parent = screenGuiContainer
 
-local labelSize = UDim2.new(1, 0, 0.1, 0) 
+-- STROKE FRAME UTAMA (BIRU)
+local frameStroke = Instance.new("UIStroke")
+frameStroke.Color = Color3.fromRGB(70, 130, 255)
+frameStroke.Thickness = 2
+frameStroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
+frameStroke.Parent = frame
+
+-- Corner untuk frame utama
+local frameCorner = Instance.new("UICorner")
+frameCorner.CornerRadius = UDim.new(0, 8)
+frameCorner.Parent = frame
+
+local labelSize = UDim2.new(1, 0, 0.08, 0)
 
 local gazeLabel = Instance.new("TextLabel")
 gazeLabel.Name = "GazeLabel"
 gazeLabel.Text = "SIEXTHER"
-gazeLabel.Font = Enum.Font.SourceSansBold
+gazeLabel.Font = Enum.Font.GothamBold
 gazeLabel.TextScaled = true 
 gazeLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
 gazeLabel.BackgroundTransparency = 1
@@ -142,55 +153,79 @@ local searchBar = Instance.new("TextBox")
 searchBar.Name = "SearchBar"
 searchBar.Text = ""
 searchBar.PlaceholderText = "Search..."
-searchBar.Font = Enum.Font.SourceSans
+searchBar.Font = Enum.Font.Gotham
 searchBar.TextScaled = true 
-searchBar.TextColor3 = Color3.fromRGB(240, 240, 240) -- [[ PERUBAHAN ]] Warna teks
-searchBar.BackgroundColor3 = Color3.fromRGB(33, 33, 33) -- [[ PERUBAHAN ]] Warna background searchbar
+searchBar.TextColor3 = Color3.fromRGB(220, 220, 220)
+searchBar.PlaceholderColor3 = Color3.fromRGB(120, 120, 120)
+searchBar.BackgroundColor3 = Color3.fromRGB(28, 28, 35)
 searchBar.BorderSizePixel = 0
-searchBar.Size = UDim2.new(0.9, 0, 0.2, 0) 
-searchBar.Position = UDim2.new(0.05, 0, 0.10, 0)
+searchBar.Size = UDim2.new(0.92, 0, 0.08, 0)
+searchBar.Position = UDim2.new(0.04, 0, 0.10, 0)
 searchBar.ClearTextOnFocus = true
 searchBar.Parent = frame
 
+local searchCorner = Instance.new("UICorner")
+searchCorner.CornerRadius = UDim.new(0, 6)
+searchCorner.Parent = searchBar
+
 local scrollFrame = Instance.new("ScrollingFrame")
 scrollFrame.Name = "ScrollFrame"
-scrollFrame.Size = UDim2.new(0.9, 0, 0.7, 0) 
-scrollFrame.Position = UDim2.new(0.05, 0, 0.3, 0)
-scrollFrame.BackgroundColor3 = Color3.fromRGB(66, 66, 66) -- [[ PERUBAHAN ]] Warna scrollframe
+scrollFrame.Size = UDim2.new(0.92, 0, 0.80, 0)
+scrollFrame.Position = UDim2.new(0.04, 0, 0.19, 0)
+scrollFrame.BackgroundColor3 = Color3.fromRGB(25, 25, 30)
 scrollFrame.BorderSizePixel = 0
-scrollFrame.ScrollBarThickness = 5 -- [[ PERUBAHAN ]] Membuat scrollbar terlihat
+scrollFrame.ScrollBarThickness = 4
 scrollFrame.ScrollingDirection = Enum.ScrollingDirection.Y 
 scrollFrame.CanvasSize = UDim2.new(0, 0, 0, 0)
-scrollFrame.ScrollBarImageTransparency = 0.5 -- [[ PERUBAHAN ]]
+scrollFrame.ScrollBarImageTransparency = 0.3
+scrollFrame.ScrollBarImageColor3 = Color3.fromRGB(70, 130, 255)
 scrollFrame.Parent = frame
+
+local scrollCorner = Instance.new("UICorner")
+scrollCorner.CornerRadius = UDim.new(0, 6)
+scrollCorner.Parent = scrollFrame
 
 local buttons = {}
 
 local function createTheButton(text, callback)
     local button = Instance.new("TextButton")
     button.Text = text
-    button.Font = Enum.Font.SourceSansBold
+    button.Font = Enum.Font.GothamSemibold
     button.TextScaled = true 
-    button.TextColor3 = Color3.fromRGB(240, 240, 240) -- [[ PERUBAHAN ]]
-    button.BackgroundColor3 = Color3.fromRGB(80, 80, 80) -- [[ PERUBAHAN ]]
-    button.Size = UDim2.new(1, 0, 0, 40) 
-    button.Position = UDim2.new(1, 0, 0, #buttons * 45) 
+    button.TextColor3 = Color3.fromRGB(230, 230, 230)
+    button.BackgroundColor3 = Color3.fromRGB(35, 35, 42)
+    button.Size = UDim2.new(1, -8, 0, 35)
+    button.Position = UDim2.new(1, 0, 0, #buttons * 40)
     button.BackgroundTransparency = 1 
     button.BorderSizePixel = 0
     button.Parent = scrollFrame
 
+    local buttonCorner = Instance.new("UICorner")
+    buttonCorner.CornerRadius = UDim.new(0, 4)
+    buttonCorner.Parent = button
+
     button.MouseButton1Click:Connect(callback)
     
-    local tweenInfo = TweenInfo.new(0.1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out)
+    button.MouseEnter:Connect(function()
+        local hoverTween = TweenService:Create(button, TweenInfo.new(0.2), {BackgroundColor3 = Color3.fromRGB(50, 50, 60)})
+        hoverTween:Play()
+    end)
+    
+    button.MouseLeave:Connect(function()
+        local leaveTween = TweenService:Create(button, TweenInfo.new(0.2), {BackgroundColor3 = Color3.fromRGB(35, 35, 42)})
+        leaveTween:Play()
+    end)
+    
+    local tweenInfo = TweenInfo.new(0.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out)
     local goal = {
-        Position = UDim2.new(0, 0, 0, #buttons * 45), 
+        Position = UDim2.new(0, 4, 0, #buttons * 40),
         BackgroundTransparency = 0 
     }
     local tween = TweenService:Create(button, tweenInfo, goal)
     tween:Play()
 
     table.insert(buttons, button)
-    scrollFrame.CanvasSize = UDim2.new(0, 0, 0, #buttons * 45) 
+    scrollFrame.CanvasSize = UDim2.new(0, 0, 0, #buttons * 40 + 10)
 end
 
 searchBar:GetPropertyChangedSignal("Text"):Connect(function()
@@ -199,28 +234,28 @@ searchBar:GetPropertyChangedSignal("Text"):Connect(function()
     for _, button in ipairs(buttons) do
         if searchText == "" or button.Text:lower():find(searchText) then
             button.Visible = true
-            button.Position = UDim2.new(0, 0, 0, order * 45) 
+            button.Position = UDim2.new(0, 4, 0, order * 40)
             order += 1
         else
             button.Visible = false
         end
     end
-    scrollFrame.CanvasSize = UDim2.new(0, 0, 0, order * 45)
+    scrollFrame.CanvasSize = UDim2.new(0, 0, 0, order * 40 + 10)
 end)
 
-local normalSize = getScaledSize(0.3, 0.4) 
-local normalPosition = UDim2.new(0.5, -normalSize.X.Offset / 2, 0.5, -normalSize.Y.Offset / 2) 
-local smallerSize = getScaledSize(0.15, 0.05) -- [[ PERUBAHAN ]] Ukuran minimize diubah
-local smallerPosition = UDim2.new(0, 5, 0.5, -smallerSize.Y.Offset / 2) -- [[ PERUBAHAN ]] Posisi di kiri
+local normalSize = getScaledSize(0.28, 0.38)
+local normalPosition = UDim2.new(0.5, -normalSize.X.Offset / 2, 0.5, -normalSize.Y.Offset / 2)
+local smallerSize = getScaledSize(0.12, 0.04)
+local smallerPosition = UDim2.new(0, 5, 0.5, -smallerSize.Y.Offset / 2)
 local isSmall = false
 local clickCount = 0
-local tweenInfo = TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out) -- [[ PERUBAHAN ]] Style tween
+local tweenInfo = TweenInfo.new(0.25, Enum.EasingStyle.Quint, Enum.EasingDirection.Out)
 
 local function handleDoubleClick()
     if isSmall then
         local tween = TweenService:Create(frame, tweenInfo, {Size = normalSize, Position = normalPosition})
         tween:Play()
-        task.wait(0.2)
+        task.wait(0.25)
         scrollFrame.Visible = true
         searchBar.Visible = true
         gazeLabel.Size = labelSize
@@ -229,7 +264,7 @@ local function handleDoubleClick()
         scrollFrame.Visible = false
         searchBar.Visible = false
         gazeLabel.Size = UDim2.new(1, 0, 1, 0)
-        task.wait(0.2)
+        task.wait(0.25)
         tween:Play()
     end
     isSmall = not isSmall
@@ -247,34 +282,57 @@ frame.MouseButton1Click:Connect(function()
     end
 end)
 
--- [[ TAMBAHAN BARU ]] Tombol Close dan Minimize
+-- Tombol Close dan Minimize
 local closeButton = Instance.new("TextButton")
 closeButton.Name = "CloseButton"
 closeButton.Parent = frame
-closeButton.BackgroundColor3 = Color3.fromRGB(231, 76, 60) -- Merah
+closeButton.BackgroundColor3 = Color3.fromRGB(220, 50, 50)
 closeButton.BorderSizePixel = 0
-closeButton.Size = UDim2.new(0, 20, 0, 20)
+closeButton.Size = UDim2.new(0, 18, 0, 18)
 closeButton.AnchorPoint = Vector2.new(1, 0)
 closeButton.Position = UDim2.new(1, -5, 0, 5)
-closeButton.Font = Enum.Font.SourceSansBold
-closeButton.Text = "X"
+closeButton.Font = Enum.Font.GothamBold
+closeButton.Text = "×"
 closeButton.TextColor3 = Color3.fromRGB(255, 255, 255)
-closeButton.TextSize = 14
+closeButton.TextSize = 18
+
+local closeCorner = Instance.new("UICorner")
+closeCorner.CornerRadius = UDim.new(0, 4)
+closeCorner.Parent = closeButton
+
+closeButton.MouseEnter:Connect(function()
+    TweenService:Create(closeButton, TweenInfo.new(0.2), {BackgroundColor3 = Color3.fromRGB(255, 70, 70)}):Play()
+end)
+
+closeButton.MouseLeave:Connect(function()
+    TweenService:Create(closeButton, TweenInfo.new(0.2), {BackgroundColor3 = Color3.fromRGB(220, 50, 50)}):Play()
+end)
 
 local minimizeButton = Instance.new("TextButton")
 minimizeButton.Name = "MinimizeButton"
 minimizeButton.Parent = frame
-minimizeButton.BackgroundColor3 = Color3.fromRGB(80, 80, 80) -- Abu-abu
+minimizeButton.BackgroundColor3 = Color3.fromRGB(60, 60, 70)
 minimizeButton.BorderSizePixel = 0
-minimizeButton.Size = UDim2.new(0, 20, 0, 20)
+minimizeButton.Size = UDim2.new(0, 18, 0, 18)
 minimizeButton.AnchorPoint = Vector2.new(1, 0)
-minimizeButton.Position = UDim2.new(1, -30, 0, 5)
-minimizeButton.Font = Enum.Font.SourceSansBold
-minimizeButton.Text = "-"
+minimizeButton.Position = UDim2.new(1, -28, 0, 5)
+minimizeButton.Font = Enum.Font.GothamBold
+minimizeButton.Text = "—"
 minimizeButton.TextColor3 = Color3.fromRGB(255, 255, 255)
-minimizeButton.TextSize = 16
+minimizeButton.TextSize = 14
 
--- [[ TAMBAHAN BARU ]] Fungsi untuk tombol
+local minCorner = Instance.new("UICorner")
+minCorner.CornerRadius = UDim.new(0, 4)
+minCorner.Parent = minimizeButton
+
+minimizeButton.MouseEnter:Connect(function()
+    TweenService:Create(minimizeButton, TweenInfo.new(0.2), {BackgroundColor3 = Color3.fromRGB(80, 80, 90)}):Play()
+end)
+
+minimizeButton.MouseLeave:Connect(function()
+    TweenService:Create(minimizeButton, TweenInfo.new(0.2), {BackgroundColor3 = Color3.fromRGB(60, 60, 70)}):Play()
+end)
+
 closeButton.MouseButton1Click:Connect(function()
     screenGuiContainer:Destroy()
     screenGui:Destroy()
@@ -915,7 +973,7 @@ end
 local function setAnimation(animationType, animationId)
 local function saveLastAnimations(lasyAnimations)
     local data = HttpService:JSONEncode(lastAnimations)
-    writefile("MeWhenUrMom.json", data)
+    writefile("IlhanSiextherAnimated.json", data)
 end
 
 
@@ -1035,10 +1093,10 @@ createTheButton(text .. " - " .. animationType , function()
 local HttpService = game:GetService("HttpService")
 
 local function loadLastAnimations()
-    print("Checking if MeWhenUrMom.json exists...")
-    if isfile("MeWhenUrMom.json") then
-        local data = readfile("MeWhenUrMom.json")
-        Notify("HANN.SIEXTHER", "Saved Animation Found, loading it", 10)
+    if isfile("IlhanSiextherAnimated.json") then
+        local data = readfile("IlhanSiextherAnimated.json")
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/Fleast/hankill/refs/heads/main/Notify.lua"))()
+    getgenv().Notify({Title = 'SIEXTHER ANIMATED', Content = 'Animasi Tersimpan Ditemukan', Duration = 5})
 
         local lastAnimationsData = HttpService:JSONDecode(data)
 if lastAnimationsData.Idle then
@@ -1074,7 +1132,9 @@ if lastAnimationsData.SwimIdle then
 end
         
     else
-        Notify("First?", "No Saved Animations Found", 5)
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/Fleast/hankill/refs/heads/main/Notify.lua"))()
+    getgenv().Notify({Title = 'SIEXTHER ANIMATED', Content = 'Silahkan pilih animasinya untuk disimpan', Duration = 5})
+    
     end
 end
 
@@ -1168,7 +1228,11 @@ end
 local function createButton(tab, text, animationType, animationId)
 createTheButton(text .. " - " .. animationType , function()
   setAnimation(animationType, animationId)
-  Notify(animationType,text,1)
+  
+  
+  loadstring(game:HttpGet("https://raw.githubusercontent.com/Fleast/hankill/refs/heads/main/Notify.lua"))()
+    getgenv().Notify({Title = animationType, Content = text, Duration = 2})
+    
   end)
   end
 
