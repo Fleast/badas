@@ -75,7 +75,7 @@ end
 -- Fungsi helper
 local function GetPlayer(name)
     if not name or name == "" then return LocalPlayer end
-    if string.lower(name) == "me" then return LocalPlayer end
+    if string.lower(name) == "You" then return LocalPlayer end
     name = string.lower(name)
     for _, plr in pairs(Players:GetPlayers()) do
         if string.find(string.lower(plr.Name), name) or string.find(string.lower(plr.DisplayName), name) then
@@ -86,11 +86,11 @@ local function GetPlayer(name)
 end
 
 local function GetPlayerList()
-    -- Format: DisplayName (me) untuk LocalPlayer
+    -- Format: DisplayName
     local playerList = {{
-        name = "me", 
-        display = LocalPlayer.DisplayName .. " (@" .. LocalPlayer.Name .. ")",
-        username = "me"
+        name = "You", 
+        display = LocalPlayer.DisplayName .. " (You)", 
+        username = "You"
     }}
     for _, player in pairs(Players:GetPlayers()) do
         if player ~= LocalPlayer then
@@ -527,25 +527,21 @@ UICorner.Parent = MainFrame
 -- Floating Button (Hidden by default)
 local FloatingBtn = Instance.new("TextButton")
 FloatingBtn.Name = "FloatingBtn"
-FloatingBtn.BackgroundColor3 = Color3.fromRGB(35, 35, 45)
+FloatingBtn.BackgroundColor3 = Color3.fromRGB(25, 25, 35)
 FloatingBtn.BorderSizePixel = 0
 FloatingBtn.Position = UDim2.new(0, 15, 0.5, -22.5)
-FloatingBtn.Size = UDim2.new(0, 47, 0, 47)
+FloatingBtn.Size = UDim2.new(0, 41, 0, 41)
 FloatingBtn.Font = Enum.Font.GothamBold
 FloatingBtn.Text = "☠️"
 FloatingBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
-FloatingBtn.TextSize = 28
+FloatingBtn.TextSize = 20
 FloatingBtn.Visible = false
 FloatingBtn.Parent = ScreenGui
+FloatingBtn.ZIndex = 5
 
 local FloatCorner = Instance.new("UICorner")
-FloatCorner.CornerRadius = UDim.new(1, 0)
+FloatCorner.CornerRadius = UDim.new(0, 12)
 FloatCorner.Parent = FloatingBtn
-
-local FloatStroke = Instance.new("UIStroke")
-FloatStroke.Color = Color3.fromRGB(255, 255, 255)
-FloatStroke.Thickness = 2
-FloatStroke.Parent = FloatingBtn
 
 -- Title Bar
 local TitleBar = Instance.new("Frame")
@@ -829,7 +825,7 @@ PlayerDropdown.BorderSizePixel = 0
 PlayerDropdown.Position = UDim2.new(0, 0, 0, 50)
 PlayerDropdown.Size = UDim2.new(1, 0, 0, 26)
 PlayerDropdown.Font = Enum.Font.GothamSemibold
-PlayerDropdown.Text = LocalPlayer.DisplayName .. " (@" .. LocalPlayer.Name .. ") ▼"
+PlayerDropdown.Text = LocalPlayer.DisplayName .. " (You) ▼"
 PlayerDropdown.TextColor3 = Color3.fromRGB(255, 255, 255)
 PlayerDropdown.TextSize = 10
 PlayerDropdown.ZIndex = 10
@@ -1177,7 +1173,7 @@ SpeedInput.FocusLost:Connect(function()
     end
 end)
 
--- Player Dropdown with DisplayName (me) format
+-- Player Dropdown with DisplayName
 local function updatePlayerList(searchTerm)
     for _, child in ipairs(PlayerList:GetChildren()) do
         if child:IsA("TextButton") and child ~= SearchBox then
@@ -1335,7 +1331,7 @@ end)
 Players.PlayerRemoving:Connect(function(player)
     if player == currentTargetPlayer then
         currentTargetPlayer = LocalPlayer
-        PlayerDropdown.Text = LocalPlayer.DisplayName .. " (me) ▼"
+        PlayerDropdown.Text = LocalPlayer.DisplayName .. " (You) ▼"
         if blackHoleActive then
             togglebh()
             wait(0.1)
