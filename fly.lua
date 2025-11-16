@@ -1,38 +1,24 @@
---### SIEXTHER ###
+--### SIEXTHER ### HANN
 local main = Instance.new("ScreenGui")
 local Frame = Instance.new("Frame")
 local FrameCorner = Instance.new("UICorner")
 local FrameStroke = Instance.new("UIStroke")
-local up = Instance.new("TextButton")
-local upCorner = Instance.new("UICorner")
-local upStroke = Instance.new("UIStroke")
-local down = Instance.new("TextButton")
-local downCorner = Instance.new("UICorner")
-local downStroke = Instance.new("UIStroke")
-local onof = Instance.new("TextButton")
-local onofCorner = Instance.new("UICorner")
-local onofStroke = Instance.new("UIStroke")
 local TextLabel = Instance.new("TextLabel")
 local TextLabelCorner = Instance.new("UICorner")
-local TextLabelStroke = Instance.new("UIStroke")
+local speedDisplay = Instance.new("TextLabel")
+local speedDisplayCorner = Instance.new("UICorner")
+local minus = Instance.new("TextButton")
+local minusCorner = Instance.new("UICorner")
 local plus = Instance.new("TextButton")
 local plusCorner = Instance.new("UICorner")
-local plusStroke = Instance.new("UIStroke")
-local speed = Instance.new("TextLabel")
-local speedCorner = Instance.new("UICorner")
-local speedStroke = Instance.new("UIStroke")
-local mine = Instance.new("TextButton")
-local mineCorner = Instance.new("UICorner")
-local mineStroke = Instance.new("UIStroke")
+local onof = Instance.new("TextButton")
+local onofCorner = Instance.new("UICorner")
 local closebutton = Instance.new("TextButton")
 local closebuttonCorner = Instance.new("UICorner")
-local closebuttonStroke = Instance.new("UIStroke")
 local mini = Instance.new("TextButton")
 local miniCorner = Instance.new("UICorner")
-local miniStroke = Instance.new("UIStroke")
 local mini2 = Instance.new("TextButton")
 local mini2Corner = Instance.new("UICorner")
-local mini2Stroke = Instance.new("UIStroke")
 
 main.Name = "main"
 main.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
@@ -40,249 +26,209 @@ main.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 main.ResetOnSpawn = false
 
 Frame.Parent = main
-Frame.BackgroundColor3 = Color3.fromRGB(18, 18, 22) -- Dark modern background
+Frame.BackgroundColor3 = Color3.fromRGB(18, 18, 22)
 Frame.BackgroundTransparency = 0.1
 Frame.BorderSizePixel = 0
 Frame.Position = UDim2.new(0.100320168, 0, 0.379746825, 0)
-Frame.Size = UDim2.new(0, 170, 0, 50) -- Diperkecil dari 190x57 menjadi 170x50
+Frame.Size = UDim2.new(0, 200, 0, 90)
 
 FrameCorner.CornerRadius = UDim.new(0, 12)
 FrameCorner.Parent = Frame
 
 FrameStroke.Parent = Frame
-FrameStroke.Color = Color3.fromRGB(70, 130, 255) -- Sky blue stroke baru
+FrameStroke.Color = Color3.fromRGB(70, 130, 255)
 FrameStroke.Thickness = 2
 FrameStroke.Transparency = 0
 FrameStroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
 
-up.Name = "up"
-up.Parent = Frame
-up.BackgroundColor3 = Color3.fromRGB(28, 28, 35) -- Dark modern
-up.BackgroundTransparency = 0
-up.BorderSizePixel = 0
-up.Size = UDim2.new(0, 38, 0, 24) -- Diperkecil
-up.Font = Enum.Font.GothamBold
-up.Text = "UP"
-up.TextColor3 = Color3.fromRGB(255, 255, 255)
-up.TextSize = 12.000
+TextLabel.Parent = Frame
+TextLabel.BackgroundColor3 = Color3.fromRGB(18, 18, 22)
+TextLabel.BackgroundTransparency = 1
+TextLabel.BorderSizePixel = 0
+TextLabel.Position = UDim2.new(0.05, 0, 0.08, 0)
+TextLabel.Size = UDim2.new(0, 80, 0, 25)
+TextLabel.Font = Enum.Font.GothamBold
+TextLabel.Text = "SIEXTHER"
+TextLabel.TextColor3 = Color3.fromRGB(70, 130, 255)
+TextLabel.TextSize = 18.000
+TextLabel.TextXAlignment = Enum.TextXAlignment.Left
 
-upCorner.CornerRadius = UDim.new(0, 8)
-upCorner.Parent = up
+speedDisplay.Name = "speedDisplay"
+speedDisplay.Parent = Frame
+speedDisplay.BackgroundColor3 = Color3.fromRGB(28, 28, 35)
+speedDisplay.BackgroundTransparency = 0
+speedDisplay.BorderSizePixel = 0
+speedDisplay.Position = UDim2.new(0.05, 0, 0.45, 0)
+speedDisplay.Size = UDim2.new(0, 50, 0, 35)
+speedDisplay.Font = Enum.Font.GothamBold
+speedDisplay.Text = "1"
+speedDisplay.TextColor3 = Color3.fromRGB(255, 255, 255)
+speedDisplay.TextSize = 20.000
 
-upStroke.Parent = up
-upStroke.Color = Color3.fromRGB(70, 130, 255) -- Sky blue stroke baru
-upStroke.Thickness = 1.5
-upStroke.Transparency = 0.3
-upStroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
+speedDisplayCorner.CornerRadius = UDim.new(0, 8)
+speedDisplayCorner.Parent = speedDisplay
 
-down.Name = "down"
-down.Parent = Frame
-down.BackgroundColor3 = Color3.fromRGB(28, 28, 35) -- Dark modern
-down.BackgroundTransparency = 0
-down.BorderSizePixel = 0
-down.Position = UDim2.new(0, 0, 0.52, 0)
-down.Size = UDim2.new(0, 38, 0, 24) -- Diperkecil
-down.Font = Enum.Font.GothamBold
-down.Text = "DOWN"
-down.TextColor3 = Color3.fromRGB(255, 255, 255)
-down.TextSize = 11.000
+minus.Name = "minus"
+minus.Parent = Frame
+minus.BackgroundColor3 = Color3.fromRGB(28, 28, 35)
+minus.BackgroundTransparency = 0
+minus.BorderSizePixel = 0
+minus.Position = UDim2.new(0.35, 0, 0.45, 0)
+minus.Size = UDim2.new(0, 35, 0, 35)
+minus.Font = Enum.Font.GothamBold
+minus.Text = "-"
+minus.TextColor3 = Color3.fromRGB(255, 255, 255)
+minus.TextSize = 24.000
 
-downCorner.CornerRadius = UDim.new(0, 8)
-downCorner.Parent = down
+minusCorner.CornerRadius = UDim.new(0, 999)
+minusCorner.Parent = minus
 
-downStroke.Parent = down
-downStroke.Color = Color3.fromRGB(70, 130, 255) -- Sky blue stroke baru
-downStroke.Thickness = 1.5
-downStroke.Transparency = 0.3
-downStroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
+plus.Name = "plus"
+plus.Parent = Frame
+plus.BackgroundColor3 = Color3.fromRGB(28, 28, 35)
+plus.BackgroundTransparency = 0
+plus.BorderSizePixel = 0
+plus.Position = UDim2.new(0.565, 0, 0.45, 0)
+plus.Size = UDim2.new(0, 35, 0, 35)
+plus.Font = Enum.Font.GothamBold
+plus.Text = "+"
+plus.TextColor3 = Color3.fromRGB(255, 255, 255)
+plus.TextSize = 24.000
+
+plusCorner.CornerRadius = UDim.new(0, 999)
+plusCorner.Parent = plus
 
 onof.Name = "onof"
 onof.Parent = Frame
-onof.BackgroundColor3 = Color3.fromRGB(28, 28, 35) -- Dark modern
+onof.BackgroundColor3 = Color3.fromRGB(28, 28, 35)
 onof.BackgroundTransparency = 0
 onof.BorderSizePixel = 0
-onof.Position = UDim2.new(0.694, 0, 0.52, 0)
-onof.Size = UDim2.new(0, 52, 0, 24) -- Diperkecil
+onof.Position = UDim2.new(0.525, 0, 0.08, 0)
+onof.Size = UDim2.new(0, 85, 0, 25)
 onof.Font = Enum.Font.GothamBold
 onof.Text = "FLY"
-onof.TextColor3 = Color3.fromRGB(70, 130, 255) -- Sky blue text
-onof.TextSize = 13.000
+onof.TextColor3 = Color3.fromRGB(70, 130, 255)
+onof.TextSize = 14.000
 
 onofCorner.CornerRadius = UDim.new(0, 8)
 onofCorner.Parent = onof
 
-onofStroke.Parent = onof
-onofStroke.Color = Color3.fromRGB(70, 130, 255) -- Sky blue stroke baru
-onofStroke.Thickness = 2
-onofStroke.Transparency = 0
-onofStroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
-
-TextLabel.Parent = Frame
-TextLabel.BackgroundColor3 = Color3.fromRGB(28, 28, 35) -- Dark modern
-TextLabel.BackgroundTransparency = 0
-TextLabel.BorderSizePixel = 0
-TextLabel.Position = UDim2.new(0.459, 0, 0, 0)
-TextLabel.Size = UDim2.new(0, 92, 0, 24) -- Diperkecil
-TextLabel.Font = Enum.Font.GothamBold
-TextLabel.Text = "HANN.SIEXTHER"
-TextLabel.TextColor3 = Color3.fromRGB(70, 130, 255) -- Sky blue text
-TextLabel.TextScaled = true
-TextLabel.TextSize = 12.000
-TextLabel.TextWrapped = true
-
-TextLabelCorner.CornerRadius = UDim.new(0, 8)
-TextLabelCorner.Parent = TextLabel
-
-TextLabelStroke.Parent = TextLabel
-TextLabelStroke.Color = Color3.fromRGB(70, 130, 255) -- Sky blue stroke baru
-TextLabelStroke.Thickness = 1.5
-TextLabelStroke.Transparency = 0.3
-TextLabelStroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
-
-plus.Name = "plus"
-plus.Parent = Frame
-plus.BackgroundColor3 = Color3.fromRGB(28, 28, 35) -- Dark modern
-plus.BackgroundTransparency = 0
-plus.BorderSizePixel = 0
-plus.Position = UDim2.new(0.224, 0, 0, 0)
-plus.Size = UDim2.new(0, 40, 0, 24) -- Diperkecil
-plus.Font = Enum.Font.GothamBold
-plus.Text = "+"
-plus.TextColor3 = Color3.fromRGB(255, 255, 255)
-plus.TextScaled = true
-plus.TextSize = 12.000
-plus.TextWrapped = true
-
-plusCorner.CornerRadius = UDim.new(0, 8)
-plusCorner.Parent = plus
-
-plusStroke.Parent = plus
-plusStroke.Color = Color3.fromRGB(70, 130, 255) -- Sky blue stroke baru
-plusStroke.Thickness = 1.5
-plusStroke.Transparency = 0.3
-plusStroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
-
-speed.Name = "speed"
-speed.Parent = Frame
-speed.BackgroundColor3 = Color3.fromRGB(28, 28, 35) -- Dark modern
-speed.BackgroundTransparency = 0
-speed.BorderSizePixel = 0
-speed.Position = UDim2.new(0.459, 0, 0.52, 0)
-speed.Size = UDim2.new(0, 40, 0, 24) -- Diperkecil
-speed.Font = Enum.Font.GothamBold
-speed.Text = "1"
-speed.TextColor3 = Color3.fromRGB(70, 130, 255) -- Sky blue text
-speed.TextScaled = true
-speed.TextSize = 12.000
-speed.TextWrapped = true
-
-speedCorner.CornerRadius = UDim.new(0, 8)
-speedCorner.Parent = speed
-
-speedStroke.Parent = speed
-speedStroke.Color = Color3.fromRGB(70, 130, 255) -- Sky blue stroke baru
-speedStroke.Thickness = 1.5
-speedStroke.Transparency = 0.3
-speedStroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
-
-mine.Name = "mine"
-mine.Parent = Frame
-mine.BackgroundColor3 = Color3.fromRGB(28, 28, 35) -- Dark modern
-mine.BackgroundTransparency = 0
-mine.BorderSizePixel = 0
-mine.Position = UDim2.new(0.224, 0, 0.52, 0)
-mine.Size = UDim2.new(0, 40, 0, 24) -- Diperkecil
-mine.Font = Enum.Font.GothamBold
-mine.Text = "-"
-mine.TextColor3 = Color3.fromRGB(255, 255, 255)
-mine.TextScaled = true
-mine.TextSize = 12.000
-mine.TextWrapped = true
-
-mineCorner.CornerRadius = UDim.new(0, 8)
-mineCorner.Parent = mine
-
-mineStroke.Parent = mine
-mineStroke.Color = Color3.fromRGB(70, 130, 255) -- Sky blue stroke baru
-mineStroke.Thickness = 1.5
-mineStroke.Transparency = 0.3
-mineStroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
-
 closebutton.Name = "Close"
-closebutton.Parent = main.Frame
-closebutton.BackgroundColor3 = Color3.fromRGB(28, 28, 35) -- Dark modern
+closebutton.Parent = Frame
+closebutton.BackgroundColor3 = Color3.fromRGB(28, 28, 35)
 closebutton.BackgroundTransparency = 0
 closebutton.BorderSizePixel = 0
-closebutton.Font = "GothamBold"
-closebutton.Size = UDim2.new(0, 38, 0, 24) -- Diperkecil
+closebutton.Font = Enum.Font.GothamBold
+closebutton.Size = UDim2.new(0, 30, 0, 30)
 closebutton.Text = "X"
-closebutton.TextColor3 = Color3.fromRGB(255, 85, 85) -- Red text
-closebutton.TextSize = 20
-closebutton.Position =  UDim2.new(0, 0, -1, 24)
+closebutton.TextColor3 = Color3.fromRGB(255, 85, 85)
+closebutton.TextSize = 18
+closebutton.Position = UDim2.new(0, 170, 0, -35)
 
 closebuttonCorner.CornerRadius = UDim.new(0, 8)
 closebuttonCorner.Parent = closebutton
 
-closebuttonStroke.Parent = closebutton
-closebuttonStroke.Color = Color3.fromRGB(255, 85, 85) -- Red stroke
-closebuttonStroke.Thickness = 2
-closebuttonStroke.Transparency = 0
-closebuttonStroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
-
 mini.Name = "minimize"
-mini.Parent = main.Frame
-mini.BackgroundColor3 = Color3.fromRGB(28, 28, 35) -- Dark modern
+mini.Parent = Frame
+mini.BackgroundColor3 = Color3.fromRGB(28, 28, 35)
 mini.BackgroundTransparency = 0
 mini.BorderSizePixel = 0
-mini.Font = "GothamBold"
-mini.Size = UDim2.new(0, 38, 0, 24) -- Diperkecil
+mini.Font = Enum.Font.GothamBold
+mini.Size = UDim2.new(0, 30, 0, 30)
 mini.Text = "-"
-mini.TextColor3 = Color3.fromRGB(70, 130, 255) -- Sky blue text
+mini.TextColor3 = Color3.fromRGB(70, 130, 255)
 mini.TextSize = 26
-mini.Position = UDim2.new(0, 38, -1, 24)
+mini.Position = UDim2.new(0, 135, 0, -35)
 
 miniCorner.CornerRadius = UDim.new(0, 8)
 miniCorner.Parent = mini
 
-miniStroke.Parent = mini
-miniStroke.Color = Color3.fromRGB(70, 130, 255) -- Sky blue stroke baru
-miniStroke.Thickness = 1.5
-miniStroke.Transparency = 0.3
-miniStroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
-
 mini2.Name = "minimize2"
-mini2.Parent = main.Frame
-mini2.BackgroundColor3 = Color3.fromRGB(28, 28, 35) -- Dark modern
+mini2.Parent = main
+mini2.BackgroundColor3 = Color3.fromRGB(28, 28, 35)
 mini2.BackgroundTransparency = 0
 mini2.BorderSizePixel = 0
-mini2.Font = "GothamBold"
-mini2.Size = UDim2.new(0, 38, 0, 24) -- Diperkecil
-mini2.Text = "+"
-mini2.TextColor3 = Color3.fromRGB(70, 130, 255) -- Sky blue text
-mini2.TextSize = 26
-mini2.Position = UDim2.new(0, 38, -1, 48)
+mini2.Font = Enum.Font.GothamBold
+mini2.Size = UDim2.new(0, 50, 0, 50)
+mini2.Text = "🦸"
+mini2.TextColor3 = Color3.fromRGB(255, 255, 255)
+mini2.TextSize = 30
+mini2.Position = UDim2.new(1, -65, 0, 15)
 mini2.Visible = false
+mini2.Active = true
+mini2.Draggable = true
 
-mini2Corner.CornerRadius = UDim.new(0, 8)
+mini2Corner.CornerRadius = UDim.new(0, 999)
 mini2Corner.Parent = mini2
 
+local mini2Stroke = Instance.new("UIStroke")
 mini2Stroke.Parent = mini2
-mini2Stroke.Color = Color3.fromRGB(70, 130, 255) -- Sky blue stroke baru
-mini2Stroke.Thickness = 1.5
-mini2Stroke.Transparency = 0.3
-mini2Stroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
+mini2Stroke.Color = Color3.fromRGB(70, 130, 255)
+mini2Stroke.Thickness = 2
 
 speeds = 1
 
 local speaker = game:GetService("Players").LocalPlayer
-
 local chr = game.Players.LocalPlayer.Character
 local hum = chr and chr:FindFirstChildWhichIsA("Humanoid")
 
 nowe = false
 
-loadstring(game:HttpGet("https://raw.githubusercontent.com/Fleast/hankill/refs/heads/main/Notify.lua"))()
-    getgenv().Notify({Title = 'SIEXTHER x FLY', Content = 'AKTIF', Duration = 4})
+-- Emote system variables (DARI SCRIPT KEDUA)
+local CurrentTrack = nil
+-- Random Emote IDs - 5 Different Fly Modes
+local EMOTE_IDS = {
+	"127260900197753",
+	"102256275785620",
+	"123428149037867",
+	"82096188761745",
+	"101697162917215"
+}
+local function getRandomEmoteID()
+	return EMOTE_IDS[math.random(1, #EMOTE_IDS)]
+end
+
+-- Function to load and play emote (DARI SCRIPT KEDUA)
+local function LoadTrack(id)
+    if CurrentTrack then 
+        CurrentTrack:Stop(0) 
+    end
+
+    local animId
+    local ok, result = pcall(function()
+        return game:GetObjects("rbxassetid://" .. tostring(id))
+    end)
+
+    if ok and result and #result > 0 then
+        local anim = result[1]
+        if anim:IsA("Animation") then
+            animId = anim.AnimationId
+        else
+            animId = "rbxassetid://" .. tostring(id)
+        end
+    else
+        animId = "rbxassetid://" .. tostring(id)
+    end
+
+    local newAnim = Instance.new("Animation")
+    newAnim.AnimationId = animId
+    local newTrack = hum:LoadAnimation(newAnim)
+    newTrack.Priority = Enum.AnimationPriority.Action4
+
+    newTrack:Play(0.1, 1, 1)
+    
+    CurrentTrack = newTrack
+
+    return newTrack
+end
+
+-- Function to stop emote (DARI SCRIPT KEDUA)
+local function StopTrack()
+    if CurrentTrack then
+        CurrentTrack:Stop(0.1)
+        CurrentTrack = nil
+    end
+end
 
 Frame.Active = true
 Frame.Draggable = true
@@ -291,6 +237,9 @@ onof.MouseButton1Down:connect(function()
 
 	if nowe == true then
 		nowe = false
+		
+		-- Stop emote when fly is disabled
+		StopTrack()
 
 		speaker.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Climbing,true)
 		speaker.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.FallingDown,true)
@@ -310,6 +259,10 @@ onof.MouseButton1Down:connect(function()
 		speaker.Character.Humanoid:ChangeState(Enum.HumanoidStateType.RunningNoPhysics)
 	else 
 		nowe = true
+		
+		-- Play random emote when fly is enabled
+		local randomEmoteID = getRandomEmoteID()
+		LoadTrack(randomEmoteID)
 
 		for i = 1, speeds do
 			spawn(function()
@@ -457,49 +410,16 @@ onof.MouseButton1Down:connect(function()
 	end
 end)
 
-local tis
-up.MouseButton1Down:connect(function()
-	tis = up.MouseEnter:connect(function()
-		while tis do
-			wait()
-			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame * CFrame.new(0,1,0)
-		end
-	end)
-end)
-
-up.MouseLeave:connect(function()
-	if tis then
-		tis:Disconnect()
-		tis = nil
-	end
-end)
-
-local dis
-down.MouseButton1Down:connect(function()
-	dis = down.MouseEnter:connect(function()
-		while dis do
-			wait()
-			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame * CFrame.new(0,-1,0)
-		end
-	end)
-end)
-
-down.MouseLeave:connect(function()
-	if dis then
-		dis:Disconnect()
-		dis = nil
-	end
-end)
-
 game:GetService("Players").LocalPlayer.CharacterAdded:Connect(function(char)
 	wait(0.7)
 	game.Players.LocalPlayer.Character.Humanoid.PlatformStand = false
 	game.Players.LocalPlayer.Character.Animate.Disabled = false
+	StopTrack()
 end)
 
 plus.MouseButton1Down:connect(function()
 	speeds = speeds + 1
-	speed.Text = speeds
+	speedDisplay.Text = speeds
 	if nowe == true then
 
 		tpwalking = false
@@ -519,14 +439,14 @@ plus.MouseButton1Down:connect(function()
 	end
 end)
 
-mine.MouseButton1Down:connect(function()
+minus.MouseButton1Down:connect(function()
 	if speeds == 1 then
-		speed.Text = 'cannot be less than 1'
+		speedDisplay.Text = 'min 1'
 		wait(1)
-		speed.Text = speeds
+		speedDisplay.Text = speeds
 	else
 		speeds = speeds - 1
-		speed.Text = speeds
+		speedDisplay.Text = speeds
 		if nowe == true then
 			tpwalking = false
 			for i = 1, speeds do
@@ -547,33 +467,30 @@ mine.MouseButton1Down:connect(function()
 end)
 
 closebutton.MouseButton1Click:Connect(function()
+	StopTrack()
 	main:Destroy()
 end)
 
 mini.MouseButton1Click:Connect(function()
-	up.Visible = false
-	down.Visible = false
+	TextLabel.Visible = false
 	onof.Visible = false
+	speedDisplay.Visible = false
+	minus.Visible = false
 	plus.Visible = false
-	speed.Visible = false
-	mine.Visible = false
 	mini.Visible = false
+	closebutton.Visible = false
 	mini2.Visible = true
-	main.Frame.BackgroundTransparency = 1
-	FrameStroke.Transparency = 1
-	closebutton.Position =  UDim2.new(0, 0, -1, 48)
+	Frame.Visible = false
 end)
 
 mini2.MouseButton1Click:Connect(function()
-	up.Visible = true
-	down.Visible = true
+	TextLabel.Visible = true
 	onof.Visible = true
+	speedDisplay.Visible = true
+	minus.Visible = true
 	plus.Visible = true
-	speed.Visible = true
-	mine.Visible = true
 	mini.Visible = true
+	closebutton.Visible = true
 	mini2.Visible = false
-	main.Frame.BackgroundTransparency = 0.1
-	FrameStroke.Transparency = 0
-	closebutton.Position =  UDim2.new(0, 0, -1, 24)
+	Frame.Visible = true
 end)
