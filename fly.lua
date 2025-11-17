@@ -100,7 +100,7 @@ plusCorner.Parent = plus
 
 onof.Name = "onof"
 onof.Parent = Frame
-onof.BackgroundColor3 = Color3.fromRGB(70, 130, 255),
+onof.BackgroundColor3 = Color3.fromRGB(70, 130, 255)
 onof.BackgroundTransparency = 0
 onof.BorderSizePixel = 0
 onof.Position = UDim2.new(0.525, 0, 0.08, 0)
