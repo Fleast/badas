@@ -1,5 +1,3 @@
--- MODERN ANTI LAG + FPS BOOSTER GUI
--- Dark Theme with Sky Blue Stroke
 
 local Players = game:GetService("Players")
 local RunService = game:GetService("RunService")
@@ -72,7 +70,7 @@ Title.Name = "Title"
 Title.Size = UDim2.new(1, -50, 0.5, 0)
 Title.Position = UDim2.new(0, 16, 0, 0)
 Title.BackgroundTransparency = 1
-Title.Text = "SEIXTHER ANTI-LAG"
+Title.Text = "SIEXTHER ANTI-LAG"
 Title.TextColor3 = Color3.fromRGB(70, 130, 255)
 Title.TextSize = 17
 Title.Font = Enum.Font.GothamBold
