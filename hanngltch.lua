@@ -1,4 +1,4 @@
--- BY @muhmdilhan_
+
 function missing(t, f, fallback)
     if type(f) == t then return f end
     return fallback 
