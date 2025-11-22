@@ -10,11 +10,11 @@ end
 
 -- [[ BARU ]] Array random greeting messages
 local greetingMessages = {
-    "Have a nice day✨",
+    "Have a nice day",
     "Are you okay?",
     "How's ur day??",
     "Im here for you",
-    "Always be happy🤍"
+    "Always be happy"
 }
 
 -- [[ BARU ]] Pilih random greeting
@@ -34,13 +34,71 @@ mainFrame.Size = UDim2.new(0, 450, 0, 250)
 mainFrame.AnchorPoint = Vector2.new(0.5, 0.5)
 mainFrame.Position = UDim2.new(0.5, 0, 0.42, 0)
 mainFrame.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
-mainFrame.BackgroundTransparency = 0.2
-mainFrame.ClipsDescendants = false
+mainFrame.ClipsDescendants = true  -- ✅ DIUBAH JADI TRUE UNTUK FIREWORK
+mainFrame.BackgroundTransparency = 0.3
 mainFrame.Parent = IlhanSiextherls
+
+local containerStroke = Instance.new("UIStroke")
+containerStroke.Color = Color3.fromRGB(70, 130, 255)
+containerStroke.Thickness = 2
+containerStroke.Parent = mainFrame
 
 local corner = Instance.new("UICorner")
 corner.CornerRadius = UDim.new(0, 12)
 corner.Parent = mainFrame
+
+-- ✅ FIREWORK SYSTEM
+local function createFirework()
+    -- Random spawn position di dalam frame
+    local spawnX = math.random(10, 90) / 100
+    local spawnY = math.random(10, 90) / 100
+    
+    -- Buat container untuk firework
+    local firework = Instance.new("Frame")
+    firework.Name = "Firework"
+    firework.Size = UDim2.new(0, 8, 0, 8)
+    firework.Position = UDim2.new(spawnX, 0, spawnY, 0)
+    firework.AnchorPoint = Vector2.new(0.5, 0.5)
+    firework.BackgroundColor3 = Color3.fromRGB(70, 130, 255)
+    firework.BackgroundTransparency = 0
+    firework.BorderSizePixel = 0
+    firework.ZIndex = 2
+    firework.Parent = mainFrame
+    
+    local fireworkCorner = Instance.new("UICorner")
+    fireworkCorner.CornerRadius = UDim.new(1, 0)
+    fireworkCorner.Parent = firework
+    
+    -- Animasi expand (membesar)
+    local expandInfo = TweenInfo.new(0.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out)
+    local expandTween = TweenService:Create(firework, expandInfo, {
+        Size = UDim2.new(0, 25, 0, 25),
+        BackgroundTransparency = 0.3
+    })
+    
+    -- Animasi fade out
+    local fadeInfo = TweenInfo.new(0.4, Enum.EasingStyle.Quad, Enum.EasingDirection.In)
+    local fadeTween = TweenService:Create(firework, fadeInfo, {
+        Size = UDim2.new(0, 35, 0, 35),
+        BackgroundTransparency = 1
+    })
+    
+    expandTween:Play()
+    expandTween.Completed:Wait()
+    fadeTween:Play()
+    fadeTween.Completed:Wait()
+    
+    firework:Destroy()
+end
+
+-- Spawn firework secara random
+local fireworkActive = true
+task.spawn(function()
+    while fireworkActive do
+        task.spawn(createFirework)
+        task.wait(math.random(200, 500) / 1000) -- Random delay 0.2-0.5 detik
+    end
+end)
 
 -- 3. Avatar Player
 local avatarFrame = Instance.new("Frame")
@@ -49,6 +107,7 @@ avatarFrame.Size = UDim2.new(0, 70, 0, 70)
 avatarFrame.Position = UDim2.new(0.5, 0, 0.23, 0)
 avatarFrame.AnchorPoint = Vector2.new(0.5, 0.5)
 avatarFrame.BackgroundTransparency = 1
+avatarFrame.ZIndex = 3
 avatarFrame.Parent = mainFrame
 
 local avatar = Instance.new("ImageLabel")
@@ -56,6 +115,7 @@ avatar.Name = "Avatar"
 avatar.Size = UDim2.new(1, 0, 1, 0)
 avatar.BackgroundTransparency = 1
 avatar.Image = Players:GetUserThumbnailAsync(player.UserId, Enum.ThumbnailType.HeadShot, Enum.ThumbnailSize.Size150x150)
+avatar.ZIndex = 3
 avatar.Parent = avatarFrame
 
 local avatarCorner = Instance.new("UICorner")
@@ -68,11 +128,12 @@ title.Name = "Title"
 title.Size = UDim2.new(1, 0, 0, 30)
 title.Position = UDim2.new(0.5, 0, 0.45, 0)
 title.AnchorPoint = Vector2.new(0.5, 0.5)
-title.Text = "HANN.SIEXTHER"
+title.Text = "SIEXTHER"
 title.Font = Enum.Font.GothamBold
 title.TextColor3 = Color3.fromRGB(255, 255, 255)
 title.TextSize = 24
 title.BackgroundTransparency = 1
+title.ZIndex = 3
 title.Parent = mainFrame
 
 -- 5. Teks Sambutan Line 1
@@ -87,6 +148,7 @@ welcomeText1.TextColor3 = Color3.fromRGB(200, 200, 200)
 welcomeText1.TextSize = 16
 welcomeText1.TextWrapped = true
 welcomeText1.BackgroundTransparency = 1
+welcomeText1.ZIndex = 3
 welcomeText1.Parent = mainFrame
 
 -- 6. Teks Sambutan Line 2
@@ -101,6 +163,7 @@ welcomeText2.TextColor3 = Color3.fromRGB(200, 200, 200)
 welcomeText2.TextSize = 16
 welcomeText2.TextWrapped = true
 welcomeText2.BackgroundTransparency = 1
+welcomeText2.ZIndex = 3
 welcomeText2.Parent = mainFrame
 
 -- 7. Teks Status
@@ -114,6 +177,7 @@ statusText.Font = Enum.Font.Gotham
 statusText.TextColor3 = Color3.fromRGB(220, 220, 220)
 statusText.TextSize = 14
 statusText.BackgroundTransparency = 1
+statusText.ZIndex = 3
 statusText.Parent = mainFrame
 
 -- 8. Progress Bar (Latar Belakang)
@@ -124,6 +188,7 @@ barBg.Position = UDim2.new(0.5, 0, 0.87, 0)
 barBg.AnchorPoint = Vector2.new(0.5, 0.5)
 barBg.BackgroundColor3 = Color3.fromRGB(10, 10, 10)
 barBg.BackgroundTransparency = 0.5
+barBg.ZIndex = 3
 barBg.Parent = mainFrame
 
 local barBgCorner = Instance.new("UICorner")
@@ -135,6 +200,7 @@ local barFill = Instance.new("Frame")
 barFill.Name = "BarFill"
 barFill.Size = UDim2.new(0, 0, 1, 0)
 barFill.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+barFill.ZIndex = 3
 barFill.Parent = barBg
 
 local barFillCorner = Instance.new("UICorner")
@@ -146,7 +212,7 @@ local gradient = Instance.new("UIGradient")
 gradient.Color = ColorSequence.new{
     ColorSequenceKeypoint.new(0, Color3.fromRGB(30, 144, 255)),      -- Biru tua di kiri
     ColorSequenceKeypoint.new(0.3, Color3.fromRGB(70, 170, 255)),    -- Biru sedang
-    ColorSequenceKeypoint.new(0.7, Color3.fromRGB(135, 206, 250)),   -- Biru muda
+    ColorSequenceKeypoint.new(0.7, Color3.fromRGB(135, 170, 255)),   -- Biru muda
     ColorSequenceKeypoint.new(1, Color3.fromRGB(255, 255, 255))      -- Putih di kanan
 }
 gradient.Rotation = 0  -- Horizontal gradient
@@ -188,6 +254,7 @@ percentText.TextColor3 = Color3.fromRGB(255, 255, 255)
 percentText.TextSize = 12
 percentText.TextStrokeTransparency = 0.5
 percentText.BackgroundTransparency = 1
+percentText.ZIndex = 3
 percentText.Parent = barBg
 
 -- Typing Animation Function
@@ -246,6 +313,9 @@ while currentPercent < 100 do
 end
 
 task.wait(0.3)
+
+-- ✅ STOP FIREWORK ANIMATION
+fireworkActive = false
 
 -- Hide old elements
 if statusText then statusText.Visible = false end
